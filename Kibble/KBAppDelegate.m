@@ -7,12 +7,20 @@
 //
 
 #import "KBAppDelegate.h"
+#import "BackEnd.h"
+
+@import SystemConfiguration;
+@import UIKit;
+@import Foundation;
 
 @implementation KBAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    [[BackEnd sharedBackEnd] oneTimeSetup:launchOptions];
+    
     return YES;
 }
 							

@@ -1,0 +1,45 @@
+/* 
+  Localizable.strings
+  DyslexicAdvantageScreener
+
+  Created by Joe on 1/18/14.
+  Copyright (c) 2014 Vidya Gamer, LLC. All rights reserved.
+*/
+
+// test string
+"Hello World" = "Hi there world from base";
+
+//----------------------------------------------------------------
+// Display names for each test
+"ran2Color" = "Color Race";
+"ran2Picture" = "Picture Race";
+"ran2Mix" = "Mixed Object Race ";
+
+"findTheTwinsNumbers" = "Find The Twins - Numbers";
+"findTheTwinsLetters" = "Find The Twins - Letters";
+
+"lettersAndSounds1" = "Letters and Sounds #1";
+"lettersAndSounds2" = "Letters and Sounds #2";
+"lettersAndSounds3" = "Letters and Sounds #3";
+
+"sameOrDifferent" = "Same or Different";
+
+"memoryMatch" = "Memory Match";
+
+"soundMatchBegin" = "Match the Sounds - Beginning";
+"soundMatchEnd" = "Match the Sounds - Ending";
+
+"elision" = "Take Away";
+
+"vocab" = "Touch the picture";
+
+//----------------------------------------------------------------
+// Sound bank per local
+"SOUNDBANK_en-US" = "English (American)";
+"SOUNDBANK_en-GB" = "English (British)";
+
+
+//----------------------------------------------------------------
+// UI Strings
+"...wait! syncing with the cloud..." = "...wait! syncing with the cloud...";
+"Click the butterfly to get started!" = "Click the butterfly to get started!";

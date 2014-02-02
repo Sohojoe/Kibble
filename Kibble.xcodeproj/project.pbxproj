@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1854EE65189D712D00C2F74A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1854EE64189D712D00C2F74A /* Foundation.framework */; };
-		1854EE67189D712D00C2F74A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1854EE66189D712D00C2F74A /* CoreGraphics.framework */; };
-		1854EE69189D712D00C2F74A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1854EE68189D712D00C2F74A /* UIKit.framework */; };
 		1854EE6F189D712D00C2F74A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1854EE6D189D712D00C2F74A /* InfoPlist.strings */; };
 		1854EE71189D712D00C2F74A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EE70189D712D00C2F74A /* main.m */; };
 		1854EE75189D712D00C2F74A /* KBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EE74189D712D00C2F74A /* KBAppDelegate.m */; };
@@ -22,6 +19,32 @@
 		1854EE89189D712D00C2F74A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1854EE68189D712D00C2F74A /* UIKit.framework */; };
 		1854EE91189D712D00C2F74A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1854EE8F189D712D00C2F74A /* InfoPlist.strings */; };
 		1854EE93189D712D00C2F74A /* KibbleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EE92189D712D00C2F74A /* KibbleTests.m */; };
+		1854EEB5189D717E00C2F74A /* UIAlertViewBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EE9D189D717D00C2F74A /* UIAlertViewBlock.m */; };
+		1854EEB6189D717E00C2F74A /* AudioWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EE9F189D717D00C2F74A /* AudioWrapper.m */; };
+		1854EEB7189D717E00C2F74A /* SoundBank.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEA3189D717D00C2F74A /* SoundBank.m */; };
+		1854EEB8189D717E00C2F74A /* SoundBankSpeachSample.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEA5189D717D00C2F74A /* SoundBankSpeachSample.m */; };
+		1854EEB9189D717E00C2F74A /* Speak.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEA7189D717D00C2F74A /* Speak.m */; };
+		1854EEBA189D717E00C2F74A /* Narrator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEA9189D717D00C2F74A /* Narrator.m */; };
+		1854EEBB189D717E00C2F74A /* BackEnd.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEAB189D717D00C2F74A /* BackEnd.m */; };
+		1854EEBC189D717E00C2F74A /* Install.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEAD189D717D00C2F74A /* Install.m */; };
+		1854EEBD189D717E00C2F74A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEAF189D717E00C2F74A /* Reachability.m */; };
+		1854EEBE189D717E00C2F74A /* Local.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEB1189D717E00C2F74A /* Local.m */; };
+		1854EEBF189D717E00C2F74A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1854EEB2189D717E00C2F74A /* Localizable.strings */; };
+		1854EEC0189D717E00C2F74A /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEB4189D717E00C2F74A /* User.m */; };
+		1854EEC6189D724B00C2F74A /* SCElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEC5189D724B00C2F74A /* SCElementViewController.m */; };
+		1854EECA189D726D00C2F74A /* SCElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEC9189D726D00C2F74A /* SCElement.m */; };
+		1854EECD189D754100C2F74A /* SCDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EECC189D754100C2F74A /* SCDatabase.m */; };
+		1854EED8189D754D00C2F74A /* SCPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EECF189D754D00C2F74A /* SCPage.m */; };
+		1854EED9189D754D00C2F74A /* SCTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EED1189D754D00C2F74A /* SCTest.m */; };
+		1854EEDA189D754D00C2F74A /* SCBattery.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EED3189D754D00C2F74A /* SCBattery.m */; };
+		1854EEDB189D754D00C2F74A /* SCScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EED5189D754D00C2F74A /* SCScore.m */; };
+		1854EEDC189D754D00C2F74A /* SCAssessment.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EED7189D754D00C2F74A /* SCAssessment.m */; };
+		1854EEDE189D762F00C2F74A /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1854EEDD189D762F00C2F74A /* Parse.framework */; };
+		1854EEE0189D763A00C2F74A /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1854EEDF189D763A00C2F74A /* SDWebImage.framework */; };
+		1854EEE3189D778500C2F74A /* KBRapidTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEE2189D778500C2F74A /* KBRapidTestViewController.m */; };
+		1854EEE6189DA68900C2F74A /* KibbleType.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEE5189DA68900C2F74A /* KibbleType.m */; };
+		1854EEE9189DA6F000C2F74A /* Kibble.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEE8189DA6F000C2F74A /* Kibble.m */; };
+		1854EEEC189DBA1C00C2F74A /* KBDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEEB189DBA1C00C2F74A /* KBDatabase.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +78,58 @@
 		1854EE8E189D712D00C2F74A /* KibbleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "KibbleTests-Info.plist"; sourceTree = "<group>"; };
 		1854EE90189D712D00C2F74A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1854EE92189D712D00C2F74A /* KibbleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KibbleTests.m; sourceTree = "<group>"; };
+		1854EE9C189D717D00C2F74A /* UIAlertViewBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAlertViewBlock.h; sourceTree = "<group>"; };
+		1854EE9D189D717D00C2F74A /* UIAlertViewBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAlertViewBlock.m; sourceTree = "<group>"; };
+		1854EE9E189D717D00C2F74A /* AudioWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioWrapper.h; sourceTree = "<group>"; };
+		1854EE9F189D717D00C2F74A /* AudioWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioWrapper.m; sourceTree = "<group>"; };
+		1854EEA0189D717D00C2F74A /* SoundBankControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundBankControllerProtocol.h; sourceTree = "<group>"; };
+		1854EEA1189D717D00C2F74A /* SoundBankDataProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundBankDataProtocol.h; sourceTree = "<group>"; };
+		1854EEA2189D717D00C2F74A /* SoundBank.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundBank.h; sourceTree = "<group>"; };
+		1854EEA3189D717D00C2F74A /* SoundBank.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundBank.m; sourceTree = "<group>"; };
+		1854EEA4189D717D00C2F74A /* SoundBankSpeachSample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundBankSpeachSample.h; sourceTree = "<group>"; };
+		1854EEA5189D717D00C2F74A /* SoundBankSpeachSample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundBankSpeachSample.m; sourceTree = "<group>"; };
+		1854EEA6189D717D00C2F74A /* Speak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Speak.h; sourceTree = "<group>"; };
+		1854EEA7189D717D00C2F74A /* Speak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Speak.m; sourceTree = "<group>"; };
+		1854EEA8189D717D00C2F74A /* Narrator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Narrator.h; sourceTree = "<group>"; };
+		1854EEA9189D717D00C2F74A /* Narrator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Narrator.m; sourceTree = "<group>"; };
+		1854EEAA189D717D00C2F74A /* BackEnd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackEnd.h; sourceTree = "<group>"; };
+		1854EEAB189D717D00C2F74A /* BackEnd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackEnd.m; sourceTree = "<group>"; };
+		1854EEAC189D717D00C2F74A /* Install.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Install.h; sourceTree = "<group>"; };
+		1854EEAD189D717D00C2F74A /* Install.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Install.m; sourceTree = "<group>"; };
+		1854EEAE189D717E00C2F74A /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		1854EEAF189D717E00C2F74A /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		1854EEB0189D717E00C2F74A /* Local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Local.h; sourceTree = "<group>"; };
+		1854EEB1189D717E00C2F74A /* Local.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Local.m; sourceTree = "<group>"; };
+		1854EEB2189D717E00C2F74A /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		1854EEB3189D717E00C2F74A /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		1854EEB4189D717E00C2F74A /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		1854EEC4189D724B00C2F74A /* SCElementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCElementViewController.h; sourceTree = "<group>"; };
+		1854EEC5189D724B00C2F74A /* SCElementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCElementViewController.m; sourceTree = "<group>"; };
+		1854EEC7189D726D00C2F74A /* SCDatabaseObjectProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDatabaseObjectProtocol.h; sourceTree = "<group>"; };
+		1854EEC8189D726D00C2F74A /* SCElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCElement.h; sourceTree = "<group>"; };
+		1854EEC9189D726D00C2F74A /* SCElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCElement.m; sourceTree = "<group>"; };
+		1854EECB189D753500C2F74A /* SCDatabase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCDatabase.h; sourceTree = "<group>"; };
+		1854EECC189D754100C2F74A /* SCDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCDatabase.m; sourceTree = "<group>"; };
+		1854EECE189D754D00C2F74A /* SCPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCPage.h; sourceTree = "<group>"; };
+		1854EECF189D754D00C2F74A /* SCPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCPage.m; sourceTree = "<group>"; };
+		1854EED0189D754D00C2F74A /* SCTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCTest.h; sourceTree = "<group>"; };
+		1854EED1189D754D00C2F74A /* SCTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCTest.m; sourceTree = "<group>"; };
+		1854EED2189D754D00C2F74A /* SCBattery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBattery.h; sourceTree = "<group>"; };
+		1854EED3189D754D00C2F74A /* SCBattery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBattery.m; sourceTree = "<group>"; };
+		1854EED4189D754D00C2F74A /* SCScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCScore.h; sourceTree = "<group>"; };
+		1854EED5189D754D00C2F74A /* SCScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCScore.m; sourceTree = "<group>"; };
+		1854EED6189D754D00C2F74A /* SCAssessment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAssessment.h; sourceTree = "<group>"; };
+		1854EED7189D754D00C2F74A /* SCAssessment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAssessment.m; sourceTree = "<group>"; };
+		1854EEDD189D762F00C2F74A /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		1854EEDF189D763A00C2F74A /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = "<group>"; };
+		1854EEE1189D778500C2F74A /* KBRapidTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBRapidTestViewController.h; sourceTree = "<group>"; };
+		1854EEE2189D778500C2F74A /* KBRapidTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBRapidTestViewController.m; sourceTree = "<group>"; };
+		1854EEE4189DA68900C2F74A /* KibbleType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KibbleType.h; sourceTree = "<group>"; };
+		1854EEE5189DA68900C2F74A /* KibbleType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KibbleType.m; sourceTree = "<group>"; };
+		1854EEE7189DA6F000C2F74A /* Kibble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Kibble.h; sourceTree = "<group>"; };
+		1854EEE8189DA6F000C2F74A /* Kibble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Kibble.m; sourceTree = "<group>"; };
+		1854EEEA189DBA1C00C2F74A /* KBDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBDatabase.h; sourceTree = "<group>"; };
+		1854EEEB189DBA1C00C2F74A /* KBDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBDatabase.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,9 +137,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1854EE67189D712D00C2F74A /* CoreGraphics.framework in Frameworks */,
-				1854EE69189D712D00C2F74A /* UIKit.framework in Frameworks */,
-				1854EE65189D712D00C2F74A /* Foundation.framework in Frameworks */,
+				1854EEE0189D763A00C2F74A /* SDWebImage.framework in Frameworks */,
+				1854EEDE189D762F00C2F74A /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,7 +158,11 @@
 		1854EE58189D712D00C2F74A = {
 			isa = PBXGroup;
 			children = (
+				1854EEC1189D718A00C2F74A /* Helper Classes */,
+				1854EEC2189D71D500C2F74A /* UI */,
+				1854EEC3189D720400C2F74A /* Data Model */,
 				1854EE6A189D712D00C2F74A /* Kibble */,
+				1854EE6B189D712D00C2F74A /* Supporting Files */,
 				1854EE8C189D712D00C2F74A /* KibbleTests */,
 				1854EE63189D712D00C2F74A /* Frameworks */,
 				1854EE62189D712D00C2F74A /* Products */,
@@ -103,6 +181,8 @@
 		1854EE63189D712D00C2F74A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1854EEDF189D763A00C2F74A /* SDWebImage.framework */,
+				1854EEDD189D762F00C2F74A /* Parse.framework */,
 				1854EE64189D712D00C2F74A /* Foundation.framework */,
 				1854EE66189D712D00C2F74A /* CoreGraphics.framework */,
 				1854EE68189D712D00C2F74A /* UIKit.framework */,
@@ -114,14 +194,12 @@
 		1854EE6A189D712D00C2F74A /* Kibble */ = {
 			isa = PBXGroup;
 			children = (
-				1854EE73189D712D00C2F74A /* KBAppDelegate.h */,
-				1854EE74189D712D00C2F74A /* KBAppDelegate.m */,
-				1854EE76189D712D00C2F74A /* Main_iPhone.storyboard */,
-				1854EE79189D712D00C2F74A /* Main_iPad.storyboard */,
-				1854EE7C189D712D00C2F74A /* KBViewController.h */,
-				1854EE7D189D712D00C2F74A /* KBViewController.m */,
-				1854EE7F189D712D00C2F74A /* Images.xcassets */,
-				1854EE6B189D712D00C2F74A /* Supporting Files */,
+				1854EEEA189DBA1C00C2F74A /* KBDatabase.h */,
+				1854EEEB189DBA1C00C2F74A /* KBDatabase.m */,
+				1854EEE4189DA68900C2F74A /* KibbleType.h */,
+				1854EEE5189DA68900C2F74A /* KibbleType.m */,
+				1854EEE7189DA6F000C2F74A /* Kibble.h */,
+				1854EEE8189DA6F000C2F74A /* Kibble.m */,
 			);
 			path = Kibble;
 			sourceTree = "<group>";
@@ -129,12 +207,19 @@
 		1854EE6B189D712D00C2F74A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1854EE7F189D712D00C2F74A /* Images.xcassets */,
+				1854EE73189D712D00C2F74A /* KBAppDelegate.h */,
+				1854EE74189D712D00C2F74A /* KBAppDelegate.m */,
+				1854EE76189D712D00C2F74A /* Main_iPhone.storyboard */,
+				1854EE7C189D712D00C2F74A /* KBViewController.h */,
+				1854EE7D189D712D00C2F74A /* KBViewController.m */,
 				1854EE6C189D712D00C2F74A /* Kibble-Info.plist */,
 				1854EE6D189D712D00C2F74A /* InfoPlist.strings */,
 				1854EE70189D712D00C2F74A /* main.m */,
 				1854EE72189D712D00C2F74A /* Kibble-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			path = Kibble;
 			sourceTree = "<group>";
 		};
 		1854EE8C189D712D00C2F74A /* KibbleTests */ = {
@@ -153,6 +238,72 @@
 				1854EE8F189D712D00C2F74A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1854EEC1189D718A00C2F74A /* Helper Classes */ = {
+			isa = PBXGroup;
+			children = (
+				1854EE9C189D717D00C2F74A /* UIAlertViewBlock.h */,
+				1854EE9D189D717D00C2F74A /* UIAlertViewBlock.m */,
+				1854EE9E189D717D00C2F74A /* AudioWrapper.h */,
+				1854EE9F189D717D00C2F74A /* AudioWrapper.m */,
+				1854EEA0189D717D00C2F74A /* SoundBankControllerProtocol.h */,
+				1854EEA1189D717D00C2F74A /* SoundBankDataProtocol.h */,
+				1854EEA2189D717D00C2F74A /* SoundBank.h */,
+				1854EEA3189D717D00C2F74A /* SoundBank.m */,
+				1854EEA4189D717D00C2F74A /* SoundBankSpeachSample.h */,
+				1854EEA5189D717D00C2F74A /* SoundBankSpeachSample.m */,
+				1854EEA6189D717D00C2F74A /* Speak.h */,
+				1854EEA7189D717D00C2F74A /* Speak.m */,
+				1854EEA8189D717D00C2F74A /* Narrator.h */,
+				1854EEA9189D717D00C2F74A /* Narrator.m */,
+				1854EEAA189D717D00C2F74A /* BackEnd.h */,
+				1854EEAB189D717D00C2F74A /* BackEnd.m */,
+				1854EEAC189D717D00C2F74A /* Install.h */,
+				1854EEAD189D717D00C2F74A /* Install.m */,
+				1854EEAE189D717E00C2F74A /* Reachability.h */,
+				1854EEAF189D717E00C2F74A /* Reachability.m */,
+				1854EEB0189D717E00C2F74A /* Local.h */,
+				1854EEB1189D717E00C2F74A /* Local.m */,
+				1854EEB2189D717E00C2F74A /* Localizable.strings */,
+				1854EEB3189D717E00C2F74A /* User.h */,
+				1854EEB4189D717E00C2F74A /* User.m */,
+			);
+			name = "Helper Classes";
+			sourceTree = "<group>";
+		};
+		1854EEC2189D71D500C2F74A /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				1854EE79189D712D00C2F74A /* Main_iPad.storyboard */,
+				1854EEC4189D724B00C2F74A /* SCElementViewController.h */,
+				1854EEC5189D724B00C2F74A /* SCElementViewController.m */,
+				1854EEE1189D778500C2F74A /* KBRapidTestViewController.h */,
+				1854EEE2189D778500C2F74A /* KBRapidTestViewController.m */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		1854EEC3189D720400C2F74A /* Data Model */ = {
+			isa = PBXGroup;
+			children = (
+				1854EECB189D753500C2F74A /* SCDatabase.h */,
+				1854EEC7189D726D00C2F74A /* SCDatabaseObjectProtocol.h */,
+				1854EECC189D754100C2F74A /* SCDatabase.m */,
+				1854EEC8189D726D00C2F74A /* SCElement.h */,
+				1854EEC9189D726D00C2F74A /* SCElement.m */,
+				1854EECE189D754D00C2F74A /* SCPage.h */,
+				1854EECF189D754D00C2F74A /* SCPage.m */,
+				1854EED0189D754D00C2F74A /* SCTest.h */,
+				1854EED1189D754D00C2F74A /* SCTest.m */,
+				1854EED2189D754D00C2F74A /* SCBattery.h */,
+				1854EED3189D754D00C2F74A /* SCBattery.m */,
+				1854EED4189D754D00C2F74A /* SCScore.h */,
+				1854EED5189D754D00C2F74A /* SCScore.m */,
+				1854EED6189D754D00C2F74A /* SCAssessment.h */,
+				1854EED7189D754D00C2F74A /* SCAssessment.m */,
+			);
+			name = "Data Model";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,6 +383,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1854EEBF189D717E00C2F74A /* Localizable.strings in Resources */,
 				1854EE7B189D712D00C2F74A /* Main_iPad.storyboard in Resources */,
 				1854EE80189D712D00C2F74A /* Images.xcassets in Resources */,
 				1854EE78189D712D00C2F74A /* Main_iPhone.storyboard in Resources */,
@@ -254,9 +406,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1854EEB6189D717E00C2F74A /* AudioWrapper.m in Sources */,
+				1854EEDB189D754D00C2F74A /* SCScore.m in Sources */,
+				1854EEB7189D717E00C2F74A /* SoundBank.m in Sources */,
+				1854EEB8189D717E00C2F74A /* SoundBankSpeachSample.m in Sources */,
+				1854EEDA189D754D00C2F74A /* SCBattery.m in Sources */,
+				1854EED9189D754D00C2F74A /* SCTest.m in Sources */,
+				1854EEE9189DA6F000C2F74A /* Kibble.m in Sources */,
 				1854EE7E189D712D00C2F74A /* KBViewController.m in Sources */,
+				1854EEC6189D724B00C2F74A /* SCElementViewController.m in Sources */,
+				1854EEEC189DBA1C00C2F74A /* KBDatabase.m in Sources */,
+				1854EEBB189D717E00C2F74A /* BackEnd.m in Sources */,
+				1854EEDC189D754D00C2F74A /* SCAssessment.m in Sources */,
+				1854EEE3189D778500C2F74A /* KBRapidTestViewController.m in Sources */,
+				1854EECA189D726D00C2F74A /* SCElement.m in Sources */,
+				1854EEB5189D717E00C2F74A /* UIAlertViewBlock.m in Sources */,
 				1854EE71189D712D00C2F74A /* main.m in Sources */,
+				1854EEB9189D717E00C2F74A /* Speak.m in Sources */,
+				1854EED8189D754D00C2F74A /* SCPage.m in Sources */,
+				1854EEC0189D717E00C2F74A /* User.m in Sources */,
 				1854EE75189D712D00C2F74A /* KBAppDelegate.m in Sources */,
+				1854EEE6189DA68900C2F74A /* KibbleType.m in Sources */,
+				1854EEBC189D717E00C2F74A /* Install.m in Sources */,
+				1854EEBD189D717E00C2F74A /* Reachability.m in Sources */,
+				1854EEBE189D717E00C2F74A /* Local.m in Sources */,
+				1854EECD189D754100C2F74A /* SCDatabase.m in Sources */,
+				1854EEBA189D717E00C2F74A /* Narrator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +476,7 @@
 				1854EE7A189D712D00C2F74A /* Base */,
 			);
 			name = Main_iPad.storyboard;
+			path = Kibble;
 			sourceTree = "<group>";
 		};
 		1854EE8F189D712D00C2F74A /* InfoPlist.strings */ = {
@@ -393,6 +569,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/apple/development/Kibble,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Kibble/Kibble-Prefix.pch";
 				INFOPLIST_FILE = "Kibble/Kibble-Info.plist";
@@ -406,6 +586,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/apple/development/Kibble,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Kibble/Kibble-Prefix.pch";
 				INFOPLIST_FILE = "Kibble/Kibble-Info.plist";
