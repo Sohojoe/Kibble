@@ -166,7 +166,7 @@
 				1854EEC3189D720400C2F74A /* Data Model */,
 				18D7421B18A07810001F8586 /* Kibble Editor */,
 				1854EE6A189D712D00C2F74A /* Kibble - Core Object */,
-				1854EEED189DCD8A00C2F74A /* Kibble - Core Data Types */,
+				1854EEED189DCD8A00C2F74A /* Kibble - Practice */,
 				1854EE6B189D712D00C2F74A /* Supporting Files */,
 				1854EE8C189D712D00C2F74A /* KibbleTests */,
 				1854EE63189D712D00C2F74A /* Frameworks */,
@@ -312,11 +312,11 @@
 			name = "Data Model";
 			sourceTree = "<group>";
 		};
-		1854EEED189DCD8A00C2F74A /* Kibble - Core Data Types */ = {
+		1854EEED189DCD8A00C2F74A /* Kibble - Practice */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = "Kibble - Core Data Types";
+			name = "Kibble - Practice";
 			path = Kibble;
 			sourceTree = "<group>";
 		};

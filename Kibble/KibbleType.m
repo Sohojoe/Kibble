@@ -35,7 +35,6 @@
     
     newKibbleInstance = [[self.kibbleInstanceClass alloc]initWithKibbleType:self];
     newKibbleInstance.name = thisName;
-    newKibbleInstance.description = thisName;
     
     // add to list of KibbleInstances
     [self.kibbleInstances setObject:newKibbleInstance forKey:thisName];
@@ -45,18 +44,28 @@
     return newKibbleInstance;
 }
 -(Kibble*)createNewKibbleInstance{
-    NSString *uniqueName = [NSString stringWithFormat:@"%@%lul", [self.kibbleInstanceClass class], self.countOfUniqueInstances];
-    return ([self createNewKibbleInstanceWithName:uniqueName]);
+    return ([self createNewKibbleInstanceWithName:[self uniqueName]]);
 };
 -(Kibble*)createNewKibbleInstanceContaining:(id)thisContent{
-    NSString *uniqueName = [NSString stringWithFormat:@"%@%lul", [self.kibbleInstanceClass class], self.countOfUniqueInstances];
-    return ([self createNewKibbleInstanceWithName:uniqueName containing:thisContent]);
+    return ([self createNewKibbleInstanceWithName:[self uniqueName] containing:thisContent]);
 }
 -(Kibble*)createNewKibbleInstanceWithName:(NSString*)thisName containing:(id)thisContent{
     Kibble *newKibbleInstance = [self createNewKibbleInstanceWithName:thisName];
     newKibbleInstance.content = thisContent;
-    newKibbleInstance.description = [NSString stringWithFormat:@"%@", thisContent];
     return newKibbleInstance;
+}
+
+-(NSString*)uniqueName{
+    NSString *uniqueName = [NSString stringWithFormat:@"%@%lu", [self.kibbleInstanceClass class], self.countOfUniqueInstances];
+    
+    if (uniqueName.length >= 2) {
+        uniqueName = [NSString stringWithFormat:@"%@%@" ,
+                      [[uniqueName substringToIndex:1] lowercaseString],
+                      [uniqueName substringFromIndex:1]];
+    } if (uniqueName.length == 1) {
+        uniqueName = [uniqueName lowercaseString];
+    }
+    return uniqueName;
 }
 
 -(NSMapTable*)kibbleInstances{
@@ -73,7 +82,7 @@
     self = [[[super class] allocWithZone:NULL] init];
     self.name = thisName;
     self.parent = thisParent;
-    self.description = thisDescription;
+    self.kibbleTypeDescription = thisDescription;
     
     return self;
 }

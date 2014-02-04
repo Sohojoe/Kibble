@@ -26,7 +26,7 @@
 //--
 @property (nonatomic, strong, readonly) Kibble *mayor; // Mayor of this class, aka class vars, functions, statics, etc
 //-- helper
-@property (nonatomic, strong) NSString *description;
+@property (nonatomic, strong) NSString *kibbleTypeDescription;
 
 +(id)type;
 

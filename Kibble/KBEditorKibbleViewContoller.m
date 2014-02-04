@@ -53,7 +53,7 @@
     } else {
         // use the name to create text
         self = [self initForThisKibble:thisKibble
-                            withString:thisKibble.description
+                            withString:thisKibble.kibbleDescription
                                     at:pos
                                  after:delay
                          addToParentVC:thisParentVC
@@ -82,6 +82,15 @@
     
     self.parentViewController = thisParentVC;
     
+    if (maxWidth) {
+        if (frame.size.width >maxWidth) {
+            float rescale = maxWidth/frame.size.width;
+            frame.size.width *= rescale;
+            frame.size.height *= rescale;
+        }
+    }
+
+    
     BOOL mutiLine;
     NSString *lowerName = [thisString lowercaseString];
     if ([lowerName rangeOfString:@"\n"].location == NSNotFound) {
@@ -98,10 +107,9 @@
     [self setTitleColor:selectedColor forState:UIControlStateHighlighted];
     [self setTitleShadowColor:[UIColor colorWithRed:0.62745*0.25 green:0.6*0.25 blue:0.59375*0.25 alpha:1.0] forState:UIControlStateNormal];
     [self setTitle:thisString forState:UIControlStateNormal];
-    self.titleLabel.adjustsFontSizeToFitWidth = YES;
     if (mutiLine) {
-        [self.titleLabel setFont:[UIFont fontWithName:@"Arial" size:64.0f]];
         self.titleLabel.numberOfLines = 0;
+        [self.titleLabel setFont:[UIFont fontWithName:@"Arial" size:64.0f]];
     } else {
         CGFloat fontSize = 128.0f;
         if (thisString.length ==2) {
@@ -112,14 +120,9 @@
         
         [self.titleLabel setFont:[UIFont fontWithName:@"Arial" size:fontSize]];
     }
-    
-    if (maxWidth) {
-        if (frame.size.width >maxWidth) {
-            float rescale = maxWidth/frame.size.width;
-            frame.size.width *= rescale;
-            frame.size.height *= rescale;
-        }
-    }
+    self.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.titleLabel.minimumScaleFactor = 0.1;
+    [self.titleLabel sizeThatFits:CGSizeMake(maxWidth, maxWidth)];
     
     frame.origin.x = pos.x - (frame.size.width/2);
     frame.origin.y = pos.y - (frame.size.height/2);

@@ -37,15 +37,18 @@
     KibbleType *baseKibbleType = [[KBDatabase aDatabase] kibbleTypeElseLazyInitForKey:[KibbleType class]];
     
     // init the test kibbles
-    self.hello = [baseKibbleType createNewKibbleInstanceContaining:[NSArray arrayWithObjects:@"string",[NSNumber numberWithFloat:2.3], @"cat", nil]];
+    self.hello = [baseKibbleType createNewKibbleInstanceContaining:@[@2.5, @"cats", @"and", @24.1, @"dogs"]];
+    self.hello.content = @{@1:@"red",@2:@"green",@3:@"blue"};
+    self.hello.content = @{@"red":@"iscolor",@"green":@"iscolor",@"blue":@"iscolor"};
     self.testNumber = [baseKibbleType createNewKibbleInstanceContaining:[NSNumber numberWithFloat:7.32]];
+    self.testNumber.content = self.testNumber;
     
     // display the test kibbles
     (void)[[KBEditorKibbleViewContoller alloc]initForThisKibble:self.hello
                                                        at:CGPointMake(200, 200)
                                                     after:0.0
                                             addToParentVC:self
-                                                 maxWidth:0.0
+                                                 maxWidth:256.0
                                          blockWhenClicked:^(Kibble *thisKibble) {
                                              NSLog(@"wasClicked");
                                          }];
@@ -54,7 +57,7 @@
                                                    at:CGPointMake(400,400)
                                                 after:0.4
                                         addToParentVC:self
-                                             maxWidth:0.0
+                                             maxWidth:256.0
                                      blockWhenClicked:^(Kibble *thisKibble) {
                                          NSLog(@"numberClicked");
                                      }];

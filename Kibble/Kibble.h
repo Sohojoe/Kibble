@@ -12,7 +12,7 @@
 @interface Kibble : UIButton
 @property (nonatomic, strong) KibbleType *kibbleType; // aka class, aka datemodel in MVC
 @property (nonatomic, strong) NSString *name; // name of this kibble object
-@property (nonatomic, strong) NSString *description; // description of this kibble object
+@property (nonatomic, strong, readonly) NSString *kibbleDescription; // description of this kibble object
 @property (nonatomic, strong) id imageForEditor; // visual representation of this Kibble
 @property (nonatomic, strong) id content; // the content of the kibble
 
