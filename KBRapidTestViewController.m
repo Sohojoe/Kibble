@@ -9,7 +9,6 @@
 #import "KBRapidTestViewController.h"
 #import "KBDatabase.h"
 #import "Kibble.h"
-#import "KBNumber.h"
 #import "KBEditorKibbleViewContoller.h"
 
 @interface KBRapidTestViewController ()

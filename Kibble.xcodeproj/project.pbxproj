@@ -45,7 +45,6 @@
 		1854EEE6189DA68900C2F74A /* KibbleType.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEE5189DA68900C2F74A /* KibbleType.m */; };
 		1854EEE9189DA6F000C2F74A /* Kibble.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEE8189DA6F000C2F74A /* Kibble.m */; };
 		1854EEEC189DBA1C00C2F74A /* KBDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEEB189DBA1C00C2F74A /* KBDatabase.m */; };
-		1854EEF3189DD2A700C2F74A /* KBNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEF2189DD2A700C2F74A /* KBNumber.m */; };
 		18D7421E18A0784C001F8586 /* KBEditorKibbleViewContoller.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D7421D18A0784C001F8586 /* KBEditorKibbleViewContoller.m */; };
 /* End PBXBuildFile section */
 
@@ -132,8 +131,6 @@
 		1854EEE8189DA6F000C2F74A /* Kibble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Kibble.m; sourceTree = "<group>"; };
 		1854EEEA189DBA1C00C2F74A /* KBDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBDatabase.h; sourceTree = "<group>"; };
 		1854EEEB189DBA1C00C2F74A /* KBDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBDatabase.m; sourceTree = "<group>"; };
-		1854EEF1189DD2A700C2F74A /* KBNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBNumber.h; sourceTree = "<group>"; };
-		1854EEF2189DD2A700C2F74A /* KBNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBNumber.m; sourceTree = "<group>"; };
 		18D7421C18A0784C001F8586 /* KBEditorKibbleViewContoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBEditorKibbleViewContoller.h; sourceTree = "<group>"; };
 		18D7421D18A0784C001F8586 /* KBEditorKibbleViewContoller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBEditorKibbleViewContoller.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -318,8 +315,6 @@
 		1854EEED189DCD8A00C2F74A /* Kibble - Core Data Types */ = {
 			isa = PBXGroup;
 			children = (
-				1854EEF1189DD2A700C2F74A /* KBNumber.h */,
-				1854EEF2189DD2A700C2F74A /* KBNumber.m */,
 			);
 			name = "Kibble - Core Data Types";
 			path = Kibble;
@@ -454,7 +449,6 @@
 				1854EE71189D712D00C2F74A /* main.m in Sources */,
 				1854EEB9189D717E00C2F74A /* Speak.m in Sources */,
 				1854EED8189D754D00C2F74A /* SCPage.m in Sources */,
-				1854EEF3189DD2A700C2F74A /* KBNumber.m in Sources */,
 				1854EEC0189D717E00C2F74A /* User.m in Sources */,
 				1854EE75189D712D00C2F74A /* KBAppDelegate.m in Sources */,
 				1854EEE6189DA68900C2F74A /* KibbleType.m in Sources */,
