@@ -8,13 +8,43 @@
 
 #import "Kibble.h"
 #import "KBDatabase.h"
-
+#import "MathHelper.h"
 
 @interface Kibble ()
 @end
 
 @implementation Kibble
-@synthesize kibbleDescription;
+@synthesize kibbleDescription, content;
+
++(id)type{return ([KibbleType type]);};
+
++(id)createNewKibbleInstanceWithName:(NSString*)thisName{
+    id newKibbleInstance = nil;
+    
+    newKibbleInstance = [[self alloc]initWithKibbleType:[self type]];
+    Kibble *k = newKibbleInstance;
+    k.name = thisName;
+    
+    // add to list of KibbleInstances
+    [[self type] addKibbleInstance:newKibbleInstance];
+    
+    return newKibbleInstance;
+}
++(Kibble*)createNewKibbleInstance{
+    return ([self createNewKibbleInstanceWithName:[[self type] getUniqueName]]);
+};
++(Kibble*)createNewKibbleInstanceContaining:(id)thisContent{
+    return ([self createNewKibbleInstanceWithName:[[self type] getUniqueName] containing:thisContent]);
+}
++(Kibble*)createNewKibbleInstanceWithName:(NSString*)thisName containing:(id)thisContent{
+    Kibble *newKibbleInstance = [self createNewKibbleInstanceWithName:thisName];
+    newKibbleInstance.content = thisContent;
+    return newKibbleInstance;
+}
+
+
+
+
 
 -(id)initWithKibbleType:(KibbleType *)thisKibbleType{
     self = [super init];
@@ -23,6 +53,15 @@
     }
     
     return self;
+}
+
+-(void)setContent:(id)thisContent{
+    NSDecimalNumber *contentAsADecNum = [MathHelper decNumFromObject:thisContent];
+    if (contentAsADecNum) {
+        content = contentAsADecNum;
+    } else {
+        content = thisContent;
+    }
 }
 
 -(NSString*)kibbleDescription{

@@ -25,28 +25,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "KBRapidTestViewController.m"
-            timestampString = "413234758.315537"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Kibble/Kibble.m"
-            timestampString = "413234623.02419"
+            timestampString = "413247072.420953"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
             landmarkName = "-kibbleDescription"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Kibble/Kibble.m"
-            timestampString = "413234713.798322"
+            timestampString = "413247072.420953"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
             landmarkName = "-kibbleDescription"
             landmarkType = "5">
             <Locations>
@@ -103,13 +87,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Kibble/Kibble.m"
-            timestampString = "413235903.24243"
+            filePath = "Kibble/KibbleType.m"
+            timestampString = "413247975.170268"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
-            landmarkName = "-initWithKibbleType:"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "+type"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -46,6 +46,8 @@
 		1854EEE9189DA6F000C2F74A /* Kibble.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEE8189DA6F000C2F74A /* Kibble.m */; };
 		1854EEEC189DBA1C00C2F74A /* KBDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEEB189DBA1C00C2F74A /* KBDatabase.m */; };
 		18D7421E18A0784C001F8586 /* KBEditorKibbleViewContoller.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D7421D18A0784C001F8586 /* KBEditorKibbleViewContoller.m */; };
+		18D7422418A1961B001F8586 /* MathHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D7422318A1961B001F8586 /* MathHelper.m */; };
+		18D7422718A199E5001F8586 /* KibbleTalk.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D7422618A199E5001F8586 /* KibbleTalk.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +135,10 @@
 		1854EEEB189DBA1C00C2F74A /* KBDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBDatabase.m; sourceTree = "<group>"; };
 		18D7421C18A0784C001F8586 /* KBEditorKibbleViewContoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBEditorKibbleViewContoller.h; sourceTree = "<group>"; };
 		18D7421D18A0784C001F8586 /* KBEditorKibbleViewContoller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBEditorKibbleViewContoller.m; sourceTree = "<group>"; };
+		18D7422218A1961B001F8586 /* MathHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathHelper.h; sourceTree = "<group>"; };
+		18D7422318A1961B001F8586 /* MathHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathHelper.m; sourceTree = "<group>"; };
+		18D7422518A199E5001F8586 /* KibbleTalk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KibbleTalk.h; sourceTree = "<group>"; };
+		18D7422618A199E5001F8586 /* KibbleTalk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KibbleTalk.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +211,8 @@
 				1854EEE5189DA68900C2F74A /* KibbleType.m */,
 				1854EEE7189DA6F000C2F74A /* Kibble.h */,
 				1854EEE8189DA6F000C2F74A /* Kibble.m */,
+				18D7422518A199E5001F8586 /* KibbleTalk.h */,
+				18D7422618A199E5001F8586 /* KibbleTalk.m */,
 			);
 			name = "Kibble - Core Object";
 			path = Kibble;
@@ -274,6 +282,8 @@
 				1854EEB2189D717E00C2F74A /* Localizable.strings */,
 				1854EEB3189D717E00C2F74A /* User.h */,
 				1854EEB4189D717E00C2F74A /* User.m */,
+				18D7422218A1961B001F8586 /* MathHelper.h */,
+				18D7422318A1961B001F8586 /* MathHelper.m */,
 			);
 			name = "Helper Classes";
 			sourceTree = "<group>";
@@ -448,6 +458,7 @@
 				1854EEB5189D717E00C2F74A /* UIAlertViewBlock.m in Sources */,
 				1854EE71189D712D00C2F74A /* main.m in Sources */,
 				1854EEB9189D717E00C2F74A /* Speak.m in Sources */,
+				18D7422718A199E5001F8586 /* KibbleTalk.m in Sources */,
 				1854EED8189D754D00C2F74A /* SCPage.m in Sources */,
 				1854EEC0189D717E00C2F74A /* User.m in Sources */,
 				1854EE75189D712D00C2F74A /* KBAppDelegate.m in Sources */,
@@ -455,6 +466,7 @@
 				1854EEBC189D717E00C2F74A /* Install.m in Sources */,
 				1854EEBD189D717E00C2F74A /* Reachability.m in Sources */,
 				1854EEBE189D717E00C2F74A /* Local.m in Sources */,
+				18D7422418A1961B001F8586 /* MathHelper.m in Sources */,
 				1854EECD189D754100C2F74A /* SCDatabase.m in Sources */,
 				1854EEBA189D717E00C2F74A /* Narrator.m in Sources */,
 			);

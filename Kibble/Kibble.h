@@ -9,13 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "KibbleType.h"
 
-@interface Kibble : UIButton
+@interface Kibble : NSObject
 @property (nonatomic, strong) KibbleType *kibbleType; // aka class, aka datemodel in MVC
 @property (nonatomic, strong) NSString *name; // name of this kibble object
 @property (nonatomic, strong, readonly) NSString *kibbleDescription; // description of this kibble object
 @property (nonatomic, strong) id imageForEditor; // visual representation of this Kibble
 @property (nonatomic, strong) id content; // the content of the kibble
 
+// creation of instance classes
++(id)createNewKibbleInstance;
++(id)createNewKibbleInstanceWithName:(NSString*)name;
++(id)createNewKibbleInstanceContaining:(id)thisContent;
++(id)createNewKibbleInstanceWithName:(NSString*)name containing:(id)thisContent;
 
 
 @end

@@ -11,7 +11,6 @@
 #import "Kibble.h"
 
 @interface KibbleType ()
-@property (nonatomic) unsigned long countOfUniqueInstances;
 @property (nonatomic, strong) NSMapTable *kibbleInstances;
 @end
 
@@ -24,12 +23,13 @@
     if (shared==nil) {
         // first Time Init
         //shared = [[super allocWithZone:NULL] init];
-        shared = [[KBDatabase aDatabase] kibbleTypeElseLazyInitForKey:[NSString stringWithFormat:@"%@", [super class]]];
+        shared = [[KBDatabase aDatabase] kibbleTypeElseLazyInitForKey:[super class]];
         
     }
     return shared;
 }
 -(Class)kibbleInstanceClass{return ([Kibble class]);}
+/* old code DELETE
 -(Kibble*)createNewKibbleInstanceWithName:(NSString*)thisName{
     Kibble *newKibbleInstance = nil;
     
@@ -54,7 +54,6 @@
     newKibbleInstance.content = thisContent;
     return newKibbleInstance;
 }
-
 -(NSString*)uniqueName{
     NSString *uniqueName = [NSString stringWithFormat:@"%@%lu", [self.kibbleInstanceClass class], self.countOfUniqueInstances];
     
@@ -67,6 +66,34 @@
     }
     return uniqueName;
 }
+ */ // old code - to cut
+-(void)addKibbleInstance:(id)thisKibbleInstance{
+    // add to list of KibbleInstances
+    Kibble *k = thisKibbleInstance;
+    [self.kibbleInstances setObject:thisKibbleInstance forKey:k.name];
+    
+    self.countOfUniqueInstances++;
+}
+-(NSString*)getUniqueName{
+    NSString *uniqueName = [NSString stringWithFormat:@"%@%lu", [self.kibbleInstanceClass class], self.countOfUniqueInstances];
+    
+    if (uniqueName.length >= 2) {
+        uniqueName = [NSString stringWithFormat:@"%@%@" ,
+                      [[uniqueName substringToIndex:1] lowercaseString],
+                      [uniqueName substringFromIndex:1]];
+    } if (uniqueName.length == 1) {
+        uniqueName = [uniqueName lowercaseString];
+    }
+    return uniqueName;
+}
+-(BOOL)isKibbleInstanceNameUnique:(id)thisKibbleInstance{
+    Kibble *k = thisKibbleInstance;
+    if ([self.kibbleInstances objectForKey:k.name]) {
+        return NO;
+    }
+    return YES;
+}
+
 
 -(NSMapTable*)kibbleInstances{
     if (kibbleInstances == nil) {

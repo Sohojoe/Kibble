@@ -10,10 +10,12 @@
 #import "KBDatabase.h"
 #import "Kibble.h"
 #import "KBEditorKibbleViewContoller.h"
+#import "KibbleTalk.h"
 
 @interface KBRapidTestViewController ()
 @property (nonatomic, strong) Kibble *hello;
 @property (nonatomic, strong) Kibble *testNumber;
+@property (nonatomic, strong) KibbleTalk *square;
 @end
 
 @implementation KBRapidTestViewController
@@ -33,15 +35,17 @@
     
 	// Do any additional setup after loading the view.
     
-    // init the test KibbleTypes
-    KibbleType *baseKibbleType = [[KBDatabase aDatabase] kibbleTypeElseLazyInitForKey:[KibbleType class]];
-    
     // init the test kibbles
-    self.hello = [baseKibbleType createNewKibbleInstanceContaining:@[@2.5, @"cats", @"and", @24.1, @"dogs"]];
+    self.hello = [Kibble createNewKibbleInstanceContaining:@[@2.5, @"cats", @"and", @24.1, @"dogs"]];
     self.hello.content = @{@1:@"red",@2:@"green",@3:@"blue"};
     self.hello.content = @{@"red":@"iscolor",@"green":@"iscolor",@"blue":@"iscolor"};
-    self.testNumber = [baseKibbleType createNewKibbleInstanceContaining:[NSNumber numberWithFloat:7.32]];
-    self.testNumber.content = self.testNumber;
+    self.testNumber = [Kibble createNewKibbleInstanceContaining:[NSNumber numberWithFloat:7.32]];
+    //self.testNumber.content = [NSDecimalNumber numberWithFloat:2.333];
+    self.testNumber.content = @2.333f;
+    
+    self.square = [KibbleTalk createNewKibbleInstanceWithName:@"square"];
+    [self.square addKibbleTalkParamater:@5 withSyntax:@"x" andDescription:nil];
+    NSLog(@"%@",self.square.result);
     
     // display the test kibbles
     (void)[[KBEditorKibbleViewContoller alloc]initForThisKibble:self.hello
@@ -53,7 +57,7 @@
                                              NSLog(@"wasClicked");
                                          }];
     
-    (void)[[KBEditorKibbleViewContoller alloc]initForThisKibble:self.testNumber
+    (void)[[KBEditorKibbleViewContoller alloc]initForThisKibble:self.square
                                                    at:CGPointMake(400,400)
                                                 after:0.4
                                         addToParentVC:self

@@ -32,13 +32,10 @@
 
 // -- per language implementation
 @property (nonatomic, readonly) Class kibbleInstanceClass; // tells us what our instance class is
-
-
-// creation of instance classes
--(Kibble*)createNewKibbleInstance;
--(Kibble*)createNewKibbleInstanceWithName:(NSString*)name;
--(Kibble*)createNewKibbleInstanceContaining:(id)thisContent;
--(Kibble*)createNewKibbleInstanceWithName:(NSString*)name containing:(id)thisContent;
+@property (nonatomic) unsigned long countOfUniqueInstances;
+-(void)addKibbleInstance:(id)thisKibbleInstance;
+-(NSString*)getUniqueName;
+-(BOOL)isKibbleInstanceNameUnique:(id)thisKibbleInstance;
 
 //
 
