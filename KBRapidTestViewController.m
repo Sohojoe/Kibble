@@ -10,10 +10,11 @@
 #import "KBDatabase.h"
 #import "Kibble.h"
 #import "KBNumber.h"
+#import "KBEditorKibbleViewContoller.h"
 
 @interface KBRapidTestViewController ()
 @property (nonatomic, strong) Kibble *hello;
-@property (nonatomic, strong) KBNumber *testNumber;
+@property (nonatomic, strong) Kibble *testNumber;
 @end
 
 @implementation KBRapidTestViewController
@@ -30,19 +31,27 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
 	// Do any additional setup after loading the view.
-    KibbleType *helloKibbleType = [[KBDatabase aDatabase] kibbleTypeElseLazyInitForKey:@"hello"];
     
-    self.hello = [[Kibble alloc]init:helloKibbleType
-                                  at:CGPointMake(200, 200)
-                               after:0.0
-                       addToParentVC:self
-                            maxWidth:0.0
-                    blockWhenClicked:^(Kibble *thisKibble) {
-                        NSLog(@"wasClicked");
-                    }];
+    // init the test KibbleTypes
+    KibbleType *baseKibbleType = [[KBDatabase aDatabase] kibbleTypeElseLazyInitForKey:[KibbleType class]];
     
-    self.testNumber = [[KBNumber alloc]initWithNumber:[NSNumber numberWithFloat:1.23]
+    // init the test kibbles
+    self.hello = [baseKibbleType createNewKibbleInstanceContaining:[NSArray arrayWithObjects:@"string",[NSNumber numberWithFloat:2.3], @"cat", nil]];
+    self.testNumber = [baseKibbleType createNewKibbleInstanceContaining:[NSNumber numberWithFloat:7.32]];
+    
+    // display the test kibbles
+    (void)[[KBEditorKibbleViewContoller alloc]initForThisKibble:self.hello
+                                                       at:CGPointMake(200, 200)
+                                                    after:0.0
+                                            addToParentVC:self
+                                                 maxWidth:0.0
+                                         blockWhenClicked:^(Kibble *thisKibble) {
+                                             NSLog(@"wasClicked");
+                                         }];
+    
+    (void)[[KBEditorKibbleViewContoller alloc]initForThisKibble:self.testNumber
                                                    at:CGPointMake(400,400)
                                                 after:0.4
                                         addToParentVC:self

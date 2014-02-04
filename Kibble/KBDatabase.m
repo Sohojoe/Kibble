@@ -54,7 +54,16 @@
 }
 
 // convience functions
--(KibbleType*)kibbleTypeElseLazyInitForKey:(NSString*)key{
+-(id)kibbleTypeElseLazyInitForKey:(Class)thisKibbleType{
+    NSString *key = [NSString stringWithFormat:@"%@",[thisKibbleType class]];
+    id item = [self kibbleForKey:key];
+    if (item == nil) {
+        // lazy init the element
+        item = [[thisKibbleType alloc] initWithName:key parent:nil description:key];
+        [[KBDatabase aDatabase] databaseAddEntry:item forKey:key];
+    }
+    return item;
+/*
     KibbleType *item = [self kibbleForKey:key];
     if (item == nil && key) {
         // lazy init the element
@@ -62,6 +71,7 @@
         [[KBDatabase aDatabase] databaseAddEntry:item forKey:key];
     }
     return item;
+ */
 }
 -(KibbleType*)kibbleForKey:(NSString*)key{
     id item = [self databaseEntryForKey:key forDataType:[KibbleType class]];

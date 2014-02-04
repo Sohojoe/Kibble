@@ -7,17 +7,12 @@
 //
 
 #import "Kibble.h"
-
+@class KBNumber;
 @interface KBNumberType : KibbleType
-+(void)debugPrintTypes;
+-(KBNumber*)createNewKibbleInstanceWithNumber:(NSNumber*)thisNumber;
 @end
 
 @interface KBNumber : Kibble
--(Kibble*)initWithNumber:(NSNumber*)thisNumber
-                      at:(CGPoint)pos
-                   after:(float)delay
-           addToParentVC:(UIViewController*)thisParentVC
-                maxWidth:(float)maxWidth
-        blockWhenClicked:(void (^)(Kibble* thisKibble))wasClickedBlock;
+@property (nonatomic,strong) NSNumber *number;
 @end
 

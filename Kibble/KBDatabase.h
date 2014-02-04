@@ -17,7 +17,6 @@
 -(void)enumerateDatabaseKeysForDataType:(id)dataType withBlock:(void (^)(id key))block;
 
 // convience functions
--(KibbleType*)kibbleTypeElseLazyInitForKey:(NSString*)key;
-
+-(id)kibbleTypeElseLazyInitForKey:(Class)thisKibbleType;
 
 @end

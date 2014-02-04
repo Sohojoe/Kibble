@@ -10,23 +10,20 @@
 #import "KibbleType.h"
 
 @interface Kibble : UIButton
--(void)dismiss;
-@property (nonatomic, readonly) CGPoint position;
 @property (nonatomic, strong) KibbleType *kibbleType; // aka class, aka datemodel in MVC
+@property (nonatomic, strong) NSString *name; // name of this kibble object
+@property (nonatomic, strong) NSString *description; // description of this kibble object
+@property (nonatomic, strong) id imageForEditor; // visual representation of this Kibble
+@property (nonatomic, strong) id content; // the content of the kibble
 
--(Kibble*)init:(KibbleType*)thisKibbleType
-            at:(CGPoint)pos
-         after:(float)delay
- addToParentVC:(UIViewController*)thisParentVC
-      maxWidth:(float)maxWidth
-blockWhenClicked:(void (^)(Kibble* thisKibble))wasClickedBlock;
 
--(Kibble*)initType:(KibbleType*)thisKibbleType
-        withString:(NSString*)thisString
-                at:(CGPoint)pos
-             after:(float)delay
-     addToParentVC:(UIViewController*)thisParentVC
-          maxWidth:(float)maxWidth
-  blockWhenClicked:(void (^)(Kibble* thisKibble))wasClickedBlock;
 
+@end
+
+@interface Kibble (private)
+
+
+-(id)initWithKibbleType:(KibbleType *)thisKibbleType; // USE THE KibbleType to create new kibble instances
+    
+    
 @end
