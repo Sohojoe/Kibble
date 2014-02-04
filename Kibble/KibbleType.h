@@ -26,6 +26,8 @@
 //-- helper
 @property (nonatomic, strong) NSString *description;
 
++(id)type;
+
 
 
 -(KibbleType*)initWithName:(NSString*)thisName parent:(NSString*)thisParent description:(NSString*)thisDescription;

@@ -45,12 +45,13 @@
                    blockWhenClicked:wasClickedBlock];
     } else {
         // use the name to create text
-        self = [self initWithText:thisKibbleType
-                               at:pos
-                            after:delay
-                    addToParentVC:thisParentVC
-                         maxWidth:maxWidth
-                 blockWhenClicked:wasClickedBlock];
+        self = [self initType:thisKibbleType
+                   withString:thisKibbleType.name
+                           at:pos
+                        after:delay
+                addToParentVC:thisParentVC
+                     maxWidth:maxWidth
+             blockWhenClicked:wasClickedBlock];
     }
     
     
@@ -58,12 +59,13 @@
     
 }
 
--(Kibble*)initWithText:(KibbleType*)thisKibbleType
-                      at:(CGPoint)pos
-                   after:(float)delay
-           addToParentVC:(UIViewController*)thisParentVC
-                maxWidth:(float)maxWidth
-        blockWhenClicked:(void (^)(Kibble* thisKibble))wasClickedBlock{
+-(Kibble*)initType:(KibbleType*)thisKibbleType
+        withString:(NSString*)thisString
+                at:(CGPoint)pos
+             after:(float)delay
+     addToParentVC:(UIViewController*)thisParentVC
+          maxWidth:(float)maxWidth
+  blockWhenClicked:(void (^)(Kibble* thisKibble))wasClickedBlock{
     
     // init object
     CGRect frame = CGRectMake(0, 0, 512, 512);
@@ -74,7 +76,7 @@
     self.parentViewController = thisParentVC;
     
     BOOL mutiLine;
-    NSString *lowerName = [thisKibbleType.name lowercaseString];
+    NSString *lowerName = [thisString lowercaseString];
     if ([lowerName rangeOfString:@"\n"].location == NSNotFound) {
         mutiLine = NO;
     } else {
@@ -88,16 +90,16 @@
     [self setTitleColor:selectedColor forState:UIControlStateSelected];
     [self setTitleColor:selectedColor forState:UIControlStateHighlighted];
     [self setTitleShadowColor:[UIColor colorWithRed:0.62745*0.25 green:0.6*0.25 blue:0.59375*0.25 alpha:1.0] forState:UIControlStateNormal];
-    [self setTitle:thisKibbleType.name forState:UIControlStateNormal];
+    [self setTitle:thisString forState:UIControlStateNormal];
     self.titleLabel.adjustsFontSizeToFitWidth = YES;
     if (mutiLine) {
         [self.titleLabel setFont:[UIFont fontWithName:@"Arial" size:64.0f]];
         self.titleLabel.numberOfLines = 0;
     } else {
         CGFloat fontSize = 128.0f;
-        if (thisKibbleType.name.length ==2) {
+        if (thisString.length ==2) {
             fontSize = 96.0f;
-        } else if (thisKibbleType.name.length >=3) {
+        } else if (thisString.length >=3) {
             fontSize = 64.0f;
         }
         

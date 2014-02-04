@@ -45,6 +45,8 @@
 		1854EEE6189DA68900C2F74A /* KibbleType.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEE5189DA68900C2F74A /* KibbleType.m */; };
 		1854EEE9189DA6F000C2F74A /* Kibble.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEE8189DA6F000C2F74A /* Kibble.m */; };
 		1854EEEC189DBA1C00C2F74A /* KBDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEEB189DBA1C00C2F74A /* KBDatabase.m */; };
+		1854EEF3189DD2A700C2F74A /* KBNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEF2189DD2A700C2F74A /* KBNumber.m */; };
+		18D7421E18A0784C001F8586 /* KBEditorKibbleViewContoller.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D7421D18A0784C001F8586 /* KBEditorKibbleViewContoller.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +132,10 @@
 		1854EEE8189DA6F000C2F74A /* Kibble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Kibble.m; sourceTree = "<group>"; };
 		1854EEEA189DBA1C00C2F74A /* KBDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBDatabase.h; sourceTree = "<group>"; };
 		1854EEEB189DBA1C00C2F74A /* KBDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBDatabase.m; sourceTree = "<group>"; };
+		1854EEF1189DD2A700C2F74A /* KBNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBNumber.h; sourceTree = "<group>"; };
+		1854EEF2189DD2A700C2F74A /* KBNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBNumber.m; sourceTree = "<group>"; };
+		18D7421C18A0784C001F8586 /* KBEditorKibbleViewContoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBEditorKibbleViewContoller.h; sourceTree = "<group>"; };
+		18D7421D18A0784C001F8586 /* KBEditorKibbleViewContoller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBEditorKibbleViewContoller.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,7 +167,9 @@
 				1854EEC1189D718A00C2F74A /* Helper Classes */,
 				1854EEC2189D71D500C2F74A /* UI */,
 				1854EEC3189D720400C2F74A /* Data Model */,
-				1854EE6A189D712D00C2F74A /* Kibble */,
+				18D7421B18A07810001F8586 /* Kibble Editor */,
+				1854EE6A189D712D00C2F74A /* Kibble - Core Object */,
+				1854EEED189DCD8A00C2F74A /* Kibble - Core Data Types */,
 				1854EE6B189D712D00C2F74A /* Supporting Files */,
 				1854EE8C189D712D00C2F74A /* KibbleTests */,
 				1854EE63189D712D00C2F74A /* Frameworks */,
@@ -191,7 +199,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		1854EE6A189D712D00C2F74A /* Kibble */ = {
+		1854EE6A189D712D00C2F74A /* Kibble - Core Object */ = {
 			isa = PBXGroup;
 			children = (
 				1854EEEA189DBA1C00C2F74A /* KBDatabase.h */,
@@ -201,6 +209,7 @@
 				1854EEE7189DA6F000C2F74A /* Kibble.h */,
 				1854EEE8189DA6F000C2F74A /* Kibble.m */,
 			);
+			name = "Kibble - Core Object";
 			path = Kibble;
 			sourceTree = "<group>";
 		};
@@ -306,6 +315,26 @@
 			name = "Data Model";
 			sourceTree = "<group>";
 		};
+		1854EEED189DCD8A00C2F74A /* Kibble - Core Data Types */ = {
+			isa = PBXGroup;
+			children = (
+				1854EEF1189DD2A700C2F74A /* KBNumber.h */,
+				1854EEF2189DD2A700C2F74A /* KBNumber.m */,
+			);
+			name = "Kibble - Core Data Types";
+			path = Kibble;
+			sourceTree = "<group>";
+		};
+		18D7421B18A07810001F8586 /* Kibble Editor */ = {
+			isa = PBXGroup;
+			children = (
+				18D7421C18A0784C001F8586 /* KBEditorKibbleViewContoller.h */,
+				18D7421D18A0784C001F8586 /* KBEditorKibbleViewContoller.m */,
+			);
+			name = "Kibble Editor";
+			path = Kibble;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -408,6 +437,7 @@
 			files = (
 				1854EEB6189D717E00C2F74A /* AudioWrapper.m in Sources */,
 				1854EEDB189D754D00C2F74A /* SCScore.m in Sources */,
+				18D7421E18A0784C001F8586 /* KBEditorKibbleViewContoller.m in Sources */,
 				1854EEB7189D717E00C2F74A /* SoundBank.m in Sources */,
 				1854EEB8189D717E00C2F74A /* SoundBankSpeachSample.m in Sources */,
 				1854EEDA189D754D00C2F74A /* SCBattery.m in Sources */,
@@ -424,6 +454,7 @@
 				1854EE71189D712D00C2F74A /* main.m in Sources */,
 				1854EEB9189D717E00C2F74A /* Speak.m in Sources */,
 				1854EED8189D754D00C2F74A /* SCPage.m in Sources */,
+				1854EEF3189DD2A700C2F74A /* KBNumber.m in Sources */,
 				1854EEC0189D717E00C2F74A /* User.m in Sources */,
 				1854EE75189D712D00C2F74A /* KBAppDelegate.m in Sources */,
 				1854EEE6189DA68900C2F74A /* KibbleType.m in Sources */,
@@ -659,6 +690,7 @@
 				1854EE98189D712D00C2F74A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1854EE99189D712D00C2F74A /* Build configuration list for PBXNativeTarget "KibbleTests" */ = {
 			isa = XCConfigurationList;
@@ -667,6 +699,7 @@
 				1854EE9B189D712D00C2F74A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

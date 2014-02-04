@@ -21,4 +21,12 @@
       maxWidth:(float)maxWidth
 blockWhenClicked:(void (^)(Kibble* thisKibble))wasClickedBlock;
 
+-(Kibble*)initType:(KibbleType*)thisKibbleType
+        withString:(NSString*)thisString
+                at:(CGPoint)pos
+             after:(float)delay
+     addToParentVC:(UIViewController*)thisParentVC
+          maxWidth:(float)maxWidth
+  blockWhenClicked:(void (^)(Kibble* thisKibble))wasClickedBlock;
+
 @end

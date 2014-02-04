@@ -9,9 +9,11 @@
 #import "KBRapidTestViewController.h"
 #import "KBDatabase.h"
 #import "Kibble.h"
+#import "KBNumber.h"
 
 @interface KBRapidTestViewController ()
 @property (nonatomic, strong) Kibble *hello;
+@property (nonatomic, strong) KBNumber *testNumber;
 @end
 
 @implementation KBRapidTestViewController
@@ -39,6 +41,17 @@
                     blockWhenClicked:^(Kibble *thisKibble) {
                         NSLog(@"wasClicked");
                     }];
+    
+    self.testNumber = [[KBNumber alloc]initWithNumber:[NSNumber numberWithFloat:1.23]
+                                                   at:CGPointMake(400,400)
+                                                after:0.4
+                                        addToParentVC:self
+                                             maxWidth:0.0
+                                     blockWhenClicked:^(Kibble *thisKibble) {
+                                         NSLog(@"numberClicked");
+                                     }];
+    
+    //[KBNumberType debugPrintTypes];
 }
 
 
