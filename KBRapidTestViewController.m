@@ -42,11 +42,6 @@
     //self.testNumber = [Kibble createNewKibbleInstanceContaining:[NSNumber numberWithFloat:7.32]];
     //self.testNumber.content = [NSDecimalNumber numberWithFloat:2.333];
     //self.testNumber.content = @2.333f;
-    self.testNumber = [KibbleTalk createNewKibbleInstance];
-    [self.testNumber addKibbleKode:@"27"];
-    [self.testNumber addKibbleKode:@"*"];
-    [self.testNumber addKibbleKode:@"3"];
-    NSLog(@"%@",self.testNumber.result);
     
     
     self.square = [KibbleTalk createNewKibbleInstanceWithName:@"square"];
@@ -55,16 +50,26 @@
     [self.square addKibbleKode:@"*"];
     [self.square addKibbleKode:@"x"];
     NSLog(@"%@",self.square.result);
-    
+
     // display the test kibbles
     (void)[[KBEditorKibbleViewContoller alloc]initForThisKibble:self.square
-                                                       at:CGPointMake(200, 200)
-                                                    after:0.0
-                                            addToParentVC:self
-                                                 maxWidth:256.0
-                                         blockWhenClicked:^(Kibble *thisKibble) {
-                                             NSLog(@"wasClicked");
-                                         }];
+                                                             at:CGPointMake(200, 200)
+                                                          after:0.0
+                                                  addToParentVC:self
+                                                       maxWidth:256.0
+                                               blockWhenClicked:^(Kibble *thisKibble) {
+                                                   NSLog(@"wasClicked");
+                                               }];
+
+    self.testNumber = [KibbleTalk createNewKibbleInstance];
+    //[self.testNumber addKibbleKode:@"27"];
+    //[self.testNumber addKibbleKode:@"*"];
+    //[self.testNumber addKibbleKode:@"3"];
+    [self.testNumber addKibbleKode:self.square];
+    [self.testNumber addKibbleKode:@"7"];
+    NSLog(@"%@",self.testNumber.result);
+
+    
     
     (void)[[KBEditorKibbleViewContoller alloc]initForThisKibble:self.testNumber
                                                    at:CGPointMake(400,400)

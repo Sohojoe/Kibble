@@ -92,6 +92,10 @@
     if (self.paramatersKeys.count == 0) {
         // no keys, display a differnet way
         [self.kibbleKode enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if ([obj isKindOfClass:[Kibble class]]) {
+                Kibble *k = obj;
+                obj = k.name;
+            }
             description = [NSString stringWithFormat:@"%@ %@", description, obj];
         }];
         // add result
@@ -125,15 +129,47 @@
     
     if ([self isBasicMath]) {
         thisResult = [self basicMath];
+    } else {
+        thisResult = [self function];
     }
+    
 
     return thisResult;
+}
+//----------------------------------------------------------------------------------------------------
+// call a function
+-(id)function{
+    id thisResult = nil;
+    
+    __block KibbleTalk *kibbleTalkFunction = nil;
+    
+    [self.kibbleKode enumerateObjectsUsingBlock:^(id nextInstruction, NSUInteger idx, BOOL *stop) {
+        if (idx == 0) {
+            kibbleTalkFunction = nextInstruction;
+        } else {
+            NSString *key = [kibbleTalkFunction.paramatersKeys objectAtIndex:idx-1];
+            [kibbleTalkFunction.paramaterObjects setObject:nextInstruction forKey:key];
+        }
+    }];
+    
+    thisResult = kibbleTalkFunction.result;
+    return (thisResult);
 }
 
 
 //----------------------------------------------------------------------------------------------------
+//
 -(BOOL)isBasicMath{
-    return (YES);
+    __block BOOL foundBaseMath = NO;
+    
+    [self.kibbleKode enumerateObjectsUsingBlock:^(id instruction, NSUInteger idx, BOOL *stop) {
+        if ([self selectorForMathType:instruction]) {
+            foundBaseMath = YES;
+            *stop = YES;
+        }
+    }];
+    
+    return (foundBaseMath);
 }
 -(id)basicMath{
     id thisResult = nil;
