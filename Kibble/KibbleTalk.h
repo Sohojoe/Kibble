@@ -13,5 +13,7 @@
 
 -(void)addKibbleTalkParamater:(id)thisParamater withSyntax:(NSString*)thisSyntax andDescription:(NSString*)thisDescription;
 
+-(void)addKibbleKode:(id)thisKibbleKode;
+
 
 @end

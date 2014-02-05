@@ -14,7 +14,7 @@
 
 @interface KBRapidTestViewController ()
 @property (nonatomic, strong) Kibble *hello;
-@property (nonatomic, strong) Kibble *testNumber;
+@property (nonatomic, strong) KibbleTalk *testNumber;
 @property (nonatomic, strong) KibbleTalk *square;
 @end
 
@@ -39,16 +39,25 @@
     self.hello = [Kibble createNewKibbleInstanceContaining:@[@2.5, @"cats", @"and", @24.1, @"dogs"]];
     self.hello.content = @{@1:@"red",@2:@"green",@3:@"blue"};
     self.hello.content = @{@"red":@"iscolor",@"green":@"iscolor",@"blue":@"iscolor"};
-    self.testNumber = [Kibble createNewKibbleInstanceContaining:[NSNumber numberWithFloat:7.32]];
+    //self.testNumber = [Kibble createNewKibbleInstanceContaining:[NSNumber numberWithFloat:7.32]];
     //self.testNumber.content = [NSDecimalNumber numberWithFloat:2.333];
-    self.testNumber.content = @2.333f;
+    //self.testNumber.content = @2.333f;
+    self.testNumber = [KibbleTalk createNewKibbleInstance];
+    [self.testNumber addKibbleKode:@"27"];
+    [self.testNumber addKibbleKode:@"*"];
+    [self.testNumber addKibbleKode:@"3"];
+    NSLog(@"%@",self.testNumber.result);
+    
     
     self.square = [KibbleTalk createNewKibbleInstanceWithName:@"square"];
     [self.square addKibbleTalkParamater:@5 withSyntax:@"x" andDescription:nil];
+    [self.square addKibbleKode:@"x"];
+    [self.square addKibbleKode:@"*"];
+    [self.square addKibbleKode:@"x"];
     NSLog(@"%@",self.square.result);
     
     // display the test kibbles
-    (void)[[KBEditorKibbleViewContoller alloc]initForThisKibble:self.hello
+    (void)[[KBEditorKibbleViewContoller alloc]initForThisKibble:self.square
                                                        at:CGPointMake(200, 200)
                                                     after:0.0
                                             addToParentVC:self
@@ -57,7 +66,7 @@
                                              NSLog(@"wasClicked");
                                          }];
     
-    (void)[[KBEditorKibbleViewContoller alloc]initForThisKibble:self.square
+    (void)[[KBEditorKibbleViewContoller alloc]initForThisKibble:self.testNumber
                                                    at:CGPointMake(400,400)
                                                 after:0.4
                                         addToParentVC:self

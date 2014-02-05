@@ -13,12 +13,18 @@
 +(NSDecimalNumber*)decNumFromObject:(id)object{
     NSDecimalNumber* result = nil;
     
+    NSArray *stringsToSkip = @[@"+", @"-", @"e", @"E"];
+    
     if ([object isKindOfClass:[NSNumber class]]) {
         result = [NSDecimalNumber decimalNumberWithDecimal:[object decimalValue]];
-    }else if ([object isKindOfClass:[NSNumber class]]) {
-        result = [NSDecimalNumber decimalNumberWithString:object locale:[NSLocale currentLocale]];
-        if (result == [NSDecimalNumber notANumber]) {
-            result = nil;
+    }else if ([object isKindOfClass:[NSString class]]) {
+        if ([stringsToSkip containsObject:object]) {
+            // dont do anything
+        } else {
+            result = [NSDecimalNumber decimalNumberWithString:object locale:[NSLocale currentLocale]];
+            if (result == [NSDecimalNumber notANumber]) {
+                result = nil;
+            }
         }
     }
     
