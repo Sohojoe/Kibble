@@ -45,6 +45,13 @@
 		1854EEE6189DA68900C2F74A /* KibbleType.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEE5189DA68900C2F74A /* KibbleType.m */; };
 		1854EEE9189DA6F000C2F74A /* Kibble.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEE8189DA6F000C2F74A /* Kibble.m */; };
 		1854EEEC189DBA1C00C2F74A /* KBDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEEB189DBA1C00C2F74A /* KBDatabase.m */; };
+		18CC492B18A48A720067D18A /* JSRnD.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC492A18A48A720067D18A /* JSRnD.m */; };
+		18CC492E18A4B93D0067D18A /* JS.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC492D18A4B93D0067D18A /* JS.m */; };
+		18CC493218A55CCD0067D18A /* KibbleVMObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC493118A55CCD0067D18A /* KibbleVMObject.m */; };
+		18CC493518A55D180067D18A /* KibbleVMType.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC493418A55D180067D18A /* KibbleVMType.m */; };
+		18CC493818A55D4F0067D18A /* KibbleVMInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC493718A55D4F0067D18A /* KibbleVMInstance.m */; };
+		18CC493B18A55D770067D18A /* KibbleVMTalk.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC493A18A55D770067D18A /* KibbleVMTalk.m */; };
+		18CC493E18A5772F0067D18A /* KibbleVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC493D18A5772F0067D18A /* KibbleVM.m */; };
 		18D7421E18A0784C001F8586 /* KBEditorKibbleViewContoller.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D7421D18A0784C001F8586 /* KBEditorKibbleViewContoller.m */; };
 		18D7422418A1961B001F8586 /* MathHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D7422318A1961B001F8586 /* MathHelper.m */; };
 		18D7422718A199E5001F8586 /* KibbleTalk.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D7422618A199E5001F8586 /* KibbleTalk.m */; };
@@ -133,6 +140,20 @@
 		1854EEE8189DA6F000C2F74A /* Kibble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Kibble.m; sourceTree = "<group>"; };
 		1854EEEA189DBA1C00C2F74A /* KBDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBDatabase.h; sourceTree = "<group>"; };
 		1854EEEB189DBA1C00C2F74A /* KBDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBDatabase.m; sourceTree = "<group>"; };
+		18CC492918A48A720067D18A /* JSRnD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSRnD.h; sourceTree = "<group>"; };
+		18CC492A18A48A720067D18A /* JSRnD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSRnD.m; sourceTree = "<group>"; };
+		18CC492C18A4B93D0067D18A /* JS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JS.h; sourceTree = "<group>"; };
+		18CC492D18A4B93D0067D18A /* JS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JS.m; sourceTree = "<group>"; };
+		18CC493018A55CCD0067D18A /* KibbleVMObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KibbleVMObject.h; sourceTree = "<group>"; };
+		18CC493118A55CCD0067D18A /* KibbleVMObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KibbleVMObject.m; sourceTree = "<group>"; };
+		18CC493318A55D170067D18A /* KibbleVMType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KibbleVMType.h; sourceTree = "<group>"; };
+		18CC493418A55D180067D18A /* KibbleVMType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KibbleVMType.m; sourceTree = "<group>"; };
+		18CC493618A55D4F0067D18A /* KibbleVMInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KibbleVMInstance.h; sourceTree = "<group>"; };
+		18CC493718A55D4F0067D18A /* KibbleVMInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KibbleVMInstance.m; sourceTree = "<group>"; };
+		18CC493918A55D770067D18A /* KibbleVMTalk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KibbleVMTalk.h; sourceTree = "<group>"; };
+		18CC493A18A55D770067D18A /* KibbleVMTalk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KibbleVMTalk.m; sourceTree = "<group>"; };
+		18CC493C18A5772F0067D18A /* KibbleVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KibbleVM.h; sourceTree = "<group>"; };
+		18CC493D18A5772F0067D18A /* KibbleVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KibbleVM.m; sourceTree = "<group>"; };
 		18D7421C18A0784C001F8586 /* KBEditorKibbleViewContoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBEditorKibbleViewContoller.h; sourceTree = "<group>"; };
 		18D7421D18A0784C001F8586 /* KBEditorKibbleViewContoller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBEditorKibbleViewContoller.m; sourceTree = "<group>"; };
 		18D7422218A1961B001F8586 /* MathHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathHelper.h; sourceTree = "<group>"; };
@@ -171,6 +192,7 @@
 				1854EEC2189D71D500C2F74A /* UI */,
 				1854EEC3189D720400C2F74A /* Data Model */,
 				18D7421B18A07810001F8586 /* Kibble Editor */,
+				18CC492F18A55C890067D18A /* Kibble Virtual Machine */,
 				1854EE6A189D712D00C2F74A /* Kibble - Core Object */,
 				1854EEED189DCD8A00C2F74A /* Kibble - Practice */,
 				1854EE6B189D712D00C2F74A /* Supporting Files */,
@@ -205,6 +227,8 @@
 		1854EE6A189D712D00C2F74A /* Kibble - Core Object */ = {
 			isa = PBXGroup;
 			children = (
+				18CC492C18A4B93D0067D18A /* JS.h */,
+				18CC492D18A4B93D0067D18A /* JS.m */,
 				1854EEEA189DBA1C00C2F74A /* KBDatabase.h */,
 				1854EEEB189DBA1C00C2F74A /* KBDatabase.m */,
 				1854EEE4189DA68900C2F74A /* KibbleType.h */,
@@ -325,8 +349,28 @@
 		1854EEED189DCD8A00C2F74A /* Kibble - Practice */ = {
 			isa = PBXGroup;
 			children = (
+				18CC492918A48A720067D18A /* JSRnD.h */,
+				18CC492A18A48A720067D18A /* JSRnD.m */,
 			);
 			name = "Kibble - Practice";
+			path = Kibble;
+			sourceTree = "<group>";
+		};
+		18CC492F18A55C890067D18A /* Kibble Virtual Machine */ = {
+			isa = PBXGroup;
+			children = (
+				18CC493C18A5772F0067D18A /* KibbleVM.h */,
+				18CC493D18A5772F0067D18A /* KibbleVM.m */,
+				18CC493018A55CCD0067D18A /* KibbleVMObject.h */,
+				18CC493118A55CCD0067D18A /* KibbleVMObject.m */,
+				18CC493318A55D170067D18A /* KibbleVMType.h */,
+				18CC493418A55D180067D18A /* KibbleVMType.m */,
+				18CC493618A55D4F0067D18A /* KibbleVMInstance.h */,
+				18CC493718A55D4F0067D18A /* KibbleVMInstance.m */,
+				18CC493918A55D770067D18A /* KibbleVMTalk.h */,
+				18CC493A18A55D770067D18A /* KibbleVMTalk.m */,
+			);
+			name = "Kibble Virtual Machine";
 			path = Kibble;
 			sourceTree = "<group>";
 		};
@@ -443,6 +487,7 @@
 				1854EEB6189D717E00C2F74A /* AudioWrapper.m in Sources */,
 				1854EEDB189D754D00C2F74A /* SCScore.m in Sources */,
 				18D7421E18A0784C001F8586 /* KBEditorKibbleViewContoller.m in Sources */,
+				18CC492B18A48A720067D18A /* JSRnD.m in Sources */,
 				1854EEB7189D717E00C2F74A /* SoundBank.m in Sources */,
 				1854EEB8189D717E00C2F74A /* SoundBankSpeachSample.m in Sources */,
 				1854EEDA189D754D00C2F74A /* SCBattery.m in Sources */,
@@ -452,11 +497,14 @@
 				1854EEC6189D724B00C2F74A /* SCElementViewController.m in Sources */,
 				1854EEEC189DBA1C00C2F74A /* KBDatabase.m in Sources */,
 				1854EEBB189D717E00C2F74A /* BackEnd.m in Sources */,
+				18CC493E18A5772F0067D18A /* KibbleVM.m in Sources */,
+				18CC492E18A4B93D0067D18A /* JS.m in Sources */,
 				1854EEDC189D754D00C2F74A /* SCAssessment.m in Sources */,
 				1854EEE3189D778500C2F74A /* KBRapidTestViewController.m in Sources */,
 				1854EECA189D726D00C2F74A /* SCElement.m in Sources */,
 				1854EEB5189D717E00C2F74A /* UIAlertViewBlock.m in Sources */,
 				1854EE71189D712D00C2F74A /* main.m in Sources */,
+				18CC493B18A55D770067D18A /* KibbleVMTalk.m in Sources */,
 				1854EEB9189D717E00C2F74A /* Speak.m in Sources */,
 				18D7422718A199E5001F8586 /* KibbleTalk.m in Sources */,
 				1854EED8189D754D00C2F74A /* SCPage.m in Sources */,
@@ -464,7 +512,10 @@
 				1854EE75189D712D00C2F74A /* KBAppDelegate.m in Sources */,
 				1854EEE6189DA68900C2F74A /* KibbleType.m in Sources */,
 				1854EEBC189D717E00C2F74A /* Install.m in Sources */,
+				18CC493518A55D180067D18A /* KibbleVMType.m in Sources */,
 				1854EEBD189D717E00C2F74A /* Reachability.m in Sources */,
+				18CC493818A55D4F0067D18A /* KibbleVMInstance.m in Sources */,
+				18CC493218A55CCD0067D18A /* KibbleVMObject.m in Sources */,
 				1854EEBE189D717E00C2F74A /* Local.m in Sources */,
 				18D7422418A1961B001F8586 /* MathHelper.m in Sources */,
 				1854EECD189D754100C2F74A /* SCDatabase.m in Sources */,

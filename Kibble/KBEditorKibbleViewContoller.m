@@ -38,7 +38,7 @@
     
     id image = thisKibble.imageForEditor;
     if (image == nil) {
-        image = thisKibble.kibbleType.imageForEditor;
+       // image = thisKibble.kibbleType.imageForEditor;
     }
     
     if (image) {

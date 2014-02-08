@@ -7,14 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "KibbleType.h"
+#import "JS.h"
 
-@interface Kibble : NSObject
+@class KibbleType;
+
+
+@interface Kibble : NSObject <JSConform>
 @property (nonatomic, strong) KibbleType *kibbleType; // aka class, aka datemodel in MVC
-@property (nonatomic, strong) NSString *name; // name of this kibble object
+@property (nonatomic, copy) NSString *name; // name of this kibble object
 @property (nonatomic, strong, readonly) NSString *kibbleDescription; // description of this kibble object
 @property (nonatomic, strong) id imageForEditor; // visual representation of this Kibble
 @property (nonatomic, strong) id content; // the content of the kibble
+@property (nonatomic, copy) NSString *jsContent; // JS version of the content
 
 // creation of instance classes
 +(id)createNewKibbleInstance;

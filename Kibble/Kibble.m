@@ -28,6 +28,8 @@
     // add to list of KibbleInstances
     [[self type] addKibbleInstance:newKibbleInstance];
     
+    [[JS activeJS] addClass:k];
+    
     return newKibbleInstance;
 }
 +(Kibble*)createNewKibbleInstance{
@@ -61,6 +63,14 @@
         content = contentAsADecNum;
     } else {
         content = thisContent;
+    }
+    
+    // if another kibble, set name
+    if ([thisContent conformsToProtocol:@protocol(JSConform)]) {
+        JSprototype *protoClass = thisContent;
+        self.jsContent = protoClass.name;
+    } else {
+        self.jsContent = thisContent;
     }
 }
 

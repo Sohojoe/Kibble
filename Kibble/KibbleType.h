@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JS.h"
 
 @class Kibble;
 
-@interface KibbleType : NSObject
+@interface KibbleType : NSObject <JSConform>
 
-@property (nonatomic, strong) NSString *name;
+@property (nonatomic, copy) NSString *name;
 @property (nonatomic, strong) NSString *parent;
 @property (nonatomic, strong) NSMutableArray *uncles;   // lists of protocols I dear too
 @property (nonatomic, strong) id imageForEditor; // visual representation of this Kibble
