@@ -8,13 +8,13 @@
 
 
 
-#import "KibbleVMObject.h"
+#import "VMObject.h"
 
 @protocol KibbleVMInstanceExport  <KibbleVMObjectExport>
 @end
 
 
-@interface KibbleVMInstance : KibbleVMObject <KibbleVMInstanceExport>
+@interface KibbleVMInstance : VMObject <KibbleVMInstanceExport>
 
 @end
 

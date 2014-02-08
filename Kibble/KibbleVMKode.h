@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Vidya Gamer. All rights reserved.
 //
 
-#import "KibbleVMObject.h"
+#import "VMObject.h"
 
 @class KibbleVMTalk;
 
@@ -15,7 +15,7 @@
 -(void)setKibbleKodeAsNativeVMScript:(id)thisKibbleKode;    // this sets the kode
 @end
 
-@interface KibbleVMKode : KibbleVMObject <KibbleVMKodekExport>
+@interface KibbleVMKode : VMObject <KibbleVMKodekExport>
 
 @end
 

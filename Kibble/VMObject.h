@@ -12,12 +12,12 @@
 
 // This is the core VM object class, every kibble class that is VM must use this
 
-@protocol KibbleVMObjectExport <JSExport>
+@protocol VMObjectExport <JSExport>
 @property (nonatomic, strong) NSString *name;                 // the name of the object
 @property (nonatomic, strong) NSString *description;    // the description of the object
 @end
 
-@interface KibbleVMObject : NSObject <KibbleVMObjectExport>
+@interface VMObject : NSObject <VMObjectExport>
 
 // creation of instance classes
 +(id)createNewKibbleInstance;

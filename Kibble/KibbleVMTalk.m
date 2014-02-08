@@ -9,13 +9,6 @@
 #import "KibbleVMTalk.h"
 #import "KibbleVM.h"
 
-@interface KTParam : NSObject
-@property (nonatomic, strong) NSString *paramater;
-@property (nonatomic) SupportedDataTypes supportedData;
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *description;
-@end
-@implementation KTParam @end
 
 @interface KibbleVMTalk ()
 @property (nonatomic, strong) NSString *kibbleKodeScript;
@@ -84,16 +77,12 @@
 }
 
 // set up the talk / function
--(void)addParamaterPhase:(id)thisParamater supportedDataType:(SupportedDataTypes)supportedData paramaterName:(NSString*)thisParamateName andDescription:(NSString*)thisDescription{
+-(void)addPhaseWith:(VMTalkPhaseData *)thisTalkPhaseDate{
     
-    KTParam *newParam = [[KTParam alloc]init];
-    newParam.paramater = thisParamater;
-    newParam.supportedData = supportedData;
-    newParam.name = thisParamateName;
-    newParam.description = thisDescription;
+    NSString * key = thisTalkPhaseDate.paramater;
     
-    [self.paramaters setObject:newParam forKey:thisParamater];
-    [self.orderedParamatersKeys addObject:thisParamater];
+    [self.paramaters setObject:thisTalkPhaseDate forKey:key];
+    [self.orderedParamatersKeys addObject:key];
 }
 
 
@@ -109,30 +98,17 @@
     phaseCount = self.paramaters.count;
     return phaseCount;
 }
--(void)forThisPhase:(NSUInteger)thisPhase findDetails:(void (^)(id paramater, SupportedDataTypes supportedData, NSString* name, NSString* description))detailsBlock{
-    
-    NSString *key = [self.orderedParamatersKeys objectAtIndex:thisPhase];
-    
-    KTParam *phaseParam = [self.paramaters objectForKey:key];
-    
+-(void)forThisPhase:(NSUInteger)phaseIndex findPhaseData:(void (^)(VMTalkPhaseData *))detailsBlock{
+    NSString *key = [self.orderedParamatersKeys objectAtIndex:phaseIndex];
     if (detailsBlock) {
-        NSString *ourName;
-        if (thisPhase == 0) {
-            ourName = self.name;
-            if (phaseParam.name) {
-                ourName = [NSString stringWithFormat:@"%@ %@", ourName, phaseParam.name];
-            }
-        } else {
-            ourName = phaseParam.name;
-        }
-        detailsBlock(phaseParam.paramater, phaseParam.supportedData, ourName, phaseParam.description);
+        detailsBlock([self.paramaters objectForKey:key]);
     }
 }
--(void)enumeratePhases:(void (^)(id paramater, SupportedDataTypes supportedData, NSString* name, NSString* description))detailsBlock{
+-(void)enumeratePhases:(void (^)(VMTalkPhaseData *))detailsBlock{
     NSUInteger phase = 0;
     
     while (phase < self.paramaters.count) {
-        [self forThisPhase:phase findDetails:detailsBlock];
+        [self forThisPhase:phase findPhaseData:detailsBlock];
         phase++;
     }
 }
@@ -145,12 +121,11 @@
     }
     return result;
 }
--(void)ifNextPhaseForTheseParamaters:(NSArray*)params findDetails:(void (^)(id paramater, SupportedDataTypes supportedData, NSString* name, NSString* description))detailsBlock;{
-    
+-(void)ifNextPhaseForTheseParamaters:(NSArray *)params findPhaseData:(void (^)(VMTalkPhaseData *))detailsBlock{
     NSUInteger phase = params.count;
     
     if (phase < self.paramaters.count) {
-        [self forThisPhase:phase findDetails:detailsBlock];
+        [self forThisPhase:phase findPhaseData:detailsBlock];
     }
 }
 -(BOOL)isDataTypeSupported:(id)thisDate forNextPhaseForTheseParamaters:(NSArray*)params{
@@ -182,7 +157,7 @@
     // add the paramaters
     script = [NSString stringWithFormat:@"%@(", script];
     
-    [self.paramaters enumerateKeysAndObjectsUsingBlock:^(id key, KTParam* thisParamater, BOOL *stop) {
+    [self.paramaters enumerateKeysAndObjectsUsingBlock:^(id key, VMTalkPhaseData* thisParamater, BOOL *stop) {
         if ([[script substringFromIndex:script.length-1] isEqualToString:@"("] == NO) {
             // when not the first param, add commer
             script = [NSString stringWithFormat:@"%@,", script];

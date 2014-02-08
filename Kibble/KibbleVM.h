@@ -14,7 +14,7 @@
 #import <Foundation/Foundation.h>
 #import "KibbleVMInstance.h"
 #import "KibbleVMType.h"
-#import "KibbleVMObject.h"
+#import "VMObject.h"
 #import "KibbleVMTalk.h"
 #import "KibbleVMKode.h"
 

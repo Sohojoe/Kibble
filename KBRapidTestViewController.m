@@ -108,31 +108,32 @@
     
     self.square = [KibbleVMTalk createNewKibbleInstanceWithName:@"square"];
     //[self.square addTalkToParamater:@"x" paramaterName:nil andDescription:nil];
-    [self.square addParamaterPhase:@"x" supportedDataType:kNumber paramaterName:nil andDescription:nil];
+    [self.square addPhaseWith:[VMTalkPhaseData phaseWithParamater:@"x"]];
     [self.square setKibbleKode:@"x * x"];
     NSLog(@"square = %@", [self.square resultForTheseParamaters:@[@3]]);
     
     
     self.multiply = [KibbleVMTalk createNewKibbleInstanceWithName:@"multiply"];
-    [self.multiply addParamaterPhase:@"x" supportedDataType:kNumber paramaterName:nil andDescription:nil];
-    [self.multiply addParamaterPhase:@"y" supportedDataType:kNumber paramaterName:@"by" andDescription:nil];
+    [self.multiply addPhaseWith:[VMTalkPhaseData phaseWithParamater:@"x" ofType:[NSNumber numberWithFloat:0.1]]];
+    [self.multiply addPhaseWith:[VMTalkPhaseData phaseWithParamater:@"y" ofType:[NSNumber class] withName:@"by"]];
     [self.multiply setKibbleKode:@"x * y"];
     
     NSLog(@"multiply = %@", [self.multiply resultForTheseParamaters:@[@3, @"5 * 5"]]);
     NSLog(@"multiply = %@", [self.multiply resultForTheseParamaters:@[@3, @"square(7)"]]);
     NSLog(@"multiply = %@", [self.multiply resultForTheseParamaters:@[@3, @"5 * 5"]]);
     
-    [self.multiply enumeratePhases:^(id paramater, SupportedDataTypes supportedData, NSString *name, NSString *description) {
+    [self.multiply enumeratePhases:^(VMTalkPhaseData *thisTalkPhaseData) {
         NSString *debug = @"";
-        if (name) debug = [NSString stringWithFormat:@"%@%@ ", debug, name];
-        if (paramater) debug = [NSString stringWithFormat:@"%@%@ ", debug, paramater];
-        if (description) debug = [NSString stringWithFormat:@"%@%@ ", debug, description];
+        if (thisTalkPhaseData.name) debug = [NSString stringWithFormat:@"%@%@ ", debug, thisTalkPhaseData.name];
+        if (thisTalkPhaseData.paramater) debug = [NSString stringWithFormat:@"%@%@ ", debug, thisTalkPhaseData.paramater];
+        if (thisTalkPhaseData.description) debug = [NSString stringWithFormat:@"%@%@ ", debug, thisTalkPhaseData.description];
         NSLog(@"%@", debug);
     }];
+     
     
     NSMutableArray *parms = [[NSMutableArray alloc]init];
     while ([self.multiply isNextPhaseForTheseParamaters:parms]) {
-        [self.multiply ifNextPhaseForTheseParamaters:parms findDetails:^(id paramater, SupportedDataTypes supportedData, NSString *name, NSString *description) {
+        [self.multiply ifNextPhaseForTheseParamaters:parms findPhaseData:^(VMTalkPhaseData *thisTalkPhaseData) {
             NSUInteger rand = arc4random_uniform(25)+25;
             [parms addObject:[NSNumber numberWithUnsignedInteger:rand]];
         }];

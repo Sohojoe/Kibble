@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "KibbleVMObject.h"
+#import "VMObject.h"
 
 @protocol KibbleVMTypeExport  <KibbleVMObjectExport>
 @end
 
 
-@interface KibbleVMType : KibbleVMObject <KibbleVMTypeExport>
+@interface KibbleVMType : VMObject <KibbleVMTypeExport>
 
 @end

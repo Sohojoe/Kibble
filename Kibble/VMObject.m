@@ -6,16 +6,16 @@
 //  Copyright (c) 2014 Vidya Gamer. All rights reserved.
 //
 
-#import "KibbleVMObject.h"
+#import "VMObject.h"
 
-@implementation KibbleVMObject
+@implementation VMObject
 @synthesize name, description;
 +(id)createNewKibbleInstanceWithName:(NSString*)thisName{
     id newKibbleInstance = nil;
     
     //newKibbleInstance = [[self alloc]initWithKibbleType:[self type]];
     newKibbleInstance = [[self alloc]init];
-    KibbleVMObject *k = newKibbleInstance;
+    VMObject *k = newKibbleInstance;
     k.name = thisName;
     
     // add to list of KibbleInstances
@@ -33,7 +33,7 @@
     return ([self createNewKibbleInstanceWithName:@"NO_NAME" containing:thisContent]);
 }
 +(id)createNewKibbleInstanceWithName:(NSString*)thisName containing:(id)thisContent{
-    KibbleVMObject *newKibbleInstance = [self createNewKibbleInstanceWithName:thisName];
+    VMObject *newKibbleInstance = [self createNewKibbleInstanceWithName:thisName];
     //newKibbleInstance.content = thisContent;
     return newKibbleInstance;
 }
