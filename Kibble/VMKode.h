@@ -8,14 +8,14 @@
 
 #import "VMObject.h"
 
-@class KibbleVMTalk;
+@class VMTalk;
 
-@protocol KibbleVMKodekExport  <KibbleVMObjectExport>
+@protocol VMKodekExport  <VMObjectExport>
 @property (nonatomic, strong,readonly) id result;           // reading this runs the kode
 -(void)setKibbleKodeAsNativeVMScript:(id)thisKibbleKode;    // this sets the kode
 @end
 
-@interface KibbleVMKode : VMObject <KibbleVMKodekExport>
+@interface VMKode : VMObject <VMKodekExport>
 
 @end
 

@@ -8,22 +8,22 @@
 
 #import "KBRapidTestViewController.h"
 #import "KBDatabase.h"
-#import "Kibble.h"
-#import "KBEditorKibbleViewContoller.h"
-#import "KibbleTalk.h"
+//#import "Kibble.h"
+#import "KETile.h"
+//#import "KibbleTalk.h"
 //@import JavaScriptCore;
 #import "JSRnD.h"
 #import "KibbleVM.h"
 
 @interface KBRapidTestViewController ()
-@property (nonatomic, strong) Kibble *hello;
-@property (nonatomic, strong) KibbleTalk *testNumber;
-@property (nonatomic, strong) KibbleTalk *oldSquare;
+//@property (nonatomic, strong) Kibble *hello;
+//@property (nonatomic, strong) KibbleTalk *testNumber;
+//@property (nonatomic, strong) KibbleTalk *oldSquare;
 
-@property (nonatomic, strong) KibbleVMTalk *square;
-@property (nonatomic, strong) KibbleVMTalk *multiply;
+@property (nonatomic, strong) VMTalk *square;
+@property (nonatomic, strong) VMTalk *multiply;
 
-@property (nonatomic, strong) KibbleVMKode *testObject;
+@property (nonatomic, strong) VMKode *testObject;
 
 @end
 
@@ -97,7 +97,8 @@
     
     NSLog(@"Thing: %@", thing);
     NSLog(@"Thing JSValue: %@", thingValue);
-    
+
+/*
     // init the test kibbles
     self.hello = [Kibble createNewKibbleInstanceContaining:@[@2.5, @"cats", @"and", @24.1, @"dogs"]];
     self.hello.content = @{@1:@"red",@2:@"green",@3:@"blue"};
@@ -105,24 +106,24 @@
     //self.testNumber = [Kibble createNewKibbleInstanceContaining:[NSNumber numberWithFloat:7.32]];
     //self.testNumber.content = [NSDecimalNumber numberWithFloat:2.333];
     //self.testNumber.content = @2.333f;
-    
-    self.square = [KibbleVMTalk createNewKibbleInstanceWithName:@"square"];
+*/
+    self.square = [VMTalk createNewKibbleInstanceWithName:@"square"];
     //[self.square addTalkToParamater:@"x" paramaterName:nil andDescription:nil];
-    [self.square addPhaseWith:[VMTalkPhaseData phaseWithParamater:@"x"]];
+    [self.square addPhaseWith:[VMTalkPhase phaseWithParamater:@"x"]];
     [self.square setKibbleKode:@"x * x"];
     NSLog(@"square = %@", [self.square resultForTheseParamaters:@[@3]]);
     
     
-    self.multiply = [KibbleVMTalk createNewKibbleInstanceWithName:@"multiply"];
-    [self.multiply addPhaseWith:[VMTalkPhaseData phaseWithParamater:@"x" ofType:[NSNumber numberWithFloat:0.1]]];
-    [self.multiply addPhaseWith:[VMTalkPhaseData phaseWithParamater:@"y" ofType:[NSNumber class] withName:@"by"]];
+    self.multiply = [VMTalk createNewKibbleInstanceWithName:@"multiply"];
+    [self.multiply addPhaseWith:[VMTalkPhase phaseWithParamater:@"x" ofType:[NSNumber numberWithFloat:0.1]]];
+    [self.multiply addPhaseWith:[VMTalkPhase phaseWithParamater:@"y" ofType:[NSNumber class] withName:@"by"]];
     [self.multiply setKibbleKode:@"x * y"];
     
     NSLog(@"multiply = %@", [self.multiply resultForTheseParamaters:@[@3, @"5 * 5"]]);
     NSLog(@"multiply = %@", [self.multiply resultForTheseParamaters:@[@3, @"square(7)"]]);
     NSLog(@"multiply = %@", [self.multiply resultForTheseParamaters:@[@3, @"5 * 5"]]);
     
-    [self.multiply enumeratePhases:^(VMTalkPhaseData *thisTalkPhaseData) {
+    [self.multiply enumeratePhases:^(VMTalkPhase *thisTalkPhaseData) {
         NSString *debug = @"";
         if (thisTalkPhaseData.name) debug = [NSString stringWithFormat:@"%@%@ ", debug, thisTalkPhaseData.name];
         if (thisTalkPhaseData.paramater) debug = [NSString stringWithFormat:@"%@%@ ", debug, thisTalkPhaseData.paramater];
@@ -133,7 +134,7 @@
     
     NSMutableArray *parms = [[NSMutableArray alloc]init];
     while ([self.multiply isNextPhaseForTheseParamaters:parms]) {
-        [self.multiply ifNextPhaseForTheseParamaters:parms findPhaseData:^(VMTalkPhaseData *thisTalkPhaseData) {
+        [self.multiply ifNextPhaseForTheseParamaters:parms findPhaseData:^(VMTalkPhase *thisTalkPhaseData) {
             NSUInteger rand = arc4random_uniform(25)+25;
             [parms addObject:[NSNumber numberWithUnsignedInteger:rand]];
         }];
@@ -141,11 +142,33 @@
     NSLog(@"multiply %@ = %@", parms, [self.multiply resultForTheseParamaters:parms]);
     
     
-    self.testObject = [KibbleVMKode createNewKibbleInstance];
+    self.testObject = [VMKode createNewKibbleInstance];
     [self.testObject setKibbleKodeAsNativeVMScript:@"square(7) * multiply (1,2)"];
     NSLog(@"testObject = %@", self.testObject.result);
+  
+    
+    (void)[KETile tileWithString:self.testObject.result
+                               at:CGPointMake(200, 200)
+                            after:0.0
+                    addToParentVC:self
+                       dataObject:self.testObject
+                         maxWidth:256.0
+                 blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
+                     NSLog(@"%@ wasClicked", dataObject);
+                 }];
+
+    (void)[KETile tileWithString:@"Goodbye"
+                              at:CGPointMake(400,400)
+                           after:0.0
+                   addToParentVC:self
+                      dataObject:nil
+                        maxWidth:256.0
+                blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
+                    NSLog(@"%@ wasClicked", dataObject);
+                }];
     
     
+/*
     self.oldSquare = [KibbleTalk createNewKibbleInstanceWithName:@"oldSquare"];
     [self.oldSquare addKibbleTalkParamater:@5 withSyntax:@"x" andDescription:nil];
     [self.oldSquare addKibbleKode:@"x"];
@@ -154,7 +177,7 @@
     NSLog(@"%@",self.oldSquare.result);
 
     // display the test kibbles
-    (void)[[KBEditorKibbleViewContoller alloc]initForThisKibble:self.oldSquare
+    (void)[[KBEditorKibbleViewContoller alloc]initForThisKibble:self.kibbleTalkFunction
                                                              at:CGPointMake(200, 200)
                                                           after:0.0
                                                   addToParentVC:self
@@ -162,7 +185,8 @@
                                                blockWhenClicked:^(Kibble *thisKibble) {
                                                    NSLog(@"wasClicked");
                                                }];
-
+*/
+/*
     self.testNumber = [KibbleTalk createNewKibbleInstance];
     //[self.testNumber addKibbleKode:@"27"];
     //[self.testNumber addKibbleKode:@"*"];
@@ -181,7 +205,7 @@
                                      blockWhenClicked:^(Kibble *thisKibble) {
                                          NSLog(@"numberClicked");
                                      }];
-    
+*/
     //[KBNumberType debugPrintTypes];
 }
 

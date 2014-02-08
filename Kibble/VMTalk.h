@@ -1,5 +1,5 @@
 //
-//  KibbleVMTalk.h
+//  VMTalk.h
 //  Kibble
 //
 //  Created by Joe on 2/7/14.
@@ -7,29 +7,29 @@
 //
 
 #import "VMObject.h"
-#import "VMTalkPhaseData.h"
+#import "VMTalkPhase.h"
 
 
 
-@protocol KibbleVMTalkExport  <KibbleVMObjectExport>
--(void)addPhaseWith:(VMTalkPhaseData*)thisTalkPhaseData;
+@protocol VMTalkExport  <VMObjectExport>
+-(void)addPhaseWith:(VMTalkPhase*)thisTalkPhaseData;
 -(void)setKibbleKode:(id)thisKibbleKode;
 -(JSValue*)resultForTheseParamaters:(NSArray*)params;
 
 // interface to reading the phases of talk
 @property (nonatomic, readonly)NSUInteger totalPhases;         // returns how many phases in the talk
 
--(void)forThisPhase:(NSUInteger)phaseIndex findPhaseData:(void (^)(VMTalkPhaseData *thisTalkPhaseData))detailsBlock;
--(void)enumeratePhases:(void (^)(VMTalkPhaseData* thisTalkPhaseData))detailsBlock;
+-(void)forThisPhase:(NSUInteger)phaseIndex findPhaseData:(void (^)(VMTalkPhase *thisTalkPhaseData))detailsBlock;
+-(void)enumeratePhases:(void (^)(VMTalkPhase* thisTalkPhaseData))detailsBlock;
 -(BOOL)isNextPhaseForTheseParamaters:(NSArray*)params;
--(void)ifNextPhaseForTheseParamaters:(NSArray*)params findPhaseData:(void (^)(VMTalkPhaseData* thisTalkPhaseData))detailsBlock;
+-(void)ifNextPhaseForTheseParamaters:(NSArray*)params findPhaseData:(void (^)(VMTalkPhase* thisTalkPhaseData))detailsBlock;
 -(BOOL)isDataTypeSupported:(id)thisData forNextPhaseForTheseParamaters:(NSArray*)params;
 -(BOOL)isDataTypeSupported:(id)thisData forThisPhase:(NSUInteger)phaseIndex;
 
 @end
 
 
-@interface KibbleVMTalk : VMObject <KibbleVMTalkExport>
+@interface VMTalk : VMObject <VMTalkExport>
 
 @end
 

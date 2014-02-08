@@ -1,5 +1,5 @@
 //
-//  KibbleVMType.h
+//  VMType.h
 //  Kibble
 //
 //  Created by Joe on 2/7/14.
@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "VMObject.h"
 
-@protocol KibbleVMTypeExport  <KibbleVMObjectExport>
+@protocol VMTypeExport  <VMObjectExport>
 @end
 
 
-@interface KibbleVMType : VMObject <KibbleVMTypeExport>
+@interface VMType : VMObject <VMTypeExport>
 
 @end

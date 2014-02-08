@@ -1,32 +1,32 @@
 //
-//  TalkPhaseData.m
+//  VMTalkPhase.m
 //  Kibble
 //
 //  Created by Joe on 2/8/14.
 //  Copyright (c) 2014 Vidya Gamer. All rights reserved.
 //
 
-#import "VMTalkPhaseData.h"
-@interface VMTalkPhaseData ()
+#import "VMTalkPhase.h"
+@interface VMTalkPhase ()
 @property (nonatomic, strong) NSMutableArray* supportedDataTypes;
 @end
 
-@implementation VMTalkPhaseData
+@implementation VMTalkPhase
 @synthesize supportedDataTypesAsClassArray, supportedDataTypes;
 @synthesize paramater;
 @synthesize name, description;
 
-+(VMTalkPhaseData*)phaseWithParamater:(NSString*)thisParam{
++(VMTalkPhase*)phaseWithParamater:(NSString*)thisParam{
     return [self phaseWithParamater:thisParam ofType:nil withName:nil withDescription:nil];
 }
-+(VMTalkPhaseData*)phaseWithParamater:(NSString*)thisParam ofType:(id)supportedType{
++(VMTalkPhase*)phaseWithParamater:(NSString*)thisParam ofType:(id)supportedType{
     return [self phaseWithParamater:thisParam ofType:supportedType withName:nil withDescription:nil];
 }
-+(VMTalkPhaseData*)phaseWithParamater:(NSString*)thisParam ofType:(id)supportedType withName:(NSString*)thisName{
++(VMTalkPhase*)phaseWithParamater:(NSString*)thisParam ofType:(id)supportedType withName:(NSString*)thisName{
     return [self phaseWithParamater:thisParam ofType:supportedType withName:thisName withDescription:nil];
 }
-+(VMTalkPhaseData*)phaseWithParamater:(NSString*)thisParam ofType:(id)supportedType withName:(NSString*)thisName withDescription:(NSString*)thisDescription{
-    VMTalkPhaseData* newPhase = [[VMTalkPhaseData alloc]init];
++(VMTalkPhase*)phaseWithParamater:(NSString*)thisParam ofType:(id)supportedType withName:(NSString*)thisName withDescription:(NSString*)thisDescription{
+    VMTalkPhase* newPhase = [[VMTalkPhase alloc]init];
     newPhase.paramater = thisParam;
     newPhase.name = thisName;
     newPhase.description = thisDescription;

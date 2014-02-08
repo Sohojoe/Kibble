@@ -1,5 +1,5 @@
 //
-//  KibbleVMCoreObject.m
+//  VMObject.m
 //  Kibble
 //
 //  Created by Joe on 2/7/14.

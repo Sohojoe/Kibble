@@ -1,5 +1,5 @@
 //
-//  KibbleVMInstance.h
+//  VMInstance.h
 //  Kibble
 //
 //  Created by Joe on 2/7/14.
@@ -10,11 +10,11 @@
 
 #import "VMObject.h"
 
-@protocol KibbleVMInstanceExport  <KibbleVMObjectExport>
+@protocol VMInstanceExport  <VMObjectExport>
 @end
 
 
-@interface KibbleVMInstance : VMObject <KibbleVMInstanceExport>
+@interface VMInstance : VMObject <VMInstanceExport>
 
 @end
 

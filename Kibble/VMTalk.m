@@ -1,16 +1,16 @@
 //
-//  KibbleVMTalk.m
+//  VMTalk.m
 //  Kibble
 //
 //  Created by Joe on 2/7/14.
 //  Copyright (c) 2014 Vidya Gamer. All rights reserved.
 //
 
-#import "KibbleVMTalk.h"
+#import "VMTalk.h"
 #import "KibbleVM.h"
 
 
-@interface KibbleVMTalk ()
+@interface VMTalk ()
 @property (nonatomic, strong) NSString *kibbleKodeScript;
 @property (nonatomic, strong) JSValue *function;
 @property (nonatomic, strong) NSString *script;
@@ -19,7 +19,7 @@
 @property (nonatomic, strong) NSString* kibbleKode;
 @end
 
-@implementation KibbleVMTalk
+@implementation VMTalk
 @synthesize kibbleKode, paramaters, orderedParamatersKeys, totalPhases;
 
 
@@ -77,7 +77,7 @@
 }
 
 // set up the talk / function
--(void)addPhaseWith:(VMTalkPhaseData *)thisTalkPhaseDate{
+-(void)addPhaseWith:(VMTalkPhase *)thisTalkPhaseDate{
     
     NSString * key = thisTalkPhaseDate.paramater;
     
@@ -98,13 +98,13 @@
     phaseCount = self.paramaters.count;
     return phaseCount;
 }
--(void)forThisPhase:(NSUInteger)phaseIndex findPhaseData:(void (^)(VMTalkPhaseData *))detailsBlock{
+-(void)forThisPhase:(NSUInteger)phaseIndex findPhaseData:(void (^)(VMTalkPhase *))detailsBlock{
     NSString *key = [self.orderedParamatersKeys objectAtIndex:phaseIndex];
     if (detailsBlock) {
         detailsBlock([self.paramaters objectForKey:key]);
     }
 }
--(void)enumeratePhases:(void (^)(VMTalkPhaseData *))detailsBlock{
+-(void)enumeratePhases:(void (^)(VMTalkPhase *))detailsBlock{
     NSUInteger phase = 0;
     
     while (phase < self.paramaters.count) {
@@ -121,7 +121,7 @@
     }
     return result;
 }
--(void)ifNextPhaseForTheseParamaters:(NSArray *)params findPhaseData:(void (^)(VMTalkPhaseData *))detailsBlock{
+-(void)ifNextPhaseForTheseParamaters:(NSArray *)params findPhaseData:(void (^)(VMTalkPhase *))detailsBlock{
     NSUInteger phase = params.count;
     
     if (phase < self.paramaters.count) {
@@ -157,7 +157,7 @@
     // add the paramaters
     script = [NSString stringWithFormat:@"%@(", script];
     
-    [self.paramaters enumerateKeysAndObjectsUsingBlock:^(id key, VMTalkPhaseData* thisParamater, BOOL *stop) {
+    [self.paramaters enumerateKeysAndObjectsUsingBlock:^(id key, VMTalkPhase* thisParamater, BOOL *stop) {
         if ([[script substringFromIndex:script.length-1] isEqualToString:@"("] == NO) {
             // when not the first param, add commer
             script = [NSString stringWithFormat:@"%@,", script];

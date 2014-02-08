@@ -12,11 +12,11 @@
 
 
 #import <Foundation/Foundation.h>
-#import "KibbleVMInstance.h"
-#import "KibbleVMType.h"
+#import "VMInstance.h"
+#import "VMType.h"
 #import "VMObject.h"
-#import "KibbleVMTalk.h"
-#import "KibbleVMKode.h"
+#import "VMTalk.h"
+#import "VMKode.h"
 
 @interface KibbleVM : NSObject
 

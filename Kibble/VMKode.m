@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 Vidya Gamer. All rights reserved.
 //
 
-#import "KibbleVMKode.h"
+#import "VMKode.h"
 #import "KibbleVM.h"
 
-@interface KibbleVMKode ()
+@interface VMKode ()
 @property (nonatomic, strong) NSString* kibbleKodeAsScript;
 @end
 
 
-@implementation KibbleVMKode
+@implementation VMKode
 @synthesize result;
 
 -(id)result{

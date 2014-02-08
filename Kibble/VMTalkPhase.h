@@ -1,5 +1,5 @@
 //
-//  TalkPhaseData.h
+//  VMTalkPhase.h
 //  Kibble
 //
 //  Created by Joe on 2/8/14.
@@ -9,18 +9,18 @@
 #import <Foundation/Foundation.h>
 #import "VMObject.h"
 
-@class VMTalkPhaseData;
+@class VMTalkPhase;
 
-@protocol VMTalkPhaseDataExport <KibbleVMObjectExport>
+@protocol VMTalkPhaseExport <VMObjectExport>
 // enherits name from VMObject
 // enherits description from VMObject
 @property (nonatomic, strong) NSString *paramater;
 @property (nonatomic, strong, readonly) NSArray* supportedDataTypesAsClassArray;
 
-+(VMTalkPhaseData*)phaseWithParamater:(NSString*)thisParam;
-+(VMTalkPhaseData*)phaseWithParamater:(NSString*)thisParam ofType:(id)supportedType;
-+(VMTalkPhaseData*)phaseWithParamater:(NSString*)thisParam ofType:(id)supportedType withName:(NSString*)thisName;
-+(VMTalkPhaseData*)phaseWithParamater:(NSString*)thisParam ofType:(id)supportedType withName:(NSString*)thisName withDescription:(NSString*)thisDescription;
++(VMTalkPhase*)phaseWithParamater:(NSString*)thisParam;
++(VMTalkPhase*)phaseWithParamater:(NSString*)thisParam ofType:(id)supportedType;
++(VMTalkPhase*)phaseWithParamater:(NSString*)thisParam ofType:(id)supportedType withName:(NSString*)thisName;
++(VMTalkPhase*)phaseWithParamater:(NSString*)thisParam ofType:(id)supportedType withName:(NSString*)thisName withDescription:(NSString*)thisDescription;
 
 
 -(void)setSupportedDataTypeAsClass:(Class)supportedType;
@@ -33,5 +33,5 @@
 @end
 
 
-@interface VMTalkPhaseData : NSObject <VMTalkPhaseDataExport>
+@interface VMTalkPhase : NSObject <VMTalkPhaseExport>
 @end

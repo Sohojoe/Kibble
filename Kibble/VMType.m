@@ -1,13 +1,13 @@
 //
-//  KibbleVMInstance.m
+//  VMType.m
 //  Kibble
 //
 //  Created by Joe on 2/7/14.
 //  Copyright (c) 2014 Vidya Gamer. All rights reserved.
 //
 
-#import "KibbleVMInstance.h"
+#import "VMType.h"
 
-@implementation KibbleVMInstance
+@implementation VMType
 
 @end
