@@ -16,14 +16,13 @@
 #import "KibbleVMType.h"
 #import "KibbleVMObject.h"
 #import "KibbleVMTalk.h"
-
+#import "KibbleVMKode.h"
 
 @interface KibbleVM : NSObject
 
 +(KibbleVM*)sharedVM;
 -(id)evaluateScript:(id)thisScript;
+-(id)referenceForObjectName:(NSString*)thisName;
 
--(void)setVMScriptForObject:(KibbleVMTalk*)thisObject;
--(id)callFunctionForObject:(KibbleVMTalk*)thisObject WithArguments:(NSArray*)theseArguments;
 
 @end

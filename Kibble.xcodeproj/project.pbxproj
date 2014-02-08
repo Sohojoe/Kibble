@@ -52,6 +52,7 @@
 		18CC493818A55D4F0067D18A /* KibbleVMInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC493718A55D4F0067D18A /* KibbleVMInstance.m */; };
 		18CC493B18A55D770067D18A /* KibbleVMTalk.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC493A18A55D770067D18A /* KibbleVMTalk.m */; };
 		18CC493E18A5772F0067D18A /* KibbleVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC493D18A5772F0067D18A /* KibbleVM.m */; };
+		18CC494118A5C7CC0067D18A /* KibbleVMKode.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC494018A5C7CC0067D18A /* KibbleVMKode.m */; };
 		18D7421E18A0784C001F8586 /* KBEditorKibbleViewContoller.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D7421D18A0784C001F8586 /* KBEditorKibbleViewContoller.m */; };
 		18D7422418A1961B001F8586 /* MathHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D7422318A1961B001F8586 /* MathHelper.m */; };
 		18D7422718A199E5001F8586 /* KibbleTalk.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D7422618A199E5001F8586 /* KibbleTalk.m */; };
@@ -154,6 +155,8 @@
 		18CC493A18A55D770067D18A /* KibbleVMTalk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KibbleVMTalk.m; sourceTree = "<group>"; };
 		18CC493C18A5772F0067D18A /* KibbleVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KibbleVM.h; sourceTree = "<group>"; };
 		18CC493D18A5772F0067D18A /* KibbleVM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KibbleVM.m; sourceTree = "<group>"; };
+		18CC493F18A5C7CC0067D18A /* KibbleVMKode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KibbleVMKode.h; sourceTree = "<group>"; };
+		18CC494018A5C7CC0067D18A /* KibbleVMKode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KibbleVMKode.m; sourceTree = "<group>"; };
 		18D7421C18A0784C001F8586 /* KBEditorKibbleViewContoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBEditorKibbleViewContoller.h; sourceTree = "<group>"; };
 		18D7421D18A0784C001F8586 /* KBEditorKibbleViewContoller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBEditorKibbleViewContoller.m; sourceTree = "<group>"; };
 		18D7422218A1961B001F8586 /* MathHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathHelper.h; sourceTree = "<group>"; };
@@ -369,6 +372,8 @@
 				18CC493718A55D4F0067D18A /* KibbleVMInstance.m */,
 				18CC493918A55D770067D18A /* KibbleVMTalk.h */,
 				18CC493A18A55D770067D18A /* KibbleVMTalk.m */,
+				18CC493F18A5C7CC0067D18A /* KibbleVMKode.h */,
+				18CC494018A5C7CC0067D18A /* KibbleVMKode.m */,
 			);
 			name = "Kibble Virtual Machine";
 			path = Kibble;
@@ -503,6 +508,7 @@
 				1854EEE3189D778500C2F74A /* KBRapidTestViewController.m in Sources */,
 				1854EECA189D726D00C2F74A /* SCElement.m in Sources */,
 				1854EEB5189D717E00C2F74A /* UIAlertViewBlock.m in Sources */,
+				18CC494118A5C7CC0067D18A /* KibbleVMKode.m in Sources */,
 				1854EE71189D712D00C2F74A /* main.m in Sources */,
 				18CC493B18A55D770067D18A /* KibbleVMTalk.m in Sources */,
 				1854EEB9189D717E00C2F74A /* Speak.m in Sources */,

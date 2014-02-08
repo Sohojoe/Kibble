@@ -9,11 +9,20 @@
 #import "KibbleVMTalk.h"
 #import "KibbleVM.h"
 
-
+@interface KTParam : NSObject
+@property (nonatomic, strong) NSString *paramater;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *description;
+@end
 @implementation KTParam @end
 
 @interface KibbleVMTalk ()
 @property (nonatomic, strong) NSString *kibbleKodeScript;
+@property (nonatomic, strong) JSValue *function;
+@property (nonatomic, strong) NSString *script;
+@property (nonatomic, strong) NSMutableDictionary* paramaters;
+@property (nonatomic, strong) NSMutableArray *orderedParamatersKeys;
+@property (nonatomic, strong) NSString* kibbleKode;
 @end
 
 @implementation KibbleVMTalk
@@ -44,13 +53,34 @@
 // call the function with data
 -(id)resultForTheseParamaters:(NSArray*)params{
     id thisResult = nil;
-    thisResult = [[KibbleVM sharedVM] callFunctionForObject:self WithArguments:params];
+    
+    // Version #1 - just calls the function with the params - this doesnt evaluate the paramaters
+    //thisResult = [self callFunctionWithArguments:params];
+    
+    // Version #2 - builds a script and evaluates it - this will evaluate each paramater
+    //thisResult = [self parseParamsAndEvaluateAsScript]; // note not writen yet
+    
+    // version #3 - parses the params and evaluate each parm that is not a NSNumber
+    NSMutableArray *evaluatedParams = [[NSMutableArray alloc]initWithCapacity:params.count];
+    [params enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:[NSNumber class]]) {
+            // is NSnumber, just copy
+            [evaluatedParams addObject:obj];
+        } else {
+            id evaluatedObj = nil;
+            if ([obj isKindOfClass:[NSString class]]) {
+                evaluatedObj = [[KibbleVM sharedVM] evaluateScript:obj];
+            } else {
+                evaluatedObj = [[KibbleVM sharedVM] evaluateScript:[NSString stringWithFormat:@"%@", obj]];
+            }
+            [evaluatedParams addObject:evaluatedObj];
+        }
+    }];
+    thisResult = [self callFunctionWithArguments:evaluatedParams];
+    
+    
     return (thisResult);
 }
-
-
-
-
 
 // set up the talk / function
 -(void)addTalkToParamater:(id)thisParamater paramaterName:(NSString*)thisParamateName andDescription:(NSString*)thisDescription{
@@ -67,7 +97,74 @@
 
 -(void)addKibbleKode:(id)thisKibbleKode{
     self.kibbleKode = thisKibbleKode;
-    [[KibbleVM sharedVM] setVMScriptForObject:self];
+    [self setVMScriptForObject];
 }
+
+//---------------------------------------------------------------------------------
+// --
+// -- VM specific implementation
+
+
+-(NSString*)buildScriptForVM{
+    
+    __block NSString* script = @"";
+    
+    // add the variabe
+    //script = [NSString stringWithFormat:@"%@var %@", script, thisObject.name];
+    script = [NSString stringWithFormat:@"%@%@", script, self.name];
+    
+    // add the = function
+    script = [NSString stringWithFormat:@"%@ = function", script];
+    
+    // add the paramaters
+    script = [NSString stringWithFormat:@"%@(", script];
+    
+    [self.paramaters enumerateKeysAndObjectsUsingBlock:^(id key, KTParam* thisParamater, BOOL *stop) {
+        if ([[script substringFromIndex:script.length-1] isEqualToString:@"("] == NO) {
+            // when not the first param, add commer
+            script = [NSString stringWithFormat:@"%@,", script];
+        }
+        script = [NSString stringWithFormat:@"%@%@", script, thisParamater.paramater];
+    }];
+    script = [NSString stringWithFormat:@"%@)", script];
+    
+    // add the function body
+    script = [NSString stringWithFormat:@"%@ {return ", script];
+    script = [NSString stringWithFormat:@"%@%@", script, self.kibbleKode];
+    script = [NSString stringWithFormat:@"%@ ;}", script];
+    
+    return script;
+}
+
+-(void)setVMScriptForObject{
+    
+    JSValue *debug;
+    
+    // define this var TEMP
+    debug = [[KibbleVM sharedVM] evaluateScript:[NSString stringWithFormat:@"var %@", self.name]];
+    NSLog(@"debug = %@", debug);
+    
+    
+    // set the script
+    self.script = [self buildScriptForVM];
+    debug = [[KibbleVM sharedVM]  evaluateScript:self.script];
+    NSLog(@"debug = %@", debug);
+    
+    // get a reference to the function
+    self.function = [[KibbleVM sharedVM] referenceForObjectName:self.name];
+    
+    //[context evaluateScript:@"var square = function(x) {return x*x;}"];
+    //JSValue *squareFunction = context[@"square"];
+    
+    //    [context evaluateScript:@"var square = function(x) {return x*x;}"];
+    return;
+}
+-(id)callFunctionWithArguments:(NSArray*)theseArguments{
+    JSValue *outcome;
+    
+    outcome = [self.function callWithArguments:theseArguments];
+    return outcome;
+}
+
 
 @end

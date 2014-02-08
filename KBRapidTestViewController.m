@@ -23,6 +23,8 @@
 @property (nonatomic, strong) KibbleVMTalk *square;
 @property (nonatomic, strong) KibbleVMTalk *multiply;
 
+@property (nonatomic, strong) KibbleVMKode *testObject;
+
 @end
 
 @implementation KBRapidTestViewController
@@ -115,7 +117,13 @@
     [self.multiply addTalkToParamater:@"y" paramaterName:@"by" andDescription:nil];
     [self.multiply addKibbleKode:@"x * y"];
     
-    NSLog(@"multiply = %@", [self.multiply resultForTheseParamaters:@[@3, @4]]);
+    NSLog(@"multiply = %@", [self.multiply resultForTheseParamaters:@[@3, @"5 * 5"]]);
+    NSLog(@"multiply = %@", [self.multiply resultForTheseParamaters:@[@3, @"square(7)"]]);
+    NSLog(@"multiply = %@", [self.multiply resultForTheseParamaters:@[@3, @"5 * 5"]]);
+    
+    self.testObject = [KibbleVMKode createNewKibbleInstance];
+    [self.testObject setKibbleKodeAsNativeVMScript:@"square(7) * multiply (1,2)"];
+    NSLog(@"testObject = %@", self.testObject.result);
     
     
     self.oldSquare = [KibbleTalk createNewKibbleInstanceWithName:@"oldSquare"];
