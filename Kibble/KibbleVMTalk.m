@@ -11,6 +11,7 @@
 
 @interface KTParam : NSObject
 @property (nonatomic, strong) NSString *paramater;
+@property (nonatomic) SupportedDataTypes supportedData;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *description;
 @end
@@ -26,7 +27,7 @@
 @end
 
 @implementation KibbleVMTalk
-@synthesize kibbleKode, paramaters, orderedParamatersKeys;
+@synthesize kibbleKode, paramaters, orderedParamatersKeys, totalPhases;
 
 
 
@@ -83,21 +84,83 @@
 }
 
 // set up the talk / function
--(void)addTalkToParamater:(id)thisParamater paramaterName:(NSString*)thisParamateName andDescription:(NSString*)thisDescription{
+-(void)addParamaterPhase:(id)thisParamater supportedDataType:(SupportedDataTypes)supportedData paramaterName:(NSString*)thisParamateName andDescription:(NSString*)thisDescription{
     
     KTParam *newParam = [[KTParam alloc]init];
     newParam.paramater = thisParamater;
+    newParam.supportedData = supportedData;
     newParam.name = thisParamateName;
     newParam.description = thisDescription;
     
     [self.paramaters setObject:newParam forKey:thisParamater];
-    [self.orderedParamatersKeys addObject:newParam];
+    [self.orderedParamatersKeys addObject:thisParamater];
 }
 
 
--(void)addKibbleKode:(id)thisKibbleKode{
-    self.kibbleKode = thisKibbleKode;
+-(void)setKibbleKode:(id)thisKibbleKode{
+    kibbleKode = thisKibbleKode;
     [self setVMScriptForObject];
+}
+
+
+// -- Phases
+-(NSUInteger)totalPhases{
+    NSUInteger phaseCount;
+    phaseCount = self.paramaters.count;
+    return phaseCount;
+}
+-(void)forThisPhase:(NSUInteger)thisPhase findDetails:(void (^)(id paramater, SupportedDataTypes supportedData, NSString* name, NSString* description))detailsBlock{
+    
+    NSString *key = [self.orderedParamatersKeys objectAtIndex:thisPhase];
+    
+    KTParam *phaseParam = [self.paramaters objectForKey:key];
+    
+    if (detailsBlock) {
+        NSString *ourName;
+        if (thisPhase == 0) {
+            ourName = self.name;
+            if (phaseParam.name) {
+                ourName = [NSString stringWithFormat:@"%@ %@", ourName, phaseParam.name];
+            }
+        } else {
+            ourName = phaseParam.name;
+        }
+        detailsBlock(phaseParam.paramater, phaseParam.supportedData, ourName, phaseParam.description);
+    }
+}
+-(void)enumeratePhases:(void (^)(id paramater, SupportedDataTypes supportedData, NSString* name, NSString* description))detailsBlock{
+    NSUInteger phase = 0;
+    
+    while (phase < self.paramaters.count) {
+        [self forThisPhase:phase findDetails:detailsBlock];
+        phase++;
+    }
+}
+-(BOOL)isNextPhaseForTheseParamaters:(NSArray*)params {
+    BOOL result = NO;
+
+    NSUInteger phase = params.count;
+    if (phase < self.paramaters.count) {
+        result = YES;
+    }
+    return result;
+}
+-(void)ifNextPhaseForTheseParamaters:(NSArray*)params findDetails:(void (^)(id paramater, SupportedDataTypes supportedData, NSString* name, NSString* description))detailsBlock;{
+    
+    NSUInteger phase = params.count;
+    
+    if (phase < self.paramaters.count) {
+        [self forThisPhase:phase findDetails:detailsBlock];
+    }
+}
+-(BOOL)isDataTypeSupported:(id)thisDate forNextPhaseForTheseParamaters:(NSArray*)params{
+    return YES;
+    
+}
+-(BOOL)isDataTypeSupported:(id)thisDate forThisPhase:(NSUInteger)thisPhase{
+    
+    return YES;
+    
 }
 
 //---------------------------------------------------------------------------------

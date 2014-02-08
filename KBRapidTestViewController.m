@@ -107,19 +107,38 @@
     //self.testNumber.content = @2.333f;
     
     self.square = [KibbleVMTalk createNewKibbleInstanceWithName:@"square"];
-    [self.square addTalkToParamater:@"x" paramaterName:nil andDescription:nil];
-    [self.square addKibbleKode:@"x * x"];
+    //[self.square addTalkToParamater:@"x" paramaterName:nil andDescription:nil];
+    [self.square addParamaterPhase:@"x" supportedDataType:kNumber paramaterName:nil andDescription:nil];
+    [self.square setKibbleKode:@"x * x"];
     NSLog(@"square = %@", [self.square resultForTheseParamaters:@[@3]]);
     
     
     self.multiply = [KibbleVMTalk createNewKibbleInstanceWithName:@"multiply"];
-    [self.multiply addTalkToParamater:@"x" paramaterName:nil andDescription:nil];
-    [self.multiply addTalkToParamater:@"y" paramaterName:@"by" andDescription:nil];
-    [self.multiply addKibbleKode:@"x * y"];
+    [self.multiply addParamaterPhase:@"x" supportedDataType:kNumber paramaterName:nil andDescription:nil];
+    [self.multiply addParamaterPhase:@"y" supportedDataType:kNumber paramaterName:@"by" andDescription:nil];
+    [self.multiply setKibbleKode:@"x * y"];
     
     NSLog(@"multiply = %@", [self.multiply resultForTheseParamaters:@[@3, @"5 * 5"]]);
     NSLog(@"multiply = %@", [self.multiply resultForTheseParamaters:@[@3, @"square(7)"]]);
     NSLog(@"multiply = %@", [self.multiply resultForTheseParamaters:@[@3, @"5 * 5"]]);
+    
+    [self.multiply enumeratePhases:^(id paramater, SupportedDataTypes supportedData, NSString *name, NSString *description) {
+        NSString *debug = @"";
+        if (name) debug = [NSString stringWithFormat:@"%@%@ ", debug, name];
+        if (paramater) debug = [NSString stringWithFormat:@"%@%@ ", debug, paramater];
+        if (description) debug = [NSString stringWithFormat:@"%@%@ ", debug, description];
+        NSLog(@"%@", debug);
+    }];
+    
+    NSMutableArray *parms = [[NSMutableArray alloc]init];
+    while ([self.multiply isNextPhaseForTheseParamaters:parms]) {
+        [self.multiply ifNextPhaseForTheseParamaters:parms findDetails:^(id paramater, SupportedDataTypes supportedData, NSString *name, NSString *description) {
+            NSUInteger rand = arc4random_uniform(25)+25;
+            [parms addObject:[NSNumber numberWithUnsignedInteger:rand]];
+        }];
+    }
+    NSLog(@"multiply %@ = %@", parms, [self.multiply resultForTheseParamaters:parms]);
+    
     
     self.testObject = [KibbleVMKode createNewKibbleInstance];
     [self.testObject setKibbleKodeAsNativeVMScript:@"square(7) * multiply (1,2)"];

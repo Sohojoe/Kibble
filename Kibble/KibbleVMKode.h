@@ -8,11 +8,12 @@
 
 #import "KibbleVMObject.h"
 
+@class KibbleVMTalk;
+
 @protocol KibbleVMKodekExport  <KibbleVMObjectExport>
 @property (nonatomic, strong,readonly) id result;           // reading this runs the kode
 -(void)setKibbleKodeAsNativeVMScript:(id)thisKibbleKode;    // this sets the kode
 @end
-
 
 @interface KibbleVMKode : KibbleVMObject <KibbleVMKodekExport>
 
