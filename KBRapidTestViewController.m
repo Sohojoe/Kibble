@@ -156,54 +156,22 @@
                      NSLog(@"%@ wasClicked", dataObject);
                  }];
 
+    NSString* longString = @"Goodbye crewl world - it is with great regreat that I find myself typing such a long line of text. But it is with great pleasue that I see that system seams to handle it";
+    __block NSUInteger idx = 0;
     newTile = [self.tileSystem newTile];
-    newTile.display = @"Goodbye\nlots\nof\lines";
+    newTile.display = longString;
     newTile.dataObject = self.testObject;
     [newTile blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
         NSLog(@"%@ wasClicked", dataObject);
+        idx++;
+        if (idx>= longString.length) {
+            idx = 1;
+        }
+        newTile.display = [longString substringToIndex:idx];
+        
     }];
 
-    
-    
-/*
-    self.oldSquare = [KibbleTalk createNewKibbleInstanceWithName:@"oldSquare"];
-    [self.oldSquare addKibbleTalkParamater:@5 withSyntax:@"x" andDescription:nil];
-    [self.oldSquare addKibbleKode:@"x"];
-    [self.oldSquare addKibbleKode:@"*"];
-    [self.oldSquare addKibbleKode:@"x"];
-    NSLog(@"%@",self.oldSquare.result);
 
-    // display the test kibbles
-    (void)[[KBEditorKibbleViewContoller alloc]initForThisKibble:self.kibbleTalkFunction
-                                                             at:CGPointMake(200, 200)
-                                                          after:0.0
-                                                  addToParentVC:self
-                                                       maxWidth:256.0
-                                               blockWhenClicked:^(Kibble *thisKibble) {
-                                                   NSLog(@"wasClicked");
-                                               }];
-*/
-/*
-    self.testNumber = [KibbleTalk createNewKibbleInstance];
-    //[self.testNumber addKibbleKode:@"27"];
-    //[self.testNumber addKibbleKode:@"*"];
-    //[self.testNumber addKibbleKode:@"3"];
-    [self.testNumber addKibbleKode:self.square];
-    [self.testNumber addKibbleKode:@"7"];
-    NSLog(@"%@",self.testNumber.result);
-
-    
-    
-    (void)[[KBEditorKibbleViewContoller alloc]initForThisKibble:self.testNumber
-                                                   at:CGPointMake(400,400)
-                                                after:0.4
-                                        addToParentVC:self
-                                             maxWidth:256.0
-                                     blockWhenClicked:^(Kibble *thisKibble) {
-                                         NSLog(@"numberClicked");
-                                     }];
-*/
-    //[KBNumberType debugPrintTypes];
 }
 
 

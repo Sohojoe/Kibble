@@ -20,6 +20,7 @@
 
 @implementation KETile
 @synthesize display;
+@synthesize selected;
 
 -(void)blockWhenClicked:(void (^)(id dataObject, KETile* tileThatWasClicked))wasClickedBlock{
     self.callWhenClickedBlock = wasClickedBlock;
@@ -50,11 +51,19 @@
 
 
 //----------------------------------------------
+-(void)removeOurTextLabel{
+    if (self.ourTitleLable) {
+        [self.ourTitleLable removeFromSuperview];
+        self.ourTitleLable = nil;
+    }
+}
+
 -(void)setDisplayWithString:(NSString*)thisString{
     if ([thisString class] != [NSString class]) {
         //make a string of it
         thisString = [NSString stringWithFormat:@"%@",thisString];
     }
+    [self removeOurTextLabel];
     
     BOOL mutiLine;
     NSString *lowerName = [thisString lowercaseString];
@@ -64,7 +73,12 @@
         mutiLine = YES;
     }
     
-    
+    CGRect frame = self.frame;
+    frame.origin.x = 0;
+    frame.origin.y = 0;
+    //frame.size.width *=0.5;
+    //frame.size.height *=0.5;
+    self.ourTitleLable = [[UILabel alloc] initWithFrame:frame];
     
     UIColor *color = [UIColor colorWithRed:(72.0/255.0) green:(118.0/255.0) blue:(150.0/255.0) alpha:1.0];
     UIColor *selectedColor = [UIColor colorWithRed:(145.0/255.0) green:(184.0/255.0) blue:(214.0/255.0) alpha:1.0];
@@ -73,31 +87,59 @@
     [self setTitleColor:selectedColor forState:UIControlStateSelected];
     [self setTitleColor:selectedColor forState:UIControlStateHighlighted];
     [self setTitleShadowColor:[UIColor colorWithRed:0.62745*0.25 green:0.6*0.25 blue:0.59375*0.25 alpha:1.0] forState:UIControlStateNormal];
-    [self setTitle:thisString forState:UIControlStateNormal];
+    //[self setTitle:thisString forState:UIControlStateNormal];
     
-    CGFloat fontScale = self.frame.size.width;
-    self.titleLabel.adjustsFontSizeToFitWidth = YES;
-    self.titleLabel.minimumScaleFactor = 0.005;
-    self.titleLabel.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
-    //self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    
+    //self.ourTitleLable = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, frame.size.width-100, 100)];
+    //self.ourTitleLable.font = [UIFont boldSystemFontOfSize:24.0];
+    self.ourTitleLable.textColor = color;
+    self.ourTitleLable.highlightedTextColor = selectedColor;
+    //self.ourTitleLable.highlighted = YES;
+    self.ourTitleLable.text = thisString;
+    //self.ourTitleLable.lineBreakMode = NSLineBreakByTruncatingTail;
+    
+    self.ourTitleLable.adjustsFontSizeToFitWidth = YES;
+    self.ourTitleLable.minimumScaleFactor = 0.1;
+    self.ourTitleLable.textAlignment = NSTextAlignmentCenter;
+    float fontScale = self.frame.size.width;
 
     if (mutiLine) {
-        self.titleLabel.numberOfLines = 0;
-        [self.titleLabel setFont:[UIFont fontWithName:@"Arial" size:fontScale/4]];
+        self.ourTitleLable.numberOfLines = 0;
+        [self.ourTitleLable setFont:[UIFont fontWithName:@"Arial" size:fontScale/6]];
     } else {
-        CGFloat fontSize = fontScale;
-/*        if (thisString.length ==2) {
-            fontSize = fontScale/2 + fontScale/4;
-        } else if (thisString.length >=3) {
-            fontSize = fontScale/4;
+        // figure out ideal chars per line based on scaling
+        NSUInteger charsPerLine = self.frame.size.width / 8;
+        
+        if (self.ourTitleLable.text.length <charsPerLine) {
+            // single line
+            self.ourTitleLable.numberOfLines = 1;
+            // in center, wrap at words
+            self.ourTitleLable.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
+            //self.ourTitleLable.lineBreakMode = NSLineBreakByWordWrapping;
+        } else {
+            // split to multiple lines
+            self.ourTitleLable.numberOfLines = (self.ourTitleLable.text.length / charsPerLine)+1;
+            // in center
+            self.ourTitleLable.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
         }
-*/
-        [self.titleLabel setFont:[UIFont fontWithName:@"Arial" size:fontSize]];
+        
+        float fontSize = fontScale * 1.0;
+/*        if (self.ourTitleLable.text.length ==2 ) {
+            fontSize = fontScale * 0.85;
+        } else if (self.ourTitleLable.text.length ==3 ) {
+            fontSize = fontScale * 0.75;
+        } else if (self.ourTitleLable.text.length ==4 ) {
+            fontSize = fontScale * 0.6;
+        } else if (self.ourTitleLable.text.length >=5 ) {
+            fontSize = fontScale /6;
+        }
+*/        [self.ourTitleLable setFont:[UIFont fontWithName:@"Arial" size:fontSize]];
     }
-    [self.titleLabel sizeToFit];
+    [self addSubview:self.ourTitleLable];
+    //[self sizeToFit];
     
     // set position
-    CGRect frame = self.frame;
+    frame = self.frame;
     frame.origin.x = self.position.x - (frame.size.width/2);
     frame.origin.y = self.position.y - (frame.size.height/2);
     self.frame = frame;
@@ -115,6 +157,8 @@
     [self.parentViewController.view addSubview:self];
 }
 -(void)setDisplayWithImage:(UIImage*)thisImage{
+
+    [self removeOurTextLabel];
 
     CGRect oldFrame = self.frame;
 
@@ -161,6 +205,8 @@
     [super touchesEnded:touches withEvent:event];
     for (UITouch *touch in touches) {
         if (touch.phase == UITouchPhaseEnded) {
+
+            
             // if touch is still within bounds
             UITouch *touch = [[event allTouches] anyObject];
             CGPoint location = [touch locationInView:self];
@@ -181,6 +227,16 @@
         }
     }
 }
+
+
+// handle our label for highlighting
+-(void)setHighlighted:(BOOL)newHighlightedState{
+    [super setHighlighted:newHighlightedState];
+    
+    self.ourTitleLable.highlighted  = newHighlightedState;
+    
+}
+
 
 //----------------------------------------------------------------------
 //-- inputs
