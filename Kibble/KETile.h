@@ -8,24 +8,20 @@
 
 #import <Foundation/Foundation.h>
 
+@class KETileSystem;
+
 @interface KETile : UIButton
 -(void)dismiss;
-@property (nonatomic, readonly) CGPoint position;
+@property (nonatomic) CGPoint position;
+@property (nonatomic, strong) id dataObject; // pass through object
+@property (nonatomic, strong) id display;   // content to display support UIImage, NSString, id as str
+@property (nonatomic, strong) KETileSystem *parentTileSystem;
 
-+(KETile*)tileWithImage:(UIImage*)thisImage
-                     at:(CGPoint)pos
-                  after:(float)delay
-          addToParentVC:(UIViewController *)thisParentVC
-             dataObject:(id)thisDataObject
-               maxWidth:(float)maxWidth
-       blockWhenClicked:(void (^)(id dataObject, KETile* tileThatWasClicked))wasClickedBlock;
+-(void)blockWhenClicked:(void (^)(id dataObject, KETile* tileThatWasClicked))wasClickedBlock;
+-(void)setDisplayWithImage:(UIImage*)thisImage;
+-(void)setDisplayWithString:(NSString*)thisString;
 
-+(KETile*)tileWithString:(NSString*)thisString
-                      at:(CGPoint)pos
-                   after:(float)delay
-           addToParentVC:(UIViewController *)thisParentVC
-              dataObject:(id)thisDataObject
-                maxWidth:(float)maxWidth
-        blockWhenClicked:(void (^)(id dataObject, KETile* tileThatWasClicked))wasClickedBlock;
-
+// animations
+-(void)addPopAnimation;
+-(void)addAppearAnimation:(float)delay;
 @end

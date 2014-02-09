@@ -55,7 +55,7 @@
 		18CC494118A5C7CC0067D18A /* VMKode.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC494018A5C7CC0067D18A /* VMKode.m */; };
 		18CC494418A693B70067D18A /* VMTalkPhase.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC494318A693B70067D18A /* VMTalkPhase.m */; };
 		18CC494718A6C44F0067D18A /* KETile.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC494618A6C44F0067D18A /* KETile.m */; };
-		18D7421E18A0784C001F8586 /* KBEditorKibbleViewContoller.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D7421D18A0784C001F8586 /* KBEditorKibbleViewContoller.m */; };
+		18CC494A18A6CDCE0067D18A /* KETileSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC494918A6CDCE0067D18A /* KETileSystem.m */; };
 		18D7422418A1961B001F8586 /* MathHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D7422318A1961B001F8586 /* MathHelper.m */; };
 		18D7422718A199E5001F8586 /* KibbleTalk.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D7422618A199E5001F8586 /* KibbleTalk.m */; };
 /* End PBXBuildFile section */
@@ -163,8 +163,8 @@
 		18CC494318A693B70067D18A /* VMTalkPhase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VMTalkPhase.m; sourceTree = "<group>"; };
 		18CC494518A6C44F0067D18A /* KETile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KETile.h; sourceTree = "<group>"; };
 		18CC494618A6C44F0067D18A /* KETile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KETile.m; sourceTree = "<group>"; };
-		18D7421C18A0784C001F8586 /* KBEditorKibbleViewContoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBEditorKibbleViewContoller.h; sourceTree = "<group>"; };
-		18D7421D18A0784C001F8586 /* KBEditorKibbleViewContoller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBEditorKibbleViewContoller.m; sourceTree = "<group>"; };
+		18CC494818A6CDCE0067D18A /* KETileSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KETileSystem.h; sourceTree = "<group>"; };
+		18CC494918A6CDCE0067D18A /* KETileSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KETileSystem.m; sourceTree = "<group>"; };
 		18D7422218A1961B001F8586 /* MathHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathHelper.h; sourceTree = "<group>"; };
 		18D7422318A1961B001F8586 /* MathHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathHelper.m; sourceTree = "<group>"; };
 		18D7422518A199E5001F8586 /* KibbleTalk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KibbleTalk.h; sourceTree = "<group>"; };
@@ -390,10 +390,10 @@
 		18D7421B18A07810001F8586 /* Kibble Editor */ = {
 			isa = PBXGroup;
 			children = (
+				18CC494818A6CDCE0067D18A /* KETileSystem.h */,
+				18CC494918A6CDCE0067D18A /* KETileSystem.m */,
 				18CC494518A6C44F0067D18A /* KETile.h */,
 				18CC494618A6C44F0067D18A /* KETile.m */,
-				18D7421C18A0784C001F8586 /* KBEditorKibbleViewContoller.h */,
-				18D7421D18A0784C001F8586 /* KBEditorKibbleViewContoller.m */,
 			);
 			name = "Kibble Editor";
 			path = Kibble;
@@ -501,7 +501,6 @@
 			files = (
 				1854EEB6189D717E00C2F74A /* AudioWrapper.m in Sources */,
 				1854EEDB189D754D00C2F74A /* SCScore.m in Sources */,
-				18D7421E18A0784C001F8586 /* KBEditorKibbleViewContoller.m in Sources */,
 				18CC492B18A48A720067D18A /* JSRnD.m in Sources */,
 				1854EEB7189D717E00C2F74A /* SoundBank.m in Sources */,
 				1854EEB8189D717E00C2F74A /* SoundBankSpeachSample.m in Sources */,
@@ -537,6 +536,7 @@
 				1854EEBE189D717E00C2F74A /* Local.m in Sources */,
 				18D7422418A1961B001F8586 /* MathHelper.m in Sources */,
 				1854EECD189D754100C2F74A /* SCDatabase.m in Sources */,
+				18CC494A18A6CDCE0067D18A /* KETileSystem.m in Sources */,
 				1854EEBA189D717E00C2F74A /* Narrator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

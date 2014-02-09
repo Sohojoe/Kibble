@@ -10,6 +10,6 @@
 
 @implementation JSRnD
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@: %d", self.name, self.number];
+    return [NSString stringWithFormat:@"%@: %ld", self.name, (long)self.number];
 }
 @end

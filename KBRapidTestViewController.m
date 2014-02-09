@@ -9,7 +9,7 @@
 #import "KBRapidTestViewController.h"
 #import "KBDatabase.h"
 //#import "Kibble.h"
-#import "KETile.h"
+#import "KETileSystem.h"
 //#import "KibbleTalk.h"
 //@import JavaScriptCore;
 #import "JSRnD.h"
@@ -20,9 +20,9 @@
 //@property (nonatomic, strong) KibbleTalk *testNumber;
 //@property (nonatomic, strong) KibbleTalk *oldSquare;
 
+@property (nonatomic, strong) KETileSystem *tileSystem;
 @property (nonatomic, strong) VMTalk *square;
 @property (nonatomic, strong) VMTalk *multiply;
-
 @property (nonatomic, strong) VMKode *testObject;
 
 @end
@@ -146,26 +146,23 @@
     [self.testObject setKibbleKodeAsNativeVMScript:@"square(7) * multiply (1,2)"];
     NSLog(@"testObject = %@", self.testObject.result);
   
+    [KETileSystem defaultTileSystem].parentViewController = self;
     
-    (void)[KETile tileWithString:self.testObject.result
-                               at:CGPointMake(200, 200)
-                            after:0.0
-                    addToParentVC:self
-                       dataObject:self.testObject
-                         maxWidth:256.0
-                 blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
+    self.tileSystem = [KETileSystem tileSystemWithSquareTileSize:128.0 parentVC:self];
+    KETile *newTile = [self.tileSystem newTile];
+    newTile.display = self.testObject.result;
+    newTile.dataObject = self.testObject;
+    [newTile blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
                      NSLog(@"%@ wasClicked", dataObject);
                  }];
 
-    (void)[KETile tileWithString:@"Goodbye"
-                              at:CGPointMake(400,400)
-                           after:0.0
-                   addToParentVC:self
-                      dataObject:nil
-                        maxWidth:256.0
-                blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
-                    NSLog(@"%@ wasClicked", dataObject);
-                }];
+    newTile = [self.tileSystem newTile];
+    newTile.display = @"Goodbye\nlots\nof\lines";
+    newTile.dataObject = self.testObject;
+    [newTile blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
+        NSLog(@"%@ wasClicked", dataObject);
+    }];
+
     
     
 /*

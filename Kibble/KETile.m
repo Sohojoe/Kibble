@@ -7,95 +7,54 @@
 //
 
 #import "KETile.h"
+#import "KETileSystem.h"
+
+
 @interface KETile ()
 @property (nonatomic, strong) UIViewController *parentViewController;
 -(void)startTapInput;
 -(void)wasTapped;
 @property (nonatomic, strong) void (^ callWhenClickedBlock) (id, KETile*);
-@property (nonatomic, strong) id dataObject; // pass through object
+@property (nonatomic, strong) UILabel *ourTitleLable;
 @end
 
 @implementation KETile
+@synthesize display;
 
+-(void)blockWhenClicked:(void (^)(id dataObject, KETile* tileThatWasClicked))wasClickedBlock{
+    self.callWhenClickedBlock = wasClickedBlock;
+}
+
+-(id)display{
+    return display;
+}
+-(void)setDisplay:(id)displayThis{
+    if ([displayThis isKindOfClass:([UIImage class])]) {
+        // it's an image
+        [self setDisplayWithImage:displayThis];
+    } else {
+        // display as string
+        [self setDisplayWithString:displayThis];
+    }
+    
+}
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        self.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.1];
     }
     return self;
 }
 
-+(KETile*)tileWithImage:(UIImage*)thisImage
-                     at:(CGPoint)pos
-                  after:(float)delay
-          addToParentVC:(UIViewController *)thisParentVC
-             dataObject:(id)thisDataObject
-               maxWidth:(float)maxWidth
-       blockWhenClicked:(void (^)(id dataObject, KETile* tileThatWasClicked))wasClickedBlock{
-    
-    KETile* tile;
-    tile = [[KETile alloc] initTileWithImage:thisImage
-                                          at:pos
-                                       after:delay
-                               addToParentVC:thisParentVC
-                                  dataObject:thisDataObject
-                                    maxWidth:maxWidth
-                            blockWhenClicked:wasClickedBlock];
-    return tile;
-}
 
-+(KETile*)tileWithString:(NSString*)thisString
-                      at:(CGPoint)pos
-                   after:(float)delay
-           addToParentVC:(UIViewController *)thisParentVC
-              dataObject:(id)thisDataObject
-                maxWidth:(float)maxWidth
-        blockWhenClicked:(void (^)(id dataObject, KETile* tileThatWasClicked))wasClickedBlock{
-    
-    KETile* tile = nil;
-    tile = [[KETile alloc] initTileWithString:thisString
-                                           at:pos
-                                        after:delay
-                                addToParentVC:thisParentVC
-                                   dataObject:thisDataObject
-                                     maxWidth:maxWidth
-                             blockWhenClicked:wasClickedBlock];
-    return tile;
-}
-
--(KETile*)initTileWithString:(NSString*)thisString
-                          at:(CGPoint)pos
-                       after:(float)delay
-               addToParentVC:(UIViewController *)thisParentVC
-                  dataObject:(id)thisDataObject
-                    maxWidth:(float)maxWidth
-            blockWhenClicked:(void (^)(id dataObject, KETile* tileThatWasClicked))wasClickedBlock{
-
-    
-    // init object
-    CGRect frame = CGRectMake(0, 0, 512, 512);
-    self = [[[self class] alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-    if (self == nil) return self; // early exit on error
-
-    self.dataObject = thisDataObject;
-    
+//----------------------------------------------
+-(void)setDisplayWithString:(NSString*)thisString{
     if ([thisString class] != [NSString class]) {
         //make a string of it
         thisString = [NSString stringWithFormat:@"%@",thisString];
     }
-    
-    
-    self.parentViewController = thisParentVC;
-    
-    if (maxWidth) {
-        if (frame.size.width >maxWidth) {
-            float rescale = maxWidth/frame.size.width;
-            frame.size.width *= rescale;
-            frame.size.height *= rescale;
-        }
-    }
-    
     
     BOOL mutiLine;
     NSString *lowerName = [thisString lowercaseString];
@@ -105,6 +64,8 @@
         mutiLine = YES;
     }
     
+    
+    
     UIColor *color = [UIColor colorWithRed:(72.0/255.0) green:(118.0/255.0) blue:(150.0/255.0) alpha:1.0];
     UIColor *selectedColor = [UIColor colorWithRed:(145.0/255.0) green:(184.0/255.0) blue:(214.0/255.0) alpha:1.0];
     
@@ -113,137 +74,88 @@
     [self setTitleColor:selectedColor forState:UIControlStateHighlighted];
     [self setTitleShadowColor:[UIColor colorWithRed:0.62745*0.25 green:0.6*0.25 blue:0.59375*0.25 alpha:1.0] forState:UIControlStateNormal];
     [self setTitle:thisString forState:UIControlStateNormal];
+    
+    CGFloat fontScale = self.frame.size.width;
+    self.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.titleLabel.minimumScaleFactor = 0.005;
+    self.titleLabel.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
+    //self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+
     if (mutiLine) {
         self.titleLabel.numberOfLines = 0;
-        [self.titleLabel setFont:[UIFont fontWithName:@"Arial" size:64.0f]];
+        [self.titleLabel setFont:[UIFont fontWithName:@"Arial" size:fontScale/4]];
     } else {
-        CGFloat fontSize = 128.0f;
-        if (thisString.length ==2) {
-            fontSize = 96.0f;
+        CGFloat fontSize = fontScale;
+/*        if (thisString.length ==2) {
+            fontSize = fontScale/2 + fontScale/4;
         } else if (thisString.length >=3) {
-            fontSize = 64.0f;
+            fontSize = fontScale/4;
         }
-        
+*/
         [self.titleLabel setFont:[UIFont fontWithName:@"Arial" size:fontSize]];
     }
-    self.titleLabel.adjustsFontSizeToFitWidth = YES;
-    self.titleLabel.minimumScaleFactor = 0.1;
-    [self.titleLabel sizeThatFits:CGSizeMake(maxWidth, maxWidth)];
+    [self.titleLabel sizeToFit];
     
-    frame.origin.x = pos.x - (frame.size.width/2);
-    frame.origin.y = pos.y - (frame.size.height/2);
+    // set position
+    CGRect frame = self.frame;
+    frame.origin.x = self.position.x - (frame.size.width/2);
+    frame.origin.y = self.position.y - (frame.size.height/2);
     self.frame = frame;
     self.hidden = NO;
     
-    [self setAutoresizingMask:
+    // handle rotation and constraints
+    
+/*    [self setAutoresizingMask:
      UIViewAutoresizingFlexibleLeftMargin |
      UIViewAutoresizingFlexibleRightMargin |
      UIViewAutoresizingFlexibleBottomMargin |
      UIViewAutoresizingFlexibleTopMargin];
+*/
     
-    [thisParentVC.view addSubview:self];
-    
-    if (delay) {
-        [self appearAnimation:delay];
-    } else {
-        [self addPopAnimation];
-    }
-    
-    self.callWhenClickedBlock = wasClickedBlock;
-    
-    
-    return self;
+    [self.parentViewController.view addSubview:self];
 }
+-(void)setDisplayWithImage:(UIImage*)thisImage{
 
--(KETile*)initTileWithImage:(UIImage*)thisImage
-                         at:(CGPoint)pos
-                      after:(float)delay
-              addToParentVC:(UIViewController *)thisParentVC
-                 dataObject:(id)thisDataObject
-                   maxWidth:(float)maxWidth
-           blockWhenClicked:(void (^)(id dataObject, KETile* tileThatWasClicked))wasClickedBlock{
+    CGRect oldFrame = self.frame;
 
     
-    // init object
-    UIImage *image = thisImage;
-    self = [[[self class] alloc] initWithFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
-    if (self == nil) return self; // early exit on error
-    
-    self.parentViewController = thisParentVC;
-
-    self.dataObject = thisDataObject;
-    
-    [self setImage:image forState:UIControlStateNormal];
+    [self setImage:thisImage forState:UIControlStateNormal];
     CGRect frame = self.frame;
-    if (frame.size.width >maxWidth) {
-        float rescale = maxWidth/frame.size.width;
+    if (frame.size.width >oldFrame.size.width) {
+        float rescale = oldFrame.size.width/frame.size.width;
         frame.size.width *= rescale;
         frame.size.height *= rescale;
     }
-    frame.origin.x = pos.x - (frame.size.width/2);
-    frame.origin.y = pos.y - (frame.size.height/2);
+    frame.origin.x = self.position.x - (frame.size.width/2);
+    frame.origin.y = self.position.y - (frame.size.height/2);
     self.frame = frame;
     self.hidden = NO;
     
-    [self setAutoresizingMask:
+/*    [self setAutoresizingMask:
      UIViewAutoresizingFlexibleLeftMargin |
      UIViewAutoresizingFlexibleRightMargin |
      UIViewAutoresizingFlexibleBottomMargin |
      UIViewAutoresizingFlexibleTopMargin];
-    
+*/
     [self.parentViewController.view addSubview:self];
-    
-    if (delay) {
-        [self appearAnimation:delay];
-    } else {
-        [self addPopAnimation];
-    }
-    
-    self.callWhenClickedBlock = wasClickedBlock;
-    
-    
-    return self;
 }
 
-
+// overide position to handle the center
 -(CGPoint)position{
     CGPoint centerPosition = self.frame.origin;
     centerPosition.x += (self.frame.size.width/2);
     centerPosition.y += (self.frame.size.height/2);
     return centerPosition;
 }
-
--(void)appearAnimation:(float)delay{
-    // options
-    static UIViewAnimationOptions opt = 0
-    //+ UIViewAnimationOptionAllowUserInteraction
-    //+ UIViewAnimationOptionBeginFromCurrentState
-    //+ UIViewAnimationOptionOverrideInheritedDuration
-    //+ UIViewAnimationOptionRepeat
-    //+ UIViewAnimationOptionAutoreverse
-    + UIViewAnimationOptionCurveLinear
-    //+ UIViewAnimationOptionCurveEaseInOut
-    //+ UIViewAnimationOptionCurveEaseIn
-    //+ UIViewAnimationOptionCurveEaseOut
-    +0;
-    
-    // start state
-    self.alpha = 0.0;
-    
-    
-    [UIView animateWithDuration:1.33 delay:delay options:opt
-                     animations:
-     ^{
-         // target state
-         self.alpha = 1.0;
-         //CGAffineTransform t = fx.transform;
-         ////t = CGAffineTransformMakeRotation(16);
-         //t = CGAffineTransformScale(t, endScaleX, endScaleY);
-         //fx.transform = t;
-     }
-                     completion:nil
-     ];
+-(void)setPosition:(CGPoint)centerPosition{
+    CGRect frame = self.frame;
+    frame.origin = centerPosition;
+    frame.origin.x -= (self.frame.size.width/2);
+    frame.origin.y -= (self.frame.size.height/2);
+    self.frame = frame;
 }
+
+
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     [super touchesEnded:touches withEvent:event];
@@ -270,6 +182,8 @@
     }
 }
 
+//----------------------------------------------------------------------
+//-- inputs
 
 -(void)startTapInput{
 }
@@ -278,6 +192,10 @@
     //[[Narrator sharedNarrator] say:[[SoundBank activeSoundBank] audioElementFor:self.element]];
     if (self.callWhenClickedBlock) self.callWhenClickedBlock(self.dataObject, self);
 }
+
+
+//----------------------------------------------------------------------
+//-- dismiss tile
 -(void)dismiss{
     // options
     static UIViewAnimationOptions opt = UIViewAnimationOptionCurveEaseIn;
@@ -327,7 +245,41 @@
     
 }
 
--(void)addPopAnimation{
+//----------------------------------------------------------------------
+//-- animations
+
+-(void)addAppearAnimation:(float)delay{
+    // options
+    static UIViewAnimationOptions opt = 0
+    //+ UIViewAnimationOptionAllowUserInteraction
+    //+ UIViewAnimationOptionBeginFromCurrentState
+    //+ UIViewAnimationOptionOverrideInheritedDuration
+    //+ UIViewAnimationOptionRepeat
+    //+ UIViewAnimationOptionAutoreverse
+    + UIViewAnimationOptionCurveLinear
+    //+ UIViewAnimationOptionCurveEaseInOut
+    //+ UIViewAnimationOptionCurveEaseIn
+    //+ UIViewAnimationOptionCurveEaseOut
+    +0;
+    
+    // start state
+    self.alpha = 0.0;
+    
+    
+    [UIView animateWithDuration:1.33 delay:delay options:opt
+                     animations:
+     ^{
+         // target state
+         self.alpha = 1.0;
+         //CGAffineTransform t = fx.transform;
+         ////t = CGAffineTransformMakeRotation(16);
+         //t = CGAffineTransformScale(t, endScaleX, endScaleY);
+         //fx.transform = t;
+     }
+                     completion:nil
+     ];
+    
+}-(void)addPopAnimation{
     
     // options
     static UIViewAnimationOptions opt = UIViewAnimationOptionOverrideInheritedOptions | UIViewAnimationOptionCurveLinear;
