@@ -215,7 +215,7 @@ NSString *descriptionForFSMessage(id object)
     return @"nil"; 
   else if ((id)[object class]==object) // || object == (id)[NSObject classOrMetaclass])
   { 
-    return [NSString stringWithFormat:@"the class object %@", [object printString]];
+    return [NSString stringWithFormat:@"the class object %@", [object printString]]; 
   }
   else
     return [NSString stringWithFormat:@"an instance of %@",NSStringFromClass([object class])];

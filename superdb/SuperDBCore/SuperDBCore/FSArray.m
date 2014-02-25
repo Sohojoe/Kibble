@@ -334,11 +334,16 @@ typedef struct fs_objc_object {
 
 - (NSString *)descriptionWithLocale:(NSDictionary *)locale indent:(NSUInteger)level
 {
-  // fallback to printString (we may do something better in the future).
-  // Note: super's implementation is not used because it won't work if the array contains nil.
-  return [self printString];
+    if ([self respondsToSelector:@selector(printString)]) {
+    
+        // fallback to printString (we may do something better in the future).
+        // Note: super's implementation is not used because it won't work if the array contains nil.
+        return [self printString];
+    } else {
+        return [self debugDescription];
+    }
 }
-  
+
 - (void *)dataPtr
 {
   if (type != FS_ID) [self becomeArrayOfId];
