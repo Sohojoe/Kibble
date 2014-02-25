@@ -134,7 +134,17 @@
 	[self addRequestHandlerForResource:kSuperNetworkMessageResourceInterpreter requestHandler:^SuperNetworkMessage *(SuperNetworkMessage *request) {
 		
 		NSString *input = [[request body] objectForKey:kSuperNetworkMessageBodyInputKey];
-		FSInterpreterResult *result = [weakSelf interpreterResultForInput:input logResult:USE_LOGGING];
+
+		
+        // JoeBooth: Fix issue with F-Script using curly ' on text edits
+        // .... replace ‘ and ’ with '
+        input = [input stringByReplacingOccurrencesOfString:@"‘" withString:@"'"];
+        input = [input stringByReplacingOccurrencesOfString:@"’" withString:@"'"];
+        
+        
+        FSInterpreterResult *result = [weakSelf interpreterResultForInput:input logResult:USE_LOGGING];
+        
+        
 		
 		NSMutableDictionary *body = [@{} mutableCopy];
 		
