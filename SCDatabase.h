@@ -4,7 +4,7 @@
 //
 //  Created by Joe on 11/13/13.
 //  Copyright (c) 2013 Vidya Gamer, LLC. All rights reserved.
-//
+// 
 
 #import <Foundation/Foundation.h>
 #import "SCBattery.h"
