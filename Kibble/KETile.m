@@ -124,16 +124,7 @@
         }
         
         float fontSize = fontScale * 1.0;
-/*        if (self.ourTitleLable.text.length ==2 ) {
-            fontSize = fontScale * 0.85;
-        } else if (self.ourTitleLable.text.length ==3 ) {
-            fontSize = fontScale * 0.75;
-        } else if (self.ourTitleLable.text.length ==4 ) {
-            fontSize = fontScale * 0.6;
-        } else if (self.ourTitleLable.text.length >=5 ) {
-            fontSize = fontScale /6;
-        }
-*/        [self.ourTitleLable setFont:[UIFont fontWithName:@"Arial" size:fontSize]];
+        [self.ourTitleLable setFont:[UIFont fontWithName:@"Arial" size:fontSize]];
     }
     [self addSubview:self.ourTitleLable];
     //[self sizeToFit];

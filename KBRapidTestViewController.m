@@ -14,6 +14,7 @@
 //@import JavaScriptCore;
 #import "JSRnD.h"
 #import "KibbleVM.h"
+#import "KibbleV2.h"
 
 @interface KBRapidTestViewController ()
 //@property (nonatomic, strong) Kibble *hello;
@@ -24,7 +25,7 @@
 @property (nonatomic, strong) VMTalk *square;
 @property (nonatomic, strong) VMTalk *multiply;
 @property (nonatomic, strong) VMKode *testObject;
-
+@property (nonatomic, strong) KibbleV2 *testKibble;
 @end
 
 @implementation KBRapidTestViewController
@@ -41,6 +42,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+   // NSArray *fred = class_copyMethodList(UIView class,)
     
 	// Do any additional setup after loading the view.
     
@@ -107,17 +110,25 @@
     //self.testNumber.content = [NSDecimalNumber numberWithFloat:2.333];
     //self.testNumber.content = @2.333f;
 */
+    
+    self.testKibble = [[KibbleV2 alloc]init];
+    
     self.square = [VMTalk createNewKibbleInstanceWithName:@"square"];
     //[self.square addTalkToParamater:@"x" paramaterName:nil andDescription:nil];
     [self.square addPhaseWith:[VMTalkPhase phaseWithParamater:@"x"]];
     [self.square setKibbleKode:@"x * x"];
     NSLog(@"square = %@", [self.square resultForTheseParamaters:@[@3]]);
     
+    [self.testKibble.myKibbles addObject:self.square];
+    
     
     self.multiply = [VMTalk createNewKibbleInstanceWithName:@"multiply"];
     [self.multiply addPhaseWith:[VMTalkPhase phaseWithParamater:@"x" ofType:[NSNumber numberWithFloat:0.1]]];
     [self.multiply addPhaseWith:[VMTalkPhase phaseWithParamater:@"y" ofType:[NSNumber class] withName:@"by"]];
     [self.multiply setKibbleKode:@"x * y"];
+    
+    [self.testKibble.myKibbles addObject:self.multiply];
+
     
     NSLog(@"multiply = %@", [self.multiply resultForTheseParamaters:@[@3, @"5 * 5"]]);
     NSLog(@"multiply = %@", [self.multiply resultForTheseParamaters:@[@3, @"square(7)"]]);
@@ -144,11 +155,16 @@
     
     self.testObject = [VMKode createNewKibbleInstance];
     [self.testObject setKibbleKodeAsNativeVMScript:@"square(7) * multiply (1,2)"];
+    self.testObject.name = @"Sarah";
     NSLog(@"testObject = %@", self.testObject.result);
+    [self.testKibble.myKibbles addObject:self.testObject];
+
   
     [KETileSystem defaultTileSystem].parentViewController = self;
     
     self.tileSystem = [KETileSystem tileSystemWithSquareTileSize:128.0 parentVC:self];
+    [self.tileSystem editKibble:self.testKibble];
+    
     KETile *newTile = [self.tileSystem newTile];
     newTile.display = self.testObject.result;
     newTile.dataObject = self.testObject;
@@ -171,8 +187,41 @@
         
     }];
 
+    
+    newTile = [self.tileSystem newTile];
+    newTile.display = self.square.name;
+    newTile.dataObject = self.square;
+    [newTile blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
+        NSLog(@"%@ wasClicked", dataObject);
+    }];
+    
+    newTile = [self.tileSystem newTile];
+    newTile.display = self.multiply.name;
+    newTile.dataObject = self.multiply;
+    [newTile blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
+        NSLog(@"%@ wasClicked", dataObject);
+    }];
+    
+    newTile = [self.tileSystem newTile];
+    newTile.display = self.square;
+    newTile.dataObject = self.square;
+    [newTile blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
+        NSLog(@"%@ wasClicked", dataObject);
+    }];
+
+    newTile = [self.tileSystem newTile];
+    newTile.display = self.multiply;
+    newTile.dataObject = self.multiply;
+    [newTile blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
+        NSLog(@"%@ wasClicked", dataObject);
+    }];
+    
+    [self.tileSystem addWhatNextTile];
 
 }
+
+
+
 
 
 

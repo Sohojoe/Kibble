@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "KETile.h"
+#import "KETileLayer.h"
 
+@class KibbleV2;
 @interface KETileSystem : NSObject
 
 @property (nonatomic) CGFloat tileSize;               // assumes square size
@@ -18,8 +20,18 @@
 
 +(KETileSystem*)tileSystemWithSquareTileSize:(float)thisTileSize parentVC:(id)thisParentViewController;
 
--(KETile*)newTile;                  // create a new tile in the logical space
--(KETile*)newTileOnNewLine;         // ... on the next line
+-(void)editKibble:(KibbleV2*)thisKibble;
 
+-(KETile*)newTile;                  // create a new tile in the logical space
+
+-(void)newLine;                     // move logic space to begining of next line
+-(void)newLineAndIndent;            // ... and increase indent
+-(void)popIndent;                   // decrease indent
+-(void)resetIndent;                 // reset indent
+
+-(KETile*)addWhatNextTile;
+
+// theseOptions = array of callbacks to init tiles
+-(void)subLayerAround:(KETile*)thisTile withOptions:(NSArray*)theseOptions;
 
 @end

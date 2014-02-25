@@ -17,5 +17,9 @@
 
 @interface VMKode : VMObject <VMKodekExport>
 
+//-(void)enumerateLinesOfKode;
+//enumerateLine
+
+
 @end
 

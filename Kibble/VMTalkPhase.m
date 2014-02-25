@@ -34,6 +34,15 @@
     return (newPhase);
 }
 
+-(NSString*)description{
+    NSString *str;
+    if (self.name) {
+        str = [NSString stringWithFormat:@"%@ %@", self.name, self.paramater];
+    } else {
+        str = self.paramater;
+    }
+    return str;
+}
 
 -(NSMutableArray*)supportedDataTypes{
     if (supportedDataTypes == nil) {

@@ -44,6 +44,18 @@
     return orderedParamatersKeys;
 }
 
+-(NSString*)description{
+    __block NSString* str = @"";
+    
+    str = self.name;
+    [self.orderedParamatersKeys enumerateObjectsUsingBlock:^(NSString *key, NSUInteger idx, BOOL *stop) {
+        VMTalkPhase *thisPhase = [self.paramaters objectForKey:key];
+        str = [NSString stringWithFormat:@"%@ %@", str, thisPhase.description];
+    }];
+    
+    return str;
+}
+
 // call the function with data
 -(id)resultForTheseParamaters:(NSArray*)params{
     id thisResult = nil;

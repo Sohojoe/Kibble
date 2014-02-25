@@ -9,17 +9,54 @@
 #import "KBAppDelegate.h"
 #import "BackEnd.h"
 
+// For SuperDB
+//#import </Users/apple/development/Kibble/superdb/SuperDBCore/SuperDBCore/SuperDBCore.h>
+#import <SuperDBCore/SuperDBCore/SuperDBCore.h>
+@import CFNetwork;
+@import CoreData;
+@import Security;
+@import UIKit;
+@import Foundation;
+@import CoreGraphics;
+
+
+
 @import SystemConfiguration;
 @import UIKit;
 @import Foundation;
 
-@implementation KBAppDelegate
+@implementation KBAppDelegate {
+    SuperInterpreterService *_interpreterService;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
     
     [[BackEnd sharedBackEnd] oneTimeSetup:launchOptions];
+    
+    
+    // For SuperDB
+    _interpreterService = [SuperInterpreterService new];
+	if ([_interpreterService startServer]) {
+		[_interpreterService publishServiceWithCallback:^(id success, NSDictionary *errorDictionary) {
+			if (errorDictionary) {
+				NSLog(@"There was a problem starting the SuperDebugger service: %@", errorDictionary);
+				return;
+			}
+			
+			// The service is now on the network, ready to run interpreter events.
+		}];
+	}
+	[_interpreterService setCurrentSelfPointerBlock:^id {
+		// Return whatever you'd like to be pointed to by `self`.
+		// This might be whatever your topmost view controller is
+		// How you get it is up to you!
+		// return _navigationController.topViewController;
+		return self.window.rootViewController;
+	}];
+
+    
     
     return YES;
 }
