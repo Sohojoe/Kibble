@@ -1,0 +1,471 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1835F0D618C62AE6006CABCE /* libclang.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1835F0D518C62AE6006CABCE /* libclang.dylib */; };
+		1840136318C9437E00CC9E28 /* CXCursorObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1840136218C9437E00CC9E28 /* CXCursorObjC.m */; };
+		1840136618CB6E3300CC9E28 /* CXTypeObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1840136518CB6E3300CC9E28 /* CXTypeObjC.m */; };
+		1840136C18CB7D5100CC9E28 /* CXCursorObjC+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 1840136B18CB7D5100CC9E28 /* CXCursorObjC+Private.m */; };
+		1840136F18CB812900CC9E28 /* CXTypeObjC+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 1840136E18CB812900CC9E28 /* CXTypeObjC+Private.m */; };
+		1840137218CBE52F00CC9E28 /* CXCommentObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1840137118CBE52F00CC9E28 /* CXCommentObjC.m */; };
+		1840137518CBE55700CC9E28 /* CXCommentObjC+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 1840137418CBE55700CC9E28 /* CXCommentObjC+Private.m */; };
+		1840137818CC040100CC9E28 /* FilesToIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 1840137718CC040100CC9E28 /* FilesToIndex.m */; };
+		984D0898155ED94C000E42B5 /* FZASourceDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 984D0897155ED94C000E42B5 /* FZASourceDefinition.m */; };
+		984D089C155EDC21000E42B5 /* FZASourceDefinition+TreeSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 984D089B155EDC21000E42B5 /* FZASourceDefinition+TreeSupport.m */; };
+		986F22991555654400CD67A3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 986F22981555654400CD67A3 /* Cocoa.framework */; };
+		986F22A31555654400CD67A3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 986F22A11555654400CD67A3 /* InfoPlist.strings */; };
+		986F22A51555654400CD67A3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 986F22A41555654400CD67A3 /* main.m */; };
+		986F22A91555654400CD67A3 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 986F22A71555654400CD67A3 /* Credits.rtf */; };
+		986F22AC1555654400CD67A3 /* FZAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 986F22AB1555654400CD67A3 /* FZAAppDelegate.m */; };
+		986F22AF1555654500CD67A3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 986F22AD1555654500CD67A3 /* MainMenu.xib */; };
+		986F22BA155565D700CD67A3 /* FZAClassDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 986F22B9155565D700CD67A3 /* FZAClassDefinition.m */; };
+		986F22BD15556CFC00CD67A3 /* FZAMethodDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 986F22BC15556CFC00CD67A3 /* FZAMethodDefinition.m */; };
+		98720B0A1560075F0062DF64 /* FZASourceFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 98720B091560075F0062DF64 /* FZASourceFile.m */; };
+		987441C31557F5F200AE5D2D /* FZAPropertyDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 987441C21557F5F200AE5D2D /* FZAPropertyDefinition.m */; };
+		987441C71557F67C00AE5D2D /* FZAClassParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 987441C61557F67C00AE5D2D /* FZAClassParser.m */; };
+		987441CD155804F000AE5D2D /* FZAMethodPrintingParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 987441CC155804EF00AE5D2D /* FZAMethodPrintingParserDelegate.m */; };
+		987441CD155804F000AE5D2F /* FZAModelBuildingParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 987441CD155804F000AE5D2E /* FZAModelBuildingParserDelegate.m */; };
+		987441CD155804F000AE5D32 /* FZAClassGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 987441CD155804F000AE5D31 /* FZAClassGroup.m */; };
+		987441DC1558186C00AE5D2D /* FZAClassGroup+TreeSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 987441DB1558186C00AE5D2D /* FZAClassGroup+TreeSupport.m */; };
+		987441E01558190400AE5D2D /* FZAClassDefinition+TreeSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 987441DF1558190400AE5D2D /* FZAClassDefinition+TreeSupport.m */; };
+		987441E3155819F500AE5D2D /* FZAMethodDefinition+TreeSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 987441E2155819F500AE5D2D /* FZAMethodDefinition+TreeSupport.m */; };
+		987441E615581A9600AE5D2D /* FZAPropertyDefinition+TreeSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 987441E515581A9600AE5D2D /* FZAPropertyDefinition+TreeSupport.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1835F0D518C62AE6006CABCE /* libclang.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libclang.dylib; path = Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib; sourceTree = DEVELOPER_DIR; };
+		1840136118C9437E00CC9E28 /* CXCursorObjC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXCursorObjC.h; sourceTree = "<group>"; };
+		1840136218C9437E00CC9E28 /* CXCursorObjC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXCursorObjC.m; sourceTree = "<group>"; };
+		1840136418CB6E3300CC9E28 /* CXTypeObjC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXTypeObjC.h; sourceTree = "<group>"; };
+		1840136518CB6E3300CC9E28 /* CXTypeObjC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXTypeObjC.m; sourceTree = "<group>"; };
+		1840136A18CB7D5100CC9E28 /* CXCursorObjC+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CXCursorObjC+Private.h"; sourceTree = "<group>"; };
+		1840136B18CB7D5100CC9E28 /* CXCursorObjC+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CXCursorObjC+Private.m"; sourceTree = "<group>"; };
+		1840136D18CB812900CC9E28 /* CXTypeObjC+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CXTypeObjC+Private.h"; sourceTree = "<group>"; };
+		1840136E18CB812900CC9E28 /* CXTypeObjC+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CXTypeObjC+Private.m"; sourceTree = "<group>"; };
+		1840137018CBE52F00CC9E28 /* CXCommentObjC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXCommentObjC.h; sourceTree = "<group>"; };
+		1840137118CBE52F00CC9E28 /* CXCommentObjC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXCommentObjC.m; sourceTree = "<group>"; };
+		1840137318CBE55700CC9E28 /* CXCommentObjC+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CXCommentObjC+Private.h"; sourceTree = "<group>"; };
+		1840137418CBE55700CC9E28 /* CXCommentObjC+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CXCommentObjC+Private.m"; sourceTree = "<group>"; };
+		1840137618CC040100CC9E28 /* FilesToIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilesToIndex.h; sourceTree = "<group>"; };
+		1840137718CC040100CC9E28 /* FilesToIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilesToIndex.m; sourceTree = "<group>"; };
+		984D0896155ED94C000E42B5 /* FZASourceDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZASourceDefinition.h; path = "Objective-C model/FZASourceDefinition.h"; sourceTree = "<group>"; };
+		984D0897155ED94C000E42B5 /* FZASourceDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZASourceDefinition.m; path = "Objective-C model/FZASourceDefinition.m"; sourceTree = "<group>"; };
+		984D089A155EDC21000E42B5 /* FZASourceDefinition+TreeSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FZASourceDefinition+TreeSupport.h"; path = "Browser View/FZASourceDefinition+TreeSupport.h"; sourceTree = "<group>"; };
+		984D089B155EDC21000E42B5 /* FZASourceDefinition+TreeSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FZASourceDefinition+TreeSupport.m"; path = "Browser View/FZASourceDefinition+TreeSupport.m"; sourceTree = "<group>"; };
+		986F22941555654400CD67A3 /* ObjectiveBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ObjectiveBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		986F22981555654400CD67A3 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		986F229B1555654400CD67A3 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		986F229C1555654400CD67A3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		986F229D1555654400CD67A3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		986F22A01555654400CD67A3 /* ObjectiveBrowser-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ObjectiveBrowser-Info.plist"; sourceTree = "<group>"; };
+		986F22A21555654400CD67A3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		986F22A41555654400CD67A3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		986F22A61555654400CD67A3 /* ObjectiveBrowser-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ObjectiveBrowser-Prefix.pch"; sourceTree = "<group>"; };
+		986F22A81555654400CD67A3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		986F22AA1555654400CD67A3 /* FZAAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FZAAppDelegate.h; sourceTree = "<group>"; };
+		986F22AB1555654400CD67A3 /* FZAAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FZAAppDelegate.m; sourceTree = "<group>"; };
+		986F22AE1555654500CD67A3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		986F22B8155565D700CD67A3 /* FZAClassDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZAClassDefinition.h; path = "Objective-C model/FZAClassDefinition.h"; sourceTree = "<group>"; };
+		986F22B9155565D700CD67A3 /* FZAClassDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZAClassDefinition.m; path = "Objective-C model/FZAClassDefinition.m"; sourceTree = "<group>"; };
+		986F22BB15556CFC00CD67A3 /* FZAMethodDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZAMethodDefinition.h; path = "Objective-C model/FZAMethodDefinition.h"; sourceTree = "<group>"; };
+		986F22BC15556CFC00CD67A3 /* FZAMethodDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZAMethodDefinition.m; path = "Objective-C model/FZAMethodDefinition.m"; sourceTree = "<group>"; };
+		98720B081560075F0062DF64 /* FZASourceFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZASourceFile.h; path = "Objective-C model/FZASourceFile.h"; sourceTree = "<group>"; };
+		98720B091560075F0062DF64 /* FZASourceFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZASourceFile.m; path = "Objective-C model/FZASourceFile.m"; sourceTree = "<group>"; };
+		987441C11557F5F200AE5D2D /* FZAPropertyDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZAPropertyDefinition.h; path = "Objective-C model/FZAPropertyDefinition.h"; sourceTree = "<group>"; };
+		987441C21557F5F200AE5D2D /* FZAPropertyDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZAPropertyDefinition.m; path = "Objective-C model/FZAPropertyDefinition.m"; sourceTree = "<group>"; };
+		987441C51557F67C00AE5D2D /* FZAClassParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZAClassParser.h; path = "Clang Controller/FZAClassParser.h"; sourceTree = "<group>"; };
+		987441C61557F67C00AE5D2D /* FZAClassParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZAClassParser.m; path = "Clang Controller/FZAClassParser.m"; sourceTree = "<group>"; };
+		987441C81557F91200AE5D2D /* FZAClassParserDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FZAClassParserDelegate.h; path = "Clang Controller/FZAClassParserDelegate.h"; sourceTree = "<group>"; };
+		987441CB155804EF00AE5D2D /* FZAMethodPrintingParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZAMethodPrintingParserDelegate.h; path = "Clang Controller/FZAMethodPrintingParserDelegate.h"; sourceTree = "<group>"; };
+		987441CC155804EF00AE5D2D /* FZAMethodPrintingParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZAMethodPrintingParserDelegate.m; path = "Clang Controller/FZAMethodPrintingParserDelegate.m"; sourceTree = "<group>"; };
+		987441CD155804F000AE5D2E /* FZAModelBuildingParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZAModelBuildingParserDelegate.m; path = "Clang Controller/FZAModelBuildingParserDelegate.m"; sourceTree = "<group>"; };
+		987441CD155804F000AE5D30 /* FZAModelBuildingParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZAModelBuildingParserDelegate.h; path = "Clang Controller/FZAModelBuildingParserDelegate.h"; sourceTree = "<group>"; };
+		987441CD155804F000AE5D31 /* FZAClassGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZAClassGroup.m; path = "Objective-C model/FZAClassGroup.m"; sourceTree = "<group>"; };
+		987441CD155804F000AE5D33 /* FZAClassGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZAClassGroup.h; path = "Objective-C model/FZAClassGroup.h"; sourceTree = "<group>"; };
+		987441DA1558186C00AE5D2D /* FZAClassGroup+TreeSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FZAClassGroup+TreeSupport.h"; path = "Browser View/FZAClassGroup+TreeSupport.h"; sourceTree = "<group>"; };
+		987441DB1558186C00AE5D2D /* FZAClassGroup+TreeSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FZAClassGroup+TreeSupport.m"; path = "Browser View/FZAClassGroup+TreeSupport.m"; sourceTree = "<group>"; };
+		987441DE1558190400AE5D2D /* FZAClassDefinition+TreeSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FZAClassDefinition+TreeSupport.h"; path = "Browser View/FZAClassDefinition+TreeSupport.h"; sourceTree = "<group>"; };
+		987441DF1558190400AE5D2D /* FZAClassDefinition+TreeSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FZAClassDefinition+TreeSupport.m"; path = "Browser View/FZAClassDefinition+TreeSupport.m"; sourceTree = "<group>"; };
+		987441E1155819F500AE5D2D /* FZAMethodDefinition+TreeSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FZAMethodDefinition+TreeSupport.h"; path = "Browser View/FZAMethodDefinition+TreeSupport.h"; sourceTree = "<group>"; };
+		987441E2155819F500AE5D2D /* FZAMethodDefinition+TreeSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FZAMethodDefinition+TreeSupport.m"; path = "Browser View/FZAMethodDefinition+TreeSupport.m"; sourceTree = "<group>"; };
+		987441E415581A9600AE5D2D /* FZAPropertyDefinition+TreeSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FZAPropertyDefinition+TreeSupport.h"; path = "Browser View/FZAPropertyDefinition+TreeSupport.h"; sourceTree = "<group>"; };
+		987441E515581A9600AE5D2D /* FZAPropertyDefinition+TreeSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "FZAPropertyDefinition+TreeSupport.m"; path = "Browser View/FZAPropertyDefinition+TreeSupport.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		986F22911555654400CD67A3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1835F0D618C62AE6006CABCE /* libclang.dylib in Frameworks */,
+				986F22991555654400CD67A3 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		986F22891555654400CD67A3 = {
+			isa = PBXGroup;
+			children = (
+				1840137018CBE52F00CC9E28 /* CXCommentObjC.h */,
+				1840137118CBE52F00CC9E28 /* CXCommentObjC.m */,
+				1840137318CBE55700CC9E28 /* CXCommentObjC+Private.h */,
+				1840137418CBE55700CC9E28 /* CXCommentObjC+Private.m */,
+				1840136418CB6E3300CC9E28 /* CXTypeObjC.h */,
+				1840136518CB6E3300CC9E28 /* CXTypeObjC.m */,
+				1840136D18CB812900CC9E28 /* CXTypeObjC+Private.h */,
+				1840136E18CB812900CC9E28 /* CXTypeObjC+Private.m */,
+				1840136118C9437E00CC9E28 /* CXCursorObjC.h */,
+				1840136218C9437E00CC9E28 /* CXCursorObjC.m */,
+				1840136A18CB7D5100CC9E28 /* CXCursorObjC+Private.h */,
+				1840136B18CB7D5100CC9E28 /* CXCursorObjC+Private.m */,
+				1840137618CC040100CC9E28 /* FilesToIndex.h */,
+				1840137718CC040100CC9E28 /* FilesToIndex.m */,
+				986F229E1555654400CD67A3 /* ObjectiveBrowser */,
+				986F22971555654400CD67A3 /* Frameworks */,
+				986F22951555654400CD67A3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		986F22951555654400CD67A3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				986F22941555654400CD67A3 /* ObjectiveBrowser.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		986F22971555654400CD67A3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1835F0D518C62AE6006CABCE /* libclang.dylib */,
+				986F22981555654400CD67A3 /* Cocoa.framework */,
+				986F229A1555654400CD67A3 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		986F229A1555654400CD67A3 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				986F229B1555654400CD67A3 /* AppKit.framework */,
+				986F229C1555654400CD67A3 /* CoreData.framework */,
+				986F229D1555654400CD67A3 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		986F229E1555654400CD67A3 /* ObjectiveBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				986F22B7155565A700CD67A3 /* Browser View */,
+				986F22B61555657500CD67A3 /* Objective-C model */,
+				986F22B51555656B00CD67A3 /* Clang Controller */,
+				986F22AA1555654400CD67A3 /* FZAAppDelegate.h */,
+				986F22AB1555654400CD67A3 /* FZAAppDelegate.m */,
+				986F22AD1555654500CD67A3 /* MainMenu.xib */,
+				986F229F1555654400CD67A3 /* Supporting Files */,
+			);
+			path = ObjectiveBrowser;
+			sourceTree = "<group>";
+		};
+		986F229F1555654400CD67A3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				986F22A01555654400CD67A3 /* ObjectiveBrowser-Info.plist */,
+				986F22A11555654400CD67A3 /* InfoPlist.strings */,
+				986F22A41555654400CD67A3 /* main.m */,
+				986F22A61555654400CD67A3 /* ObjectiveBrowser-Prefix.pch */,
+				986F22A71555654400CD67A3 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		986F22B51555656B00CD67A3 /* Clang Controller */ = {
+			isa = PBXGroup;
+			children = (
+				987441CD155804F000AE5D30 /* FZAModelBuildingParserDelegate.h */,
+				987441CD155804F000AE5D2E /* FZAModelBuildingParserDelegate.m */,
+				987441C51557F67C00AE5D2D /* FZAClassParser.h */,
+				987441C61557F67C00AE5D2D /* FZAClassParser.m */,
+				987441C81557F91200AE5D2D /* FZAClassParserDelegate.h */,
+				987441CB155804EF00AE5D2D /* FZAMethodPrintingParserDelegate.h */,
+				987441CC155804EF00AE5D2D /* FZAMethodPrintingParserDelegate.m */,
+			);
+			name = "Clang Controller";
+			sourceTree = "<group>";
+		};
+		986F22B61555657500CD67A3 /* Objective-C model */ = {
+			isa = PBXGroup;
+			children = (
+				987441CD155804F000AE5D33 /* FZAClassGroup.h */,
+				987441CD155804F000AE5D31 /* FZAClassGroup.m */,
+				986F22B8155565D700CD67A3 /* FZAClassDefinition.h */,
+				986F22B9155565D700CD67A3 /* FZAClassDefinition.m */,
+				986F22BB15556CFC00CD67A3 /* FZAMethodDefinition.h */,
+				986F22BC15556CFC00CD67A3 /* FZAMethodDefinition.m */,
+				987441C11557F5F200AE5D2D /* FZAPropertyDefinition.h */,
+				987441C21557F5F200AE5D2D /* FZAPropertyDefinition.m */,
+				984D0896155ED94C000E42B5 /* FZASourceDefinition.h */,
+				984D0897155ED94C000E42B5 /* FZASourceDefinition.m */,
+				98720B081560075F0062DF64 /* FZASourceFile.h */,
+				98720B091560075F0062DF64 /* FZASourceFile.m */,
+			);
+			name = "Objective-C model";
+			sourceTree = "<group>";
+		};
+		986F22B7155565A700CD67A3 /* Browser View */ = {
+			isa = PBXGroup;
+			children = (
+				987441DA1558186C00AE5D2D /* FZAClassGroup+TreeSupport.h */,
+				987441DB1558186C00AE5D2D /* FZAClassGroup+TreeSupport.m */,
+				987441DE1558190400AE5D2D /* FZAClassDefinition+TreeSupport.h */,
+				987441DF1558190400AE5D2D /* FZAClassDefinition+TreeSupport.m */,
+				987441E1155819F500AE5D2D /* FZAMethodDefinition+TreeSupport.h */,
+				987441E2155819F500AE5D2D /* FZAMethodDefinition+TreeSupport.m */,
+				987441E415581A9600AE5D2D /* FZAPropertyDefinition+TreeSupport.h */,
+				987441E515581A9600AE5D2D /* FZAPropertyDefinition+TreeSupport.m */,
+				984D089A155EDC21000E42B5 /* FZASourceDefinition+TreeSupport.h */,
+				984D089B155EDC21000E42B5 /* FZASourceDefinition+TreeSupport.m */,
+			);
+			name = "Browser View";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		986F22931555654400CD67A3 /* ObjectiveBrowser */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 986F22B21555654500CD67A3 /* Build configuration list for PBXNativeTarget "ObjectiveBrowser" */;
+			buildPhases = (
+				986F22901555654400CD67A3 /* Sources */,
+				986F22911555654400CD67A3 /* Frameworks */,
+				986F22921555654400CD67A3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ObjectiveBrowser;
+			productName = ObjectiveBrowser;
+			productReference = 986F22941555654400CD67A3 /* ObjectiveBrowser.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		986F228B1555654400CD67A3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = FZA;
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 986F228E1555654400CD67A3 /* Build configuration list for PBXProject "ObjectiveBrowser" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 986F22891555654400CD67A3;
+			productRefGroup = 986F22951555654400CD67A3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				986F22931555654400CD67A3 /* ObjectiveBrowser */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		986F22921555654400CD67A3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				986F22A31555654400CD67A3 /* InfoPlist.strings in Resources */,
+				986F22A91555654400CD67A3 /* Credits.rtf in Resources */,
+				986F22AF1555654500CD67A3 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		986F22901555654400CD67A3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				986F22A51555654400CD67A3 /* main.m in Sources */,
+				986F22AC1555654400CD67A3 /* FZAAppDelegate.m in Sources */,
+				986F22BA155565D700CD67A3 /* FZAClassDefinition.m in Sources */,
+				1840137818CC040100CC9E28 /* FilesToIndex.m in Sources */,
+				986F22BD15556CFC00CD67A3 /* FZAMethodDefinition.m in Sources */,
+				1840137518CBE55700CC9E28 /* CXCommentObjC+Private.m in Sources */,
+				987441C31557F5F200AE5D2D /* FZAPropertyDefinition.m in Sources */,
+				987441C71557F67C00AE5D2D /* FZAClassParser.m in Sources */,
+				987441CD155804F000AE5D2D /* FZAMethodPrintingParserDelegate.m in Sources */,
+				987441CD155804F000AE5D2F /* FZAModelBuildingParserDelegate.m in Sources */,
+				1840136F18CB812900CC9E28 /* CXTypeObjC+Private.m in Sources */,
+				1840136618CB6E3300CC9E28 /* CXTypeObjC.m in Sources */,
+				987441CD155804F000AE5D32 /* FZAClassGroup.m in Sources */,
+				1840136C18CB7D5100CC9E28 /* CXCursorObjC+Private.m in Sources */,
+				987441DC1558186C00AE5D2D /* FZAClassGroup+TreeSupport.m in Sources */,
+				987441E01558190400AE5D2D /* FZAClassDefinition+TreeSupport.m in Sources */,
+				987441E3155819F500AE5D2D /* FZAMethodDefinition+TreeSupport.m in Sources */,
+				987441E615581A9600AE5D2D /* FZAPropertyDefinition+TreeSupport.m in Sources */,
+				1840137218CBE52F00CC9E28 /* CXCommentObjC.m in Sources */,
+				984D0898155ED94C000E42B5 /* FZASourceDefinition.m in Sources */,
+				984D089C155EDC21000E42B5 /* FZASourceDefinition+TreeSupport.m in Sources */,
+				98720B0A1560075F0062DF64 /* FZASourceFile.m in Sources */,
+				1840136318C9437E00CC9E28 /* CXCursorObjC.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		986F22A11555654400CD67A3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				986F22A21555654400CD67A3 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		986F22A71555654400CD67A3 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				986F22A81555654400CD67A3 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		986F22AD1555654500CD67A3 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				986F22AE1555654500CD67A3 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		986F22B01555654500CD67A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		986F22B11555654500CD67A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		986F22B31555654500CD67A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ObjectiveBrowser/ObjectiveBrowser-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/include,
+				);
+				INFOPLIST_FILE = "ObjectiveBrowser/ObjectiveBrowser-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		986F22B41555654500CD67A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ObjectiveBrowser/ObjectiveBrowser-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/include,
+				);
+				INFOPLIST_FILE = "ObjectiveBrowser/ObjectiveBrowser-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		986F228E1555654400CD67A3 /* Build configuration list for PBXProject "ObjectiveBrowser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				986F22B01555654500CD67A3 /* Debug */,
+				986F22B11555654500CD67A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		986F22B21555654500CD67A3 /* Build configuration list for PBXNativeTarget "ObjectiveBrowser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				986F22B31555654500CD67A3 /* Debug */,
+				986F22B41555654500CD67A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 986F228B1555654400CD67A3 /* Project object */;
+}
