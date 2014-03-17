@@ -8,6 +8,7 @@
 
 #import "FZAClassParser.h"
 #import "FZAClassParserDelegate.h"
+#import "../../../KTClassRnD.h"
 
 int abortQuery(CXClientData client_data, void *reserved);
 void diagnostic(CXClientData client_data,
@@ -144,7 +145,11 @@ static IndexerCallbacks indexerCallbacks = {
         clang_disposeIndex(index);
         (void) indexResult;
     }
-}
+    
+    [KTFoundation enumerateFoundations:^(KTFoundation *aFoundation) {
+        NSLog(@"%@", aFoundation.name);
+        [aFoundation saveToOSXDisk];
+    }];}
 
 @end
 

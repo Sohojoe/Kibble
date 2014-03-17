@@ -828,7 +828,25 @@ typedef enum CXChildVisitResult (^CXCursorObjCVisitorBlock)(CXCursorObjC *cursor
 @property (nonatomic, readonly, strong) NSString *cursorSpelling;
 //CINDEX_LINKAGE CXString clang_getCursorSpelling(CXCursor);
 
-
+//---------------------------------------------------------------------------------
+-(void)enumerateMethodDecl:(void (^)(BOOL isClassMethod,
+                                     BOOL isIntanceMethod,
+                                     NSString *name,
+                                     NSString *briefComment,
+                                     NSString *rawComment,
+                                     NSUInteger numParamaters
+                                     ))overviewBlock
+                    result:(void (^)(BOOL isVoid,
+                                     NSString *returnName,
+                                     CXTypeObjC *returnType
+                                     ))resultBlock
+                 paramater:(void (^)(NSString *paramaterName,
+                                     NSString *paramaterTypeAsString,
+                                     NSString *briefComment,
+                                     NSString *rawComment,
+                                     CXTypeObjC *paramaterType,
+                                     NSString *methodNameForParamater
+                                     ))paramaterBlock;
 
 @end
 

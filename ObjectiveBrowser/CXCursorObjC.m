@@ -372,7 +372,6 @@
     }}
 
 
-
 //---------------------------------------------------------------------------------
 -(void)enumerateMethodDecl:(void (^)(BOOL isClassMethod,
                                      BOOL isIntanceMethod,
@@ -414,13 +413,13 @@
                       self.rawCommentText,
                       self.numArguments);
     }
-
+    
     // handle return type
     if (resultBlock) {
         // setup as void by default
         BOOL isVoid = YES;
         NSString *returnName = @"void";
-
+        
         if (self.cursorResultType.type.kind) {
             // has a return type
             isVoid = NO;
@@ -446,7 +445,7 @@
                 nameBlock(name, paramaterBriefCommentText, paramaterRawCommentText);
             }
             
-
+            
         } else {
             NSArray *methodNameByArguments = [self.cursorDisplayName componentsSeparatedByString:@":"];
             // loop paramaters
@@ -464,6 +463,100 @@
                 }
                 if (paramaterBlock) {
                     paramaterBlock(paramaterName, paramaterType, paramaterBriefCommentText, paramaterRawCommentText);
+                }
+            }
+        }
+    }
+}
+
+
+//---------------------------------------------------------------------------------
+-(void)enumerateMethodDecl:(void (^)(BOOL isClassMethod,
+                                     BOOL isIntanceMethod,
+                                     NSString *name,
+                                     NSString *briefComment,
+                                     NSString *rawComment,
+                                     NSUInteger numParamaters
+                                     ))overviewBlock
+                    result:(void (^)(BOOL isVoid,
+                                     NSString *returnName,
+                                     CXTypeObjC *returnType
+                                     ))resultBlock
+                 paramater:(void (^)(NSString *paramaterName,
+                                     NSString *paramaterTypeAsString,
+                                     NSString *briefComment,
+                                     NSString *rawComment,
+                                     CXTypeObjC *paramaterType,
+                                     NSString *methodNameForParamater
+                                     ))paramaterBlock{
+    
+    // do we need to check that we are a paramater
+    
+    
+    // overview block
+    if (overviewBlock) {
+        BOOL isClassMethod = (BOOL)self.cursor.kind == CXCursor_ObjCClassMethodDecl;
+        BOOL isIntanceMethod = (BOOL)self.cursor.kind == CXCursor_ObjCInstanceMethodDecl;
+        //NSString *name = self.cursorDisplayName;
+        //NSString*briefCommentText = self.briefCommentText;
+        //NSString*rawCommentText = self.rawCommentText;
+        //NSUInteger numParamaters = self.numArguments;
+        
+        
+        overviewBlock(isClassMethod,
+                      isIntanceMethod,
+                      self.cursorDisplayName,
+                      self.briefCommentText,
+                      self.rawCommentText,
+                      self.numArguments);
+    }
+
+    // handle return type
+    if (resultBlock) {
+        // setup as void by default
+        BOOL isVoid = YES;
+        NSString *returnName = @"void";
+        CXTypeObjC *returnType = self.cursorResultType;
+
+        if (self.cursorResultType.type.kind) {
+            // has a return type
+            isVoid = NO;
+            returnName = self.cursorResultType.description;
+        }
+        resultBlock(isVoid, returnName, returnType);
+    }
+    
+    if (paramaterBlock) {
+        //name:(void (^)(
+        NSString *methodNameForParamater;
+        
+        //paramater:(void (^)(
+        NSString *paramaterName;
+        NSString *paramaterTypeAsString;
+        NSString *paramaterBriefCommentText = nil;
+        NSString *paramaterRawCommentText = nil;
+        CXTypeObjC *paramaterType;
+        
+        if (self.numArguments == 0) {
+            // no paramaters
+            methodNameForParamater = self.cursorDisplayName;
+            
+
+        } else {
+            NSArray *methodNameByArguments = [self.cursorDisplayName componentsSeparatedByString:@":"];
+            // loop paramaters
+            for (NSInteger i=0; i<self.numArguments; i++) {
+                CXCursorObjC *thisArgument = [self getArgument:i];
+                methodNameForParamater = [methodNameByArguments objectAtIndex:i];
+                paramaterName = thisArgument.description;
+                paramaterTypeAsString = thisArgument.cursorType.description;
+                paramaterBriefCommentText = thisArgument.briefCommentText;
+                paramaterRawCommentText = thisArgument.rawCommentText;
+                paramaterType = thisArgument.cursorType;
+                //NSString *fred = [self.parsedComment commentFor:i];
+                
+                if (paramaterBlock) {
+                    paramaterBlock(paramaterName, paramaterTypeAsString, paramaterBriefCommentText, paramaterRawCommentText, paramaterType, methodNameForParamater);
                 }
             }
         }

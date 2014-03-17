@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ObjectiveBrowser/Clang Controller/FZAModelBuildingParserDelegate.m"
-            timestampString = "416024497.272738"
+            timestampString = "416736104.599767"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
             landmarkName = "-classParser:includedFile:"
             landmarkType = "5">
          </BreakpointContent>
@@ -25,28 +25,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ObjectiveBrowser/FZAAppDelegate.m"
-            timestampString = "416023906.38631"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "-applicationDidFinishLaunching:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "ObjectiveBrowser/Clang Controller/FZAClassParser.m"
-            timestampString = "416622757.208997"
+            timestampString = "416764085.480139"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "185"
-            endingLineNumber = "185"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
             landmarkName = "ppIncludedFile()"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ObjectiveBrowser/Clang Controller/FZAClassParser.m"
-            timestampString = "416622757.208997"
+            timestampString = "416764085.480139"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
             landmarkName = "importedASTFile()"
             landmarkType = "7">
          </BreakpointContent>
@@ -74,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ObjectiveBrowser/Clang Controller/FZAClassParser.m"
-            timestampString = "416622757.208997"
+            timestampString = "416764085.480139"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
             landmarkName = "enteredMainFile()"
             landmarkType = "7">
          </BreakpointContent>
@@ -90,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ObjectiveBrowser/Clang Controller/FZAClassParser.m"
-            timestampString = "416622757.208997"
+            timestampString = "416764085.480139"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
             landmarkName = "diagnostic()"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ObjectiveBrowser/Clang Controller/FZAClassParser.m"
-            timestampString = "416622757.208997"
+            timestampString = "416764085.480139"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
             landmarkName = "abortQuery()"
             landmarkType = "7">
          </BreakpointContent>
@@ -122,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ObjectiveBrowser/Clang Controller/FZAClassParser.m"
-            timestampString = "416622757.208997"
+            timestampString = "416764085.480139"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "207"
-            endingLineNumber = "207"
+            startingLineNumber = "212"
+            endingLineNumber = "212"
             landmarkName = "startedTranslationUnit()"
             landmarkType = "7">
          </BreakpointContent>
@@ -138,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ObjectiveBrowser/Clang Controller/FZAClassParser.m"
-            timestampString = "416622757.208997"
+            timestampString = "416764085.480139"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "218"
-            endingLineNumber = "218"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
             landmarkName = "indexDeclaration()"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ObjectiveBrowser/Clang Controller/FZAClassParser.m"
-            timestampString = "416622757.208997"
+            timestampString = "416764085.480139"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
             landmarkName = "indexEntityReference()"
             landmarkType = "7">
          </BreakpointContent>
@@ -170,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ObjectiveBrowser/Clang Controller/FZAModelBuildingParserDelegate.m"
-            timestampString = "415912820.770084"
+            timestampString = "416735582.101717"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
             landmarkName = "-classParser:foundDeclaration:"
             landmarkType = "5">
          </BreakpointContent>
@@ -186,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ObjectiveBrowser/Clang Controller/FZAModelBuildingParserDelegate.m"
-            timestampString = "415912820.770084"
+            timestampString = "416735582.101717"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
             landmarkName = "-classParser:foundDeclaration:"
             landmarkType = "5">
          </BreakpointContent>
@@ -202,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ObjectiveBrowser/Clang Controller/FZAModelBuildingParserDelegate.m"
-            timestampString = "416024497.272738"
+            timestampString = "416736104.599767"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
             landmarkName = "-classParser:foundDeclaration:"
             landmarkType = "5">
          </BreakpointContent>
@@ -218,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ObjectiveBrowser/Clang Controller/FZAClassParser.m"
-            timestampString = "416622757.208997"
+            timestampString = "416763697.528967"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
             landmarkName = "-realParse"
             landmarkType = "5">
          </BreakpointContent>
@@ -789,22 +773,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ObjectiveBrowser/Clang Controller/FZAModelBuildingParserDelegate.m"
-            timestampString = "416024497.272738"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
-            landmarkName = "-outputMethodDetails:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "CXCursorObjC.m"
             timestampString = "416018939.914533"
             startingColumnNumber = "9223372036854775807"
@@ -822,11 +790,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CXCursorObjC.m"
-            timestampString = "416077891.494443"
+            timestampString = "416735582.101717"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "661"
-            endingLineNumber = "661"
+            startingLineNumber = "754"
+            endingLineNumber = "754"
             landmarkName = "-debugDescriptionMethodDeclOld"
             landmarkType = "5">
          </BreakpointContent>
@@ -838,11 +806,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CXCursorObjC.m"
-            timestampString = "416077891.494443"
+            timestampString = "416735582.101717"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "560"
-            endingLineNumber = "560"
+            startingLineNumber = "653"
+            endingLineNumber = "653"
             landmarkName = "-debugDescriptionMethodDecl"
             landmarkType = "5">
          </BreakpointContent>
@@ -854,11 +822,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CXCursorObjC.m"
-            timestampString = "416077891.494443"
+            timestampString = "416735582.101717"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "570"
-            endingLineNumber = "570"
+            startingLineNumber = "663"
+            endingLineNumber = "663"
             landmarkName = "-methodDeclBreifComment"
             landmarkType = "5">
          </BreakpointContent>
@@ -918,11 +886,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ObjectiveBrowser/Clang Controller/FZAModelBuildingParserDelegate.m"
-            timestampString = "416024497.272738"
+            timestampString = "416735582.101717"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
             landmarkName = "-classParser:foundDeclaration:"
             landmarkType = "5">
          </BreakpointContent>
@@ -934,11 +902,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CXCursorObjC.m"
-            timestampString = "416077891.494443"
+            timestampString = "416735582.101717"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "590"
-            endingLineNumber = "590"
+            startingLineNumber = "683"
+            endingLineNumber = "683"
             landmarkName = "-methodDeclBreifComment"
             landmarkType = "5">
          </BreakpointContent>
@@ -950,11 +918,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CXCursorObjC.m"
-            timestampString = "416077891.494443"
+            timestampString = "416735582.101717"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "544"
-            endingLineNumber = "544"
+            startingLineNumber = "637"
+            endingLineNumber = "637"
             landmarkName = "-debugDescriptionMethodDecl"
             landmarkType = "5">
          </BreakpointContent>
@@ -966,11 +934,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CXCursorObjC.m"
-            timestampString = "416077891.494443"
+            timestampString = "416735582.101717"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "552"
-            endingLineNumber = "552"
+            startingLineNumber = "645"
+            endingLineNumber = "645"
             landmarkName = "-debugDescriptionMethodDecl"
             landmarkType = "5">
          </BreakpointContent>
@@ -982,11 +950,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CXCursorObjC.m"
-            timestampString = "416077891.494443"
+            timestampString = "416735582.101717"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "521"
-            endingLineNumber = "521"
+            startingLineNumber = "614"
+            endingLineNumber = "614"
             landmarkName = "-debugDescriptionMethodDecl"
             landmarkType = "5">
             <Locations>
@@ -1042,11 +1010,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CXCursorObjC.m"
-            timestampString = "416077891.494443"
+            timestampString = "416735582.101717"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "522"
-            endingLineNumber = "522"
+            startingLineNumber = "615"
+            endingLineNumber = "615"
             landmarkName = "-debugDescriptionMethodDecl"
             landmarkType = "5">
          </BreakpointContent>
@@ -1058,11 +1026,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CXCursorObjC.m"
-            timestampString = "416077891.494443"
+            timestampString = "416735582.101717"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "541"
-            endingLineNumber = "541"
+            startingLineNumber = "634"
+            endingLineNumber = "634"
             landmarkName = "-debugDescriptionMethodDecl"
             landmarkType = "5">
          </BreakpointContent>
@@ -1074,11 +1042,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CXCursorObjC.m"
-            timestampString = "416077891.494443"
+            timestampString = "416735582.101717"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "505"
-            endingLineNumber = "505"
+            startingLineNumber = "598"
+            endingLineNumber = "598"
             landmarkName = "-objCStyleDescription"
             landmarkType = "5">
          </BreakpointContent>
@@ -1122,11 +1090,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ObjectiveBrowser/Clang Controller/FZAModelBuildingParserDelegate.m"
-            timestampString = "416043925.335253"
+            timestampString = "416735582.101717"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
             landmarkName = "-classParser:foundDeclaration:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1138,12 +1106,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CXCursorObjC.m"
-            timestampString = "416648469.105285"
+            timestampString = "416735582.101717"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "427"
-            endingLineNumber = "427"
-            landmarkName = "-enumerateMethodDecl:result:name:paramater:"
+            startingLineNumber = "524"
+            endingLineNumber = "524"
+            landmarkName = "-enumerateMethodDecl:result:paramater:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1154,12 +1122,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CXCursorObjC.m"
-            timestampString = "416076449.649859"
+            timestampString = "416735582.101717"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "460"
-            endingLineNumber = "460"
-            landmarkName = "-enumerateMethodDecl:result:name:paramater:"
+            startingLineNumber = "556"
+            endingLineNumber = "556"
+            landmarkName = "-enumerateMethodDecl:result:paramater:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1376,11 +1344,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CXCursorObjC.m"
-            timestampString = "416467612.204829"
+            timestampString = "416735582.101717"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "487"
-            endingLineNumber = "487"
+            startingLineNumber = "580"
+            endingLineNumber = "580"
             landmarkName = "-debugDescription"
             landmarkType = "5">
          </BreakpointContent>
@@ -1392,13 +1360,311 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CXCursorObjC.m"
-            timestampString = "416648915.07242"
+            timestampString = "416735582.101717"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "438"
-            endingLineNumber = "438"
-            landmarkName = "-enumerateMethodDecl:result:name:paramater:"
+            startingLineNumber = "535"
+            endingLineNumber = "535"
+            landmarkName = "-enumerateMethodDecl:result:paramater:"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ObjectiveBrowser/Clang Controller/FZAModelBuildingParserDelegate.m"
+            timestampString = "416735666.93733"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "-classParser:foundDeclaration:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ObjectiveBrowser/Clang Controller/FZAModelBuildingParserDelegate.m"
+            timestampString = "416735967.700919"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
+            landmarkName = "-classParser:foundDeclaration:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[FZAModelBuildingParserDelegate classParser:foundDeclaration:]"
+                  moduleName = "ObjectiveBrowser"
+                  urlString = "file:///Users/apple/development/Kibble/ObjectiveBrowser/ObjectiveBrowser/Clang%20Controller/FZAModelBuildingParserDelegate.m"
+                  timestampString = "416736105.302453"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "141"
+                  endingLineNumber = "141"
+                  offsetFromSymbolStart = "3079">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__63-[FZAModelBuildingParserDelegate classParser:foundDeclaration:]_block_invoke"
+                  moduleName = "ObjectiveBrowser"
+                  urlString = "file:///Users/apple/development/Kibble/ObjectiveBrowser/ObjectiveBrowser/Clang%20Controller/FZAModelBuildingParserDelegate.m"
+                  timestampString = "416736105.303672"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "141"
+                  endingLineNumber = "141"
+                  offsetFromSymbolStart = "141">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ObjectiveBrowser/Clang Controller/FZAModelBuildingParserDelegate.m"
+            timestampString = "416735712.443498"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
+            landmarkName = "-classParser:foundDeclaration:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ObjectiveBrowser/Clang Controller/FZAModelBuildingParserDelegate.m"
+            timestampString = "416735713.881875"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "-classParser:foundDeclaration:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ObjectiveBrowser/Clang Controller/FZAModelBuildingParserDelegate.m"
+            timestampString = "416735717.34812"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
+            landmarkName = "-classParser:foundDeclaration:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ObjectiveBrowser/Clang Controller/FZAModelBuildingParserDelegate.m"
+            timestampString = "416736104.599767"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
+            landmarkName = "-classParser:foundDeclaration:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ObjectiveBrowser/Clang Controller/FZAModelBuildingParserDelegate.m"
+            timestampString = "416762503.752549"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
+            landmarkName = "-ktTypeFrom:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ObjectiveBrowser/Clang Controller/FZAModelBuildingParserDelegate.m"
+            timestampString = "416762504.850412"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "-ktTypeFrom:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ObjectiveBrowser/FZAAppDelegate.m"
+            timestampString = "416763697.528967"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "-refreshTimer:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ObjectiveBrowser/Clang Controller/FZAClassParser.m"
+            timestampString = "416763697.528967"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
+            landmarkName = "-realParse"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[FZAClassParser realParse]"
+                  moduleName = "ObjectiveBrowser"
+                  urlString = "file:///Users/apple/development/Kibble/ObjectiveBrowser/ObjectiveBrowser/Clang%20Controller/FZAClassParser.m"
+                  timestampString = "416764373.891977"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "149"
+                  endingLineNumber = "149"
+                  offsetFromSymbolStart = "1042">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__27-[FZAClassParser realParse]_block_invoke"
+                  moduleName = "ObjectiveBrowser"
+                  urlString = "file:///Users/apple/development/Kibble/ObjectiveBrowser/ObjectiveBrowser/Clang%20Controller/FZAClassParser.m"
+                  timestampString = "416764373.892323"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "149"
+                  endingLineNumber = "149"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ObjectiveBrowser/Clang Controller/FZAClassParser.m"
+            timestampString = "416764160.752502"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
+            landmarkName = "-realParse"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../KTClassRnD.m"
+            timestampString = "416764054.813095"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "+getOSXPath"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ObjectiveBrowser/Clang Controller/FZAClassParser.m"
+            timestampString = "416764382.348407"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
+            landmarkName = "-realParse"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[FZAClassParser realParse]"
+                  moduleName = "ObjectiveBrowser"
+                  urlString = "file:///Users/apple/development/Kibble/ObjectiveBrowser/ObjectiveBrowser/Clang%20Controller/FZAClassParser.m"
+                  timestampString = "416764382.352588"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "152"
+                  endingLineNumber = "152"
+                  offsetFromSymbolStart = "1087">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__27-[FZAClassParser realParse]_block_invoke"
+                  moduleName = "ObjectiveBrowser"
+                  urlString = "file:///Users/apple/development/Kibble/ObjectiveBrowser/ObjectiveBrowser/Clang%20Controller/FZAClassParser.m"
+                  timestampString = "416764382.352989"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "152"
+                  endingLineNumber = "152"
+                  offsetFromSymbolStart = "151">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -5,13 +5,11 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>9DD457A1-B067-4EEC-9372-CEFAF88DACB7</string>
+	<string>0BD61D31-C988-4A7F-95CA-986A73429AE8</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Kibble</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>03896075-93C0-4B19-8F75-CDBE884495D2</key>
-		<string>file:///Users/apple/Library/Caches/CocoaPods/GitHub/6da0d7926189bd45e49b18fd2157de680868ec4b/</string>
 		<key>260E3C3F-7831-4CFF-A893-125DB800AB03</key>
 		<string>https://github.com/Sohojoe/Kibble.git</string>
 		<key>BC679F60-6742-4E3E-9DA8-3E72C0080709</key>
@@ -21,15 +19,13 @@
 	<string>Kibble.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>03896075-93C0-4B19-8F75-CDBE884495D2</key>
-		<string>../../Pods/PonyDebugger</string>
 		<key>260E3C3F-7831-4CFF-A893-125DB800AB03</key>
 		<string>../..</string>
 		<key>BC679F60-6742-4E3E-9DA8-3E72C0080709</key>
 		<string>../../superdb</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>file:///Users/apple/development/Kibble/Kibble.xcodeproj/project.xcworkspace/</string>
+	<string>https://github.com/Sohojoe/Kibble.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
@@ -43,14 +39,6 @@
 			<string>260E3C3F-7831-4CFF-A893-125DB800AB03</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Kibble</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>03896075-93C0-4B19-8F75-CDBE884495D2</string>
-			<key>IDESourceControlWCCName</key>
-			<string>PonyDebugger</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>

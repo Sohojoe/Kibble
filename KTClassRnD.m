@@ -43,17 +43,21 @@
         
         KTFoundation *f = [KTFoundation foundationWithName:@"TestFoundation"];
         [f addClass:cNSString];
-        [f saveToDisk];
+        [f saveToiOSDisk];
     }
     
     if (testLoad) {
         KTFoundation *f = [KTFoundation foundationFromDisk:@"TestFoundation"];
         [f enumerateClasses:^(KTClass *aClass) {
+            NSLog(@"%@", aClass.name);
             [aClass enumerateClassIniters:^(KTMethod *aMethod) {
-                NSLog(@"%@", aMethod);
+                NSLog(@"..%@", aMethod.name);
                 
-                NSString *str1 = [KTClass sendMessageToClass:aClass message:aMethod.name params:@"hello world",nil];
-                NSLog(@"%@", str1);
+                NSString *str1 = nil;
+                //str1 = [KTClass sendMessageToClass:aClass message:aMethod.name params:@"hello world",nil];
+                if (str1) {
+                    NSLog(@"%@", str1);
+                }
             }];
         }];
     }
@@ -61,12 +65,22 @@
 }
 @end
 
+@interface KTFoundation ()
+@end
 @implementation KTFoundation
 //---
+static NSMutableDictionary *foundations;
 +(KTFoundation*)foundationWithName:(NSString *)name{
-    KTFoundation *o = [KTFoundation new];
-    o.name = name;
-    o.classes = [NSMutableArray new];
+    if (!foundations) {
+        foundations = [NSMutableDictionary new];
+    }
+    KTFoundation *o = [foundations objectForKey:name];
+    if (!o) {
+        o = [KTFoundation new];
+        o.name = name;
+        o.classes = [NSMutableDictionary new];
+        [foundations setObject:o forKey:name];
+    }
     return o;
 }
 //---
@@ -86,9 +100,29 @@
     return self;
 }
 //---
--(void)saveToDisk{
++(void)enumerateFoundations:(void(^)(KTFoundation* aFoundation))block{
+    [foundations enumerateKeysAndObjectsUsingBlock:^(id key, KTFoundation* aFoundation, BOOL *stop) {
+        if (block) {
+            block(aFoundation);
+        }
+    }];
+}
+//---
+-(void)saveToiOSDisk{
     
-    NSString *path = [KTFoundation getPath];
+    NSString *path = [KTFoundation getiOSPath];
+    NSString *filePath = [[NSString alloc] initWithString: [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@", self.name, kFileExtension]]];
+    NSMutableData *data = [[NSMutableData alloc] init];
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    [archiver encodeObject:self forKey:@"data"];
+    [archiver encodeObject:[NSNumber numberWithFloat:kVersion] forKey:@"version"];
+    [archiver finishEncoding];
+    [data writeToFile:filePath atomically:YES];
+}
+//---
+-(void)saveToOSXDisk{
+    
+    NSString *path = [KTFoundation getOSXPath];
     NSString *filePath = [[NSString alloc] initWithString: [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@", self.name, kFileExtension]]];
     NSMutableData *data = [[NSMutableData alloc] init];
     NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
@@ -111,7 +145,23 @@
     return o;
 }
 
-+(NSString*)getPath{
++(NSString*)getOSXPath{
+    NSArray *dirPaths;
+    dirPaths = NSSearchPathForDirectoriesInDomains(NSPicturesDirectory, NSUserDomainMask, YES);
+    NSString *path = [dirPaths objectAtIndex:0];
+    path = [[NSString alloc] initWithString: [path stringByAppendingPathComponent:@"../development/Kibble"]];
+    
+    path = [[NSString alloc] initWithString: [path stringByAppendingPathComponent:[NSString stringWithFormat:kPathName]]];
+    
+    NSError *error;
+    BOOL success = [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
+    if (!success) {
+        NSLog(@"Error creating data path: %@", [error localizedDescription]);
+    }
+    return path;
+}
+
++(NSString*)getiOSPath{
     NSArray *dirPaths;
     dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *path = [dirPaths objectAtIndex:0];
@@ -143,12 +193,16 @@
 //
 //---
 -(void)addClass:(KTClass*)aClass{
-    [self.classes addObject:aClass];
+    [self.classes setObject:aClass forKey:aClass.name];
+}
+-(KTClass*)classWithName:(NSString*)aName{
+    KTClass* aClass = [self.classes objectForKey:aName];
+    return (aClass);
 }
 //---
 -(void)enumerateClasses:(void(^)(KTClass* aClass))block{
     if (block) {
-        [self.classes enumerateObjectsUsingBlock:^(KTClass* aClass, NSUInteger idx, BOOL *stop) {
+        [self.classes enumerateKeysAndObjectsUsingBlock:^(id key, KTClass* aClass, BOOL *stop) {
             block(aClass);
         }];
     }
@@ -380,7 +434,7 @@ static NSMutableDictionary *objCInterfaces, *objCObjectPointers;
     if (o == nil) {
         o = [KTType new];
         o.name = thisName;
-        o.kind = CXType_ObjCInterface;
+        o.kind = KTCXType_ObjCInterface;
         o.canonical = o;
         [objCInterfaces setObject:o forKey:thisName];
     }
@@ -395,7 +449,7 @@ static NSMutableDictionary *objCInterfaces, *objCObjectPointers;
     if (o == nil) {
         o = [KTType new];
         o.name = [NSString stringWithFormat:@"%@ *", thisName];
-        o.kind = CXType_ObjCObjectPointer;
+        o.kind = KTCXType_ObjCObjectPointer;
         o.canonical = o;
         o.pointee = [KTType objCInterface:thisName];
         [objCObjectPointers setObject:o forKey:thisName];

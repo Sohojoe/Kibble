@@ -15,6 +15,7 @@
 		1840137218CBE52F00CC9E28 /* CXCommentObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1840137118CBE52F00CC9E28 /* CXCommentObjC.m */; };
 		1840137518CBE55700CC9E28 /* CXCommentObjC+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 1840137418CBE55700CC9E28 /* CXCommentObjC+Private.m */; };
 		1840137818CC040100CC9E28 /* FilesToIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 1840137718CC040100CC9E28 /* FilesToIndex.m */; };
+		1868040818D6CF5F00B75D86 /* KTClassRnD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1868040718D6CF5F00B75D86 /* KTClassRnD.m */; };
 		984D0898155ED94C000E42B5 /* FZASourceDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 984D0897155ED94C000E42B5 /* FZASourceDefinition.m */; };
 		984D089C155EDC21000E42B5 /* FZASourceDefinition+TreeSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 984D089B155EDC21000E42B5 /* FZASourceDefinition+TreeSupport.m */; };
 		986F22991555654400CD67A3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 986F22981555654400CD67A3 /* Cocoa.framework */; };
@@ -53,6 +54,8 @@
 		1840137418CBE55700CC9E28 /* CXCommentObjC+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CXCommentObjC+Private.m"; sourceTree = "<group>"; };
 		1840137618CC040100CC9E28 /* FilesToIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilesToIndex.h; sourceTree = "<group>"; };
 		1840137718CC040100CC9E28 /* FilesToIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilesToIndex.m; sourceTree = "<group>"; };
+		1868040618D6CF5F00B75D86 /* KTClassRnD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KTClassRnD.h; path = ../KTClassRnD.h; sourceTree = "<group>"; };
+		1868040718D6CF5F00B75D86 /* KTClassRnD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KTClassRnD.m; path = ../KTClassRnD.m; sourceTree = "<group>"; };
 		984D0896155ED94C000E42B5 /* FZASourceDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZASourceDefinition.h; path = "Objective-C model/FZASourceDefinition.h"; sourceTree = "<group>"; };
 		984D0897155ED94C000E42B5 /* FZASourceDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZASourceDefinition.m; path = "Objective-C model/FZASourceDefinition.m"; sourceTree = "<group>"; };
 		984D089A155EDC21000E42B5 /* FZASourceDefinition+TreeSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FZASourceDefinition+TreeSupport.h"; path = "Browser View/FZASourceDefinition+TreeSupport.h"; sourceTree = "<group>"; };
@@ -113,6 +116,8 @@
 		986F22891555654400CD67A3 = {
 			isa = PBXGroup;
 			children = (
+				1868040618D6CF5F00B75D86 /* KTClassRnD.h */,
+				1868040718D6CF5F00B75D86 /* KTClassRnD.m */,
 				1840137018CBE52F00CC9E28 /* CXCommentObjC.h */,
 				1840137118CBE52F00CC9E28 /* CXCommentObjC.m */,
 				1840137318CBE55700CC9E28 /* CXCommentObjC+Private.h */,
@@ -317,6 +322,7 @@
 				1840136C18CB7D5100CC9E28 /* CXCursorObjC+Private.m in Sources */,
 				987441DC1558186C00AE5D2D /* FZAClassGroup+TreeSupport.m in Sources */,
 				987441E01558190400AE5D2D /* FZAClassDefinition+TreeSupport.m in Sources */,
+				1868040818D6CF5F00B75D86 /* KTClassRnD.m in Sources */,
 				987441E3155819F500AE5D2D /* FZAMethodDefinition+TreeSupport.m in Sources */,
 				987441E615581A9600AE5D2D /* FZAPropertyDefinition+TreeSupport.m in Sources */,
 				1840137218CBE52F00CC9E28 /* CXCommentObjC.m in Sources */,

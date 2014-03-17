@@ -19,7 +19,11 @@
 
 
 @implementation CXTypeObjC
-
+@synthesize rawKind;
+-(NSInteger)rawKind{
+    NSInteger raw = self.type.kind;
+    return raw;
+}
 
 +(CXTypeObjC *)typeFromPointer:(void *) ptrToThisType{
     CXType *thisType = ptrToThisType;

@@ -12,6 +12,9 @@
 
 @interface CXTypeObjC : NSObject
 
+///Return the CXType Kind without any typedef
+@property (nonatomic, readonly) NSInteger rawKind;
+
 /**
  * \brief Return the canonical type for a CXType.
  *

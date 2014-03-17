@@ -13,6 +13,9 @@
 #import "FZAClassGroup.h"
 #import "FZAClassGroup+TreeSupport.h"
 
+#import "../../KTClassRnD.h"
+
+
 @implementation FZAAppDelegate
 {
     FZAClassParser *parser;
@@ -45,6 +48,7 @@
     modelBuilder = [[FZAModelBuildingParserDelegate alloc] initWithClassGroup: classGroup];
     parser.delegate = modelBuilder;
     [parser parse];
+    
     dataRefreshTimer = [NSTimer scheduledTimerWithTimeInterval: 1.0 target: self selector: @selector(refreshTimer:) userInfo: nil repeats: YES];
 }
 
