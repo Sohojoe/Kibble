@@ -16,6 +16,8 @@
 #import "KibbleVM.h"
 #import "KibbleV2.h"
 
+#import "KTClassRnD.h"
+
 @interface KBRapidTestViewController ()
 //@property (nonatomic, strong) Kibble *hello;
 //@property (nonatomic, strong) KibbleTalk *testNumber;
@@ -217,7 +219,8 @@
     }];
     
     [self.tileSystem addWhatNextTile];
-
+    
+    [KTClassRnD test];
 }
 
 

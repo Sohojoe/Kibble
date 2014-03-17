@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		184D9FB618D6C5B80056DF60 /* KTFoundations in Resources */ = {isa = PBXBuildFile; fileRef = 184D9FB518D6C5B80056DF60 /* KTFoundations */; };
 		1854EE6F189D712D00C2F74A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1854EE6D189D712D00C2F74A /* InfoPlist.strings */; };
 		1854EE71189D712D00C2F74A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EE70189D712D00C2F74A /* main.m */; };
 		1854EE75189D712D00C2F74A /* KBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EE74189D712D00C2F74A /* KBAppDelegate.m */; };
@@ -46,6 +47,7 @@
 		1854EEE9189DA6F000C2F74A /* Kibble.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEE8189DA6F000C2F74A /* Kibble.m */; };
 		1854EEEC189DBA1C00C2F74A /* KBDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEEB189DBA1C00C2F74A /* KBDatabase.m */; };
 		186FAF2818BC14C80074BA09 /* libSuperDBCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FAF2318BC14A80074BA09 /* libSuperDBCore.a */; };
+		1898C91618D5605D000E2AD2 /* KTClassRnD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1898C91518D5605D000E2AD2 /* KTClassRnD.m */; };
 		18CC492B18A48A720067D18A /* JSRnD.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC492A18A48A720067D18A /* JSRnD.m */; };
 		18CC492E18A4B93D0067D18A /* JS.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC492D18A4B93D0067D18A /* JS.m */; };
 		18CC493218A55CCD0067D18A /* VMObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC493118A55CCD0067D18A /* VMObject.m */; };
@@ -95,6 +97,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		184D9FB518D6C5B80056DF60 /* KTFoundations */ = {isa = PBXFileReference; lastKnownFileType = folder; path = KTFoundations; sourceTree = "<group>"; };
 		1854EE61189D712D00C2F74A /* Kibble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kibble.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1854EE64189D712D00C2F74A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1854EE66189D712D00C2F74A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -168,6 +171,8 @@
 		1854EEEA189DBA1C00C2F74A /* KBDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBDatabase.h; sourceTree = "<group>"; };
 		1854EEEB189DBA1C00C2F74A /* KBDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBDatabase.m; sourceTree = "<group>"; };
 		186FAF1D18BC14A80074BA09 /* SuperDBCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SuperDBCore.xcodeproj; path = superdb/SuperDBCore/SuperDBCore.xcodeproj; sourceTree = "<group>"; };
+		1898C91418D5605D000E2AD2 /* KTClassRnD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTClassRnD.h; sourceTree = "<group>"; };
+		1898C91518D5605D000E2AD2 /* KTClassRnD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTClassRnD.m; sourceTree = "<group>"; };
 		18CC492918A48A720067D18A /* JSRnD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSRnD.h; sourceTree = "<group>"; };
 		18CC492A18A48A720067D18A /* JSRnD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSRnD.m; sourceTree = "<group>"; };
 		18CC492C18A4B93D0067D18A /* JS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JS.h; sourceTree = "<group>"; };
@@ -234,10 +239,12 @@
 				18CC492F18A55C890067D18A /* Kibble Virtual Machine */,
 				1854EE6A189D712D00C2F74A /* Kibble - Core Object */,
 				1854EEED189DCD8A00C2F74A /* Kibble - Practice */,
+				1898C91818D5606B000E2AD2 /* Kibble Class Model */,
 				1854EE6B189D712D00C2F74A /* Supporting Files */,
 				1854EE8C189D712D00C2F74A /* KibbleTests */,
 				1854EE63189D712D00C2F74A /* Frameworks */,
 				1854EE62189D712D00C2F74A /* Products */,
+				184D9FB518D6C5B80056DF60 /* KTFoundations */,
 			);
 			sourceTree = "<group>";
 		};
@@ -407,6 +414,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		1898C91818D5606B000E2AD2 /* Kibble Class Model */ = {
+			isa = PBXGroup;
+			children = (
+				1898C91418D5605D000E2AD2 /* KTClassRnD.h */,
+				1898C91518D5605D000E2AD2 /* KTClassRnD.m */,
+			);
+			name = "Kibble Class Model";
+			sourceTree = "<group>";
+		};
 		18CC492F18A55C890067D18A /* Kibble Virtual Machine */ = {
 			isa = PBXGroup;
 			children = (
@@ -546,6 +562,7 @@
 			files = (
 				1854EEBF189D717E00C2F74A /* Localizable.strings in Resources */,
 				1854EE7B189D712D00C2F74A /* Main_iPad.storyboard in Resources */,
+				184D9FB618D6C5B80056DF60 /* KTFoundations in Resources */,
 				1854EE80189D712D00C2F74A /* Images.xcassets in Resources */,
 				1854EE78189D712D00C2F74A /* Main_iPhone.storyboard in Resources */,
 				1854EE6F189D712D00C2F74A /* InfoPlist.strings in Resources */,
@@ -571,6 +588,7 @@
 				1854EEDB189D754D00C2F74A /* SCScore.m in Sources */,
 				18CC492B18A48A720067D18A /* JSRnD.m in Sources */,
 				1854EEB7189D717E00C2F74A /* SoundBank.m in Sources */,
+				1898C91618D5605D000E2AD2 /* KTClassRnD.m in Sources */,
 				1854EEB8189D717E00C2F74A /* SoundBankSpeachSample.m in Sources */,
 				1854EEDA189D754D00C2F74A /* SCBattery.m in Sources */,
 				1854EED9189D754D00C2F74A /* SCTest.m in Sources */,
@@ -748,7 +766,10 @@
 		1854EE97189D712D00C2F74A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
+				ARCHS = (
+					armv7,
+					armv7s,
+				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -771,7 +792,10 @@
 		1854EE98189D712D00C2F74A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
+				ARCHS = (
+					armv7,
+					armv7s,
+				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
