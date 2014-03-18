@@ -86,6 +86,7 @@
 @interface KTFoundation ()
 @end
 @implementation KTFoundation
+@synthesize classesTemp;
 //---
 static NSMutableDictionary *foundations;
 +(KTFoundation*)foundationWithName:(NSString *)name{
@@ -211,6 +212,14 @@ static NSMutableDictionary *foundations;
 
     return bundlePath;
 }
+-(NSMutableArray*)classesTemp{
+    __block NSMutableArray* array = [NSMutableArray new];
+    [self enumerateClasses:^(KTClass *aClass) {
+        if (aClass)
+            [array addObject:aClass];
+    }];
+    return array;
+}
 
 //
 //---
@@ -320,6 +329,19 @@ static NSMutableDictionary *foundations;
     [self.instanceMethods setObject:aMethod forKey:aMethod.name];
 }
 //---
+-(NSMutableArray*)methodsTemp{
+    __block NSMutableArray* array = [NSMutableArray new];
+    [self enumerateInterface:^(KTMethod *aClassMethod, KTMethod *anIntanceMethod, KTVariable *anInstanceVariable) {
+        if (aClassMethod)
+            [array addObject:aClassMethod];
+        if (anIntanceMethod)
+            [array addObject:anIntanceMethod];
+        if (anInstanceVariable)
+            [array addObject:anInstanceVariable];
+    }];
+    return array;
+}
+
 -(void)enumerateInterface:(void(^)(KTMethod* aClassMethod, KTMethod* anIntanceMethod,KTVariable* anInstanceVariable))block{
     
     if (block) {

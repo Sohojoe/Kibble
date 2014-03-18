@@ -46,6 +46,9 @@
 		1854EEE6189DA68900C2F74A /* KibbleType.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEE5189DA68900C2F74A /* KibbleType.m */; };
 		1854EEE9189DA6F000C2F74A /* Kibble.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEE8189DA6F000C2F74A /* Kibble.m */; };
 		1854EEEC189DBA1C00C2F74A /* KBDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEEB189DBA1C00C2F74A /* KBDatabase.m */; };
+		1868040A18D820F500B75D86 /* SensibleTableView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1868040918D820F500B75D86 /* SensibleTableView.framework */; };
+		1868041318D826DB00B75D86 /* iPadDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1868041218D826DB00B75D86 /* iPadDetailViewController.m */; };
+		1868041618D8272E00B75D86 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1868041518D8272E00B75D86 /* RootViewController.m */; };
 		186FAF2818BC14C80074BA09 /* libSuperDBCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FAF2318BC14A80074BA09 /* libSuperDBCore.a */; };
 		1898C91618D5605D000E2AD2 /* KTClassRnD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1898C91518D5605D000E2AD2 /* KTClassRnD.m */; };
 		18CC492B18A48A720067D18A /* JSRnD.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC492A18A48A720067D18A /* JSRnD.m */; };
@@ -170,6 +173,11 @@
 		1854EEE8189DA6F000C2F74A /* Kibble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Kibble.m; sourceTree = "<group>"; };
 		1854EEEA189DBA1C00C2F74A /* KBDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBDatabase.h; sourceTree = "<group>"; };
 		1854EEEB189DBA1C00C2F74A /* KBDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBDatabase.m; sourceTree = "<group>"; };
+		1868040918D820F500B75D86 /* SensibleTableView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SensibleTableView.framework; path = "../STV/Static Frameworks/SensibleTableView.framework"; sourceTree = "<group>"; };
+		1868041118D826DB00B75D86 /* iPadDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iPadDetailViewController.h; path = Kibble/iPadDetailViewController.h; sourceTree = "<group>"; };
+		1868041218D826DB00B75D86 /* iPadDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iPadDetailViewController.m; path = Kibble/iPadDetailViewController.m; sourceTree = "<group>"; };
+		1868041418D8272E00B75D86 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RootViewController.h; path = Kibble/RootViewController.h; sourceTree = "<group>"; };
+		1868041518D8272E00B75D86 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RootViewController.m; path = Kibble/RootViewController.m; sourceTree = "<group>"; };
 		186FAF1D18BC14A80074BA09 /* SuperDBCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SuperDBCore.xcodeproj; path = superdb/SuperDBCore/SuperDBCore.xcodeproj; sourceTree = "<group>"; };
 		1898C91418D5605D000E2AD2 /* KTClassRnD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTClassRnD.h; sourceTree = "<group>"; };
 		1898C91518D5605D000E2AD2 /* KTClassRnD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTClassRnD.m; sourceTree = "<group>"; };
@@ -213,6 +221,7 @@
 				186FAF2818BC14C80074BA09 /* libSuperDBCore.a in Frameworks */,
 				1854EEE0189D763A00C2F74A /* SDWebImage.framework in Frameworks */,
 				1854EEDE189D762F00C2F74A /* Parse.framework in Frameworks */,
+				1868040A18D820F500B75D86 /* SensibleTableView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +241,7 @@
 		1854EE58189D712D00C2F74A = {
 			isa = PBXGroup;
 			children = (
+				1868040C18D8240B00B75D86 /* SVC */,
 				1854EEC1189D718A00C2F74A /* Helper Classes */,
 				1854EEC2189D71D500C2F74A /* UI */,
 				1854EEC3189D720400C2F74A /* Data Model */,
@@ -260,6 +270,7 @@
 		1854EE63189D712D00C2F74A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1868040918D820F500B75D86 /* SensibleTableView.framework */,
 				186FAF1D18BC14A80074BA09 /* SuperDBCore.xcodeproj */,
 				1854EEDF189D763A00C2F74A /* SDWebImage.framework */,
 				1854EEDD189D762F00C2F74A /* Parse.framework */,
@@ -403,6 +414,17 @@
 			);
 			name = "Kibble - Practice";
 			path = Kibble;
+			sourceTree = "<group>";
+		};
+		1868040C18D8240B00B75D86 /* SVC */ = {
+			isa = PBXGroup;
+			children = (
+				1868041418D8272E00B75D86 /* RootViewController.h */,
+				1868041518D8272E00B75D86 /* RootViewController.m */,
+				1868041118D826DB00B75D86 /* iPadDetailViewController.h */,
+				1868041218D826DB00B75D86 /* iPadDetailViewController.m */,
+			);
+			name = SVC;
 			sourceTree = "<group>";
 		};
 		186FAF1E18BC14A80074BA09 /* Products */ = {
@@ -602,6 +624,7 @@
 				18CC494418A693B70067D18A /* VMTalkPhase.m in Sources */,
 				18D6F25518B52CDF00FCA279 /* KibbleV2.m in Sources */,
 				1854EEDC189D754D00C2F74A /* SCAssessment.m in Sources */,
+				1868041618D8272E00B75D86 /* RootViewController.m in Sources */,
 				1854EEE3189D778500C2F74A /* KBRapidTestViewController.m in Sources */,
 				1854EECA189D726D00C2F74A /* SCElement.m in Sources */,
 				1854EEB5189D717E00C2F74A /* UIAlertViewBlock.m in Sources */,
@@ -609,6 +632,7 @@
 				18CC494718A6C44F0067D18A /* KETile.m in Sources */,
 				1854EE71189D712D00C2F74A /* main.m in Sources */,
 				18CC493B18A55D770067D18A /* VMTalk.m in Sources */,
+				1868041318D826DB00B75D86 /* iPadDetailViewController.m in Sources */,
 				1854EEB9189D717E00C2F74A /* Speak.m in Sources */,
 				18D7422718A199E5001F8586 /* KibbleTalk.m in Sources */,
 				1854EED8189D754D00C2F74A /* SCPage.m in Sources */,
@@ -775,6 +799,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/apple/development/Kibble,
+					/Users/apple/development/STV/Static,
+					Frameworks,
+					"../STV/**",
+					Frameworks,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Kibble/Kibble-Prefix.pch";
@@ -801,6 +829,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/apple/development/Kibble,
+					/Users/apple/development/STV/Static,
+					Frameworks,
+					"../STV/**",
+					Frameworks,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Kibble/Kibble-Prefix.pch";

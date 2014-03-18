@@ -30,6 +30,7 @@
 -(void)saveToiOSDisk;
 -(void)saveToOSXDisk;
 +(KTFoundation*)foundationFromDisk:(NSString *)name;
+@property (nonatomic, strong) NSMutableArray *classesTemp;
 @end
 
 
@@ -53,6 +54,7 @@
 @property (nonatomic, strong) NSMutableDictionary* classVars;
 @property (nonatomic, strong) NSMutableDictionary* instanceMethods;
 @property (nonatomic, strong) NSMutableDictionary* instanceVars;
+@property (nonatomic, strong) NSMutableArray* methodsTemp;
 //protocols
 //catagories
 @end

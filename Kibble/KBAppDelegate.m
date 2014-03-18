@@ -19,6 +19,9 @@
 @import Foundation;
 @import CoreGraphics;
 
+#import "RootViewController.h"
+#import "iPadDetailViewController.h"
+
 
 
 @import SystemConfiguration;
@@ -28,7 +31,7 @@
 @implementation KBAppDelegate {
     SuperInterpreterService *_interpreterService;
 }
-
+@synthesize window = _window;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
@@ -55,7 +58,39 @@
 		// return _navigationController.topViewController;
 		return self.window.rootViewController;
 	}];
-
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen]
+                                                   bounds]];
+    RootViewController *rootViewController = [[RootViewController alloc]
+                                              initWithStyle:UITableViewStyleGrouped];
+    UINavigationController *rootNavController =
+    [[UINavigationController alloc]
+     initWithRootViewController:rootViewController];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] ==
+        UIUserInterfaceIdiomPhone)
+    {
+        self.window.rootViewController = rootNavController;
+    }
+    else
+    {
+        iPadDetailViewController *detailViewController =
+        [[iPadDetailViewController alloc]
+         initWithStyle:UITableViewStyleGrouped];
+        UINavigationController *detailNavController =
+        [[UINavigationController alloc]
+         initWithRootViewController:detailViewController];
+        // Connect the master model to the detail model
+        rootViewController.tableViewModel.detailViewController =
+        detailViewController;
+        UISplitViewController *splitViewController =
+        [[UISplitViewController alloc] init];
+        splitViewController.viewControllers =
+        [NSArray arrayWithObjects:rootNavController,
+         detailNavController, nil];
+        self.window.rootViewController = splitViewController;
+    }
+    [self.window makeKeyAndVisible];
+    
     
     
     return YES;
