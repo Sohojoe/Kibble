@@ -9,7 +9,7 @@
 #import "KTClassRnD.h"
 #define kPathName       @"KTFoundations"
 #define kFileExtension  @"plist"
-#define kVersion        0.1
+#define kVersion        0.002
 
 @implementation KTClassRnD
 +(void)test{
@@ -37,8 +37,8 @@
         [cNSString enumerateClassIniters:^(KTMethod *aMethod) {
             NSLog(@"%@", aMethod);
             
-            NSString *str1 = [KTClass sendMessageToClass:cNSString message:@"stringWithString:" params:@"hello world",nil];
-            NSLog(@"%@", str1);
+            //NSString *str1 = [KTClass sendMessageToClass:cNSString message:@"stringWithString:" params:@"hello world",nil];
+            //NSLog(@"%@", str1);
         }];
         
         KTFoundation *f = [KTFoundation foundationWithName:@"TestFoundation"];
@@ -50,18 +50,36 @@
         KTFoundation *f = [KTFoundation foundationFromDisk:@"TestFoundation"];
         [f enumerateClasses:^(KTClass *aClass) {
             NSLog(@"%@", aClass.name);
+            /*
             [aClass enumerateClassIniters:^(KTMethod *aMethod) {
-                NSLog(@"..%@", aMethod.name);
-                
-                NSString *str1 = nil;
-                //str1 = [KTClass sendMessageToClass:aClass message:aMethod.name params:@"hello world",nil];
-                if (str1) {
-                    NSLog(@"%@", str1);
+                if (aMethod.isClass) {
+                    NSLog(@"+%@", aMethod.name);
+                } else {
+                    NSLog(@"-%@", aMethod.name);
                 }
             }];
+             */
+            [aClass enumerateInterface:^(KTMethod *aClassMethod, KTMethod *anIntanceMethod, KTVariable *anInstanceVariable) {
+                if (aClassMethod) {
+                    NSLog(@"+%@", aClassMethod.name);
+                } if (anIntanceMethod){
+                    NSLog(@"-%@", anIntanceMethod.name);
+                } if (anInstanceVariable) {
+                    NSLog(@".%@", anInstanceVariable.name);
+                }
+            }];
+
         }];
+        
+        KTClass *kNSString = [f classWithName:@"NSString"];
+        if (kNSString) {
+            KTMethod *stringWithString = [kNSString classMethodWithName:@"stringWithString:"];
+            if (stringWithString) {
+                NSString *str1 = [kNSString callMethod:stringWithString params:[NSArray arrayWithObjects:@"Yo baby, it's cool, isn't it", nil]];
+                NSLog(@"%@",str1);
+            }
+        }
     }
-    
 }
 @end
 
@@ -139,8 +157,12 @@ static NSMutableDictionary *foundations;
     
     NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:codedData];
     NSNumber *archivedVersion = [unarchiver decodeObjectForKey:@"version"];
-    NSLog(@"version %@", archivedVersion);
-    KTFoundation* o = [unarchiver decodeObjectForKey:@"data"];
+    KTFoundation* o = nil;
+    if ([archivedVersion compare:[NSNumber numberWithFloat:kVersion]] == NSOrderedSame) {
+        o = [unarchiver decodeObjectForKey:@"data"];
+    } else {
+        NSLog(@"archived version %@ does not equal local version %f", archivedVersion, kVersion);
+    }
     [unarchiver finishDecoding];
     return o;
 }
@@ -216,13 +238,15 @@ static NSMutableDictionary *foundations;
 +(KTClass*)classWithName:(NSString *)name{
     KTClass *o = [KTClass new];
     o.name = name;
-    o.classMethods = [NSMutableArray new];
-    o.instanceMethods = [NSMutableArray new];
-    o.classVars = [NSMutableArray new];
-    o.instanceVars = [NSMutableArray new];
+    o.classMethods = [NSMutableDictionary new];
+    o.instanceMethods = [NSMutableDictionary new];
+    o.classVars = [NSMutableDictionary new];
+    o.instanceVars = [NSMutableDictionary new];
     return o;
 }
 //---
+
+/*
 +(id)sendMessageToClass:(KTClass*)aClass message:(NSString*)aMessage params:(id)params, ...{
 
     NSMutableArray *arguments=[[NSMutableArray alloc]initWithArray:nil];
@@ -262,25 +286,97 @@ static NSMutableDictionary *foundations;
     return returns;
     
 }
+ */
+
+-(id)callMethod:(KTMethod*)aMethod params:(NSArray*)params{
+    
+    id returns = nil;
+    SEL theSelector = NSSelectorFromString(aMethod.name);
+    Class theClass = NSClassFromString(self.name);
+    if([theClass respondsToSelector:theSelector]) {
+        NSInvocation *inv = [NSInvocation invocationWithMethodSignature:[theClass methodSignatureForSelector:theSelector]];
+        [inv setSelector:theSelector];
+        [inv setTarget:theClass];
+        
+        [params enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            NSUInteger trueIndex = 2 + idx; //arguments 0 and 1 are self and _cmd respectively, automatically set by NSInvocation
+            [inv setArgument:&(obj) atIndex:trueIndex];
+        }];
+        
+        [inv invoke];
+        
+        [inv getReturnValue:&returns];
+    }
+ 
+    return returns;
+}
+
+
 //---
 -(void)addClassMethod:(KTMethod*)aMethod{
-    [self.classMethods addObject:aMethod];
+    [self.classMethods setObject:aMethod forKey:aMethod.name];
 }
 -(void)addInstanceMethod:(KTMethod*)aMethod{
-    [self.instanceMethods addObject:aMethod];
+    [self.instanceMethods setObject:aMethod forKey:aMethod.name];
 }
 //---
+-(void)enumerateInterface:(void(^)(KTMethod* aClassMethod, KTMethod* anIntanceMethod,KTVariable* anInstanceVariable))block{
+    
+    if (block) {
+        [self enumerateClassMethods:^(KTMethod *aMethod) {
+            block(aMethod, nil, nil);
+        }];
+        [self enumerateInstanceMethods:^(KTMethod *aMethod) {
+            block(nil, aMethod, nil);
+        }];
+        [self enumerateInstanceVars:^(KTVariable *aVariable) {
+            block(nil, nil, aVariable);
+        }];
+    }
+}
+-(void)enumerateClassMethods:(void(^)(KTMethod* aMethod))block{
+    if (block) {
+        [self.classMethods enumerateKeysAndObjectsUsingBlock:^(id key, KTMethod* method, BOOL *stop) {
+                block(method);
+        }];
+    }
+}
+-(void)enumerateInstanceMethods:(void(^)(KTMethod* aMethod))block{
+    if (block) {
+        [self.instanceMethods enumerateKeysAndObjectsUsingBlock:^(id key, KTMethod* method, BOOL *stop) {
+            block(method);
+        }];
+    }
+}
+-(void)enumerateInstanceVars:(void(^)(KTVariable* aVariable))block{
+    if (block) {
+        [self.instanceVars enumerateKeysAndObjectsUsingBlock:^(id key, KTVariable* variable, BOOL *stop) {
+            block(variable);
+        }];
+    }
+}
 -(void)enumerateClassIniters:(void(^)(KTMethod* aMethod))block{
     KTType *type =[KTType objCObjectPointer:NSStringFromClass([self class])];
     [self enumerateClassMethodsThatReturn:type withBlock:block];
 }
 -(void)enumerateClassMethodsThatReturn:(KTType*)returns withBlock:(void(^)(KTMethod* aMethod))block{
     if (block) {
-        [self.classMethods enumerateObjectsUsingBlock:^(KTMethod* method, NSUInteger idx, BOOL *stop) {
-            block(method);
+        [self.classMethods enumerateKeysAndObjectsUsingBlock:^(id key, KTMethod* method, BOOL *stop) {
+            if (method.returns == returns) {
+                block(method);
+            }
         }];
     }
 }
+-(KTMethod*)classMethodWithName:(NSString*)name{
+    KTMethod *thisMethod = [self.classMethods objectForKey:name];
+    return thisMethod;
+}
+-(KTMethod*)instanceMethodWithName:(NSString*)name{
+    KTMethod *thisMethod = [self.instanceMethods objectForKey:name];
+    return thisMethod;
+}
+
 
 //---
 #pragma mark NSCoding

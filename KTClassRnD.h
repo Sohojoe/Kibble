@@ -34,17 +34,25 @@
 
 
 @class KTMethod;
+@class KTVariable;
 @interface KTClass : NSObject <KTClassProtocol, NSCoding>
 @property (nonatomic, strong) NSString* name;
 +(KTClass*)classWithName:(NSString*)name;
 -(void)addClassMethod:(KTMethod*)aMethod;
 -(void)addInstanceMethod:(KTMethod*)aMethod;
 -(void)enumerateClassIniters:(void(^)(KTMethod* aMethod))block;
-+(id)sendMessageToClass:(KTClass*)aClass message:(NSString*)aMessage params:(id)params, ...;
-@property (nonatomic, strong) NSMutableArray* classMethods;
-@property (nonatomic, strong) NSMutableArray* classVars;
-@property (nonatomic, strong) NSMutableArray* instanceMethods;
-@property (nonatomic, strong) NSMutableArray* instanceVars;
+-(void)enumerateInterface:(void(^)(KTMethod* aClassMethod, KTMethod* anIntanceMethod,KTVariable* anInstanceVariable))block;
+-(void)enumerateClassMethods:(void(^)(KTMethod* aMethod))block;
+-(void)enumerateInstanceMethods:(void(^)(KTMethod* aMethod))block;
+-(void)enumerateInstanceVars:(void(^)(KTVariable* aVariable))block;
+//+(id)sendMessageToClass:(KTClass*)aClass message:(NSString*)aMessage params:(id)params, ...;
+-(id)callMethod:(KTMethod*)aMethod params:(NSArray*)params;
+-(KTMethod*)classMethodWithName:(NSString*)name;
+-(KTMethod*)instanceMethodWithName:(NSString*)name;
+@property (nonatomic, strong) NSMutableDictionary* classMethods;
+@property (nonatomic, strong) NSMutableDictionary* classVars;
+@property (nonatomic, strong) NSMutableDictionary* instanceMethods;
+@property (nonatomic, strong) NSMutableDictionary* instanceVars;
 //protocols
 //catagories
 @end
