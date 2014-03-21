@@ -38,6 +38,7 @@
     
     [[BackEnd sharedBackEnd] oneTimeSetup:launchOptions];
     
+    __block id superDBObject = self.window.rootViewController;
     
     // For SuperDB
     _interpreterService = [SuperInterpreterService new];
@@ -56,8 +57,10 @@
 		// This might be whatever your topmost view controller is
 		// How you get it is up to you!
 		// return _navigationController.topViewController;
-		return self.window.rootViewController;
+		return superDBObject; //self.window.rootViewController;
 	}];
+    
+    return YES;
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen]
                                                    bounds]];
@@ -91,7 +94,7 @@
     }
     [self.window makeKeyAndVisible];
     
-    
+    superDBObject = rootNavController;
     
     return YES;
 }

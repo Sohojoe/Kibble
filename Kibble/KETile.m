@@ -11,7 +11,7 @@
 
 
 @interface KETile ()
-@property (nonatomic, strong) UIViewController *parentViewController;
+@property (nonatomic, strong) UIView *parentView;
 -(void)startTapInput;
 -(void)wasTapped;
 @property (nonatomic, strong) void (^ callWhenClickedBlock) (id, KETile*);
@@ -145,7 +145,7 @@
      UIViewAutoresizingFlexibleTopMargin];
 */
     
-    [self.parentViewController.view addSubview:self];
+    [self.parentView addSubview:self];
 }
 -(void)setDisplayWithImage:(UIImage*)thisImage{
 
@@ -172,7 +172,7 @@
      UIViewAutoresizingFlexibleBottomMargin |
      UIViewAutoresizingFlexibleTopMargin];
 */
-    [self.parentViewController.view addSubview:self];
+    [self.parentView addSubview:self];
 }
 
 // overide position to handle the center

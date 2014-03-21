@@ -44,7 +44,157 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self test2];
+}
+
+-(void)test2{
+
+    UIScrollView *sv = (UIScrollView *)self.view;
+    if ([sv isKindOfClass:[UIScrollView class]]) {
+        sv.scrollEnabled = YES;
+    } else {
+        sv = [UIScrollView new];
+        CGRect frame = self.view.frame;
+        if ([[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeLeft
+            || [[UIApplication sharedApplication] statusBarOrientation] == UIInterfaceOrientationLandscapeRight){
+            frame.size.width = self.view.bounds.size.height;
+            frame.size.height = self.view.bounds.size.width;
+        }
+        
+        
+        sv.frame=frame;
+        sv.contentSize = frame.size;
+        [sv setScrollEnabled:YES];
+        //[sv addSubview:imageView];
+        [self.view addSubview:sv];
+    }
+
     
+    [KETileSystem defaultTileSystem].parentView = self.view;
+    self.tileSystem = [KETileSystem tileSystemWithSquareTileSize:128.0 parentView:sv];
+    [self.tileSystem editKibble:self.testKibble];
+    
+    KTFoundation *foundation = [KTFoundation foundationFromDisk:@"TestFoundation"];
+
+    
+    __block NSMutableArray *classTiles = [NSMutableArray new];
+    __block NSMutableArray *methodTiles = [NSMutableArray new];
+
+    KETile *newTile = [self.tileSystem newTile];
+    newTile.display = foundation.name;
+    newTile.dataObject = foundation;
+    [newTile blockWhenClicked:^(KTFoundation *thisFoundation, KETile *tileThatWasClicked) {
+        
+        // abort if we have sub tiles around
+        if (classTiles.count ||
+            methodTiles.count) {
+            return;
+        }
+
+        
+        [self.tileSystem pushCurPositionNewLineAndIndent];
+        
+
+        
+        [thisFoundation enumerateClasses:^(KTClass *aClass) {
+            
+            // create class
+            KETile *classTile = [self.tileSystem newTile];
+            [classTiles addObject:classTile];
+            classTile.display = aClass.name;
+            classTile.dataObject = aClass;
+            [classTile blockWhenClicked:^(KTClass *thisClass, KETile *tileThatWasClicked) {
+                
+                // remove class tiles
+                [self removeAndPopFrom:classTiles];
+                
+                __block NSUInteger count = 0;
+                __block BOOL firstTile = YES;
+                
+                [thisClass enumerateClassMethods:^(KTMethod *aMethod) {
+
+                    if (firstTile) {
+                        [self.tileSystem pushCurPositionNewLineAndIndent];
+                        firstTile = NO;
+                    }
+                    
+                    KETile *methodTile = [self.tileSystem newTile];
+                    [methodTiles addObject:methodTile];
+                    methodTile.display = aMethod.name;
+                    methodTile.dataObject = aMethod;
+                    [methodTile blockWhenClicked:^(KTClass *thisClass, KETile *tileThatWasClicked) {
+                        // remove method tiles
+                        [self removeAndPopFrom:methodTiles];
+                    }];
+                    count++;
+                }];
+                
+                if (count) {
+                    [self.tileSystem newLine];
+                    count=0;
+                }
+
+                [thisClass enumerateInstanceMethods:^(KTMethod *aMethod) {
+                    
+                    if (firstTile) {
+                        [self.tileSystem pushCurPositionNewLineAndIndent];
+                        firstTile = NO;
+                    }
+                    
+                    KETile *methodTile = [self.tileSystem newTile];
+                    [methodTiles addObject:methodTile];
+                    methodTile.display = aMethod.name;
+                    methodTile.dataObject = aMethod;
+                    [methodTile blockWhenClicked:^(KTClass *thisClass, KETile *tileThatWasClicked) {
+                        // remove method tiles
+                        [self removeAndPopFrom:methodTiles];
+                    
+                    }];
+                }];
+
+                if (count) {
+                    [self.tileSystem newLine];
+                    count=0;
+                }
+                
+                [thisClass enumerateInstanceVars:^(KTVariable *aVariable) {
+                    
+                    if (firstTile) {
+                        [self.tileSystem pushCurPositionNewLineAndIndent];
+                        firstTile = NO;
+                    }
+
+                    KETile *methodTile = [self.tileSystem newTile];
+                    [methodTiles addObject:methodTile];
+                    methodTile.display = aVariable.name;
+                    methodTile.dataObject = aVariable;
+                    [methodTile blockWhenClicked:^(KTClass *thisClass, KETile *tileThatWasClicked) {
+                        // remove method tiles
+                        [self removeAndPopFrom:methodTiles];
+                        
+                    }];
+                }];
+                
+            }];
+        }];
+    }];
+    
+    
+}
+
+-(void)removeAndPopFrom:(NSMutableArray*) tileArray{
+    if (tileArray.count) {
+        [tileArray enumerateObjectsUsingBlock:^(KETile *tileToRemove, NSUInteger idx, BOOL *stop) {
+            [tileToRemove dismiss];
+        }];
+        [tileArray removeAllObjects];
+    }
+    [self.tileSystem popPosition];
+    [self.tileSystem popIndent];
+}
+
+-(void)test1{
+
    // NSArray *fred = class_copyMethodList(UIView class,)
     
 	// Do any additional setup after loading the view.
@@ -162,9 +312,9 @@
     [self.testKibble.myKibbles addObject:self.testObject];
 
   
-    [KETileSystem defaultTileSystem].parentViewController = self;
+    [KETileSystem defaultTileSystem].parentView = self.view;
     
-    self.tileSystem = [KETileSystem tileSystemWithSquareTileSize:128.0 parentVC:self];
+    self.tileSystem = [KETileSystem tileSystemWithSquareTileSize:128.0 parentView:self.view];
     [self.tileSystem editKibble:self.testKibble];
     
     KETile *newTile = [self.tileSystem newTile];

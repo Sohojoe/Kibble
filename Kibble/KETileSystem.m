@@ -18,9 +18,11 @@
 @property (nonatomic) NSUInteger indentSize;
 @property (nonatomic,strong) KibbleV2 *kibbleBeingEdited;
 @property (nonatomic, strong) KETile *tileInFocus;
+@property (nonatomic, strong) NSMutableArray *positionStack;
 @end
 
 @implementation KETileSystem
+@synthesize positionStack;
 
 +(KETileSystem*)defaultTileSystem{
     static KETileSystem *shared = nil;
@@ -31,10 +33,10 @@
     }
     return shared;
 }
-+(KETileSystem*)tileSystemWithSquareTileSize:(float)thisTileSize parentVC:(id)thisParentViewController{
++(KETileSystem*)tileSystemWithSquareTileSize:(float)thisTileSize parentView:(id)thisParentView{
     KETileSystem *newSystem = [[KETileSystem alloc]init];
     newSystem.tileSize = thisTileSize;
-    newSystem.parentViewController = thisParentViewController;
+    newSystem.parentView = thisParentView;
     
     [newSystem resetNextTilePositionToTopLeft];
     return (newSystem);
@@ -45,7 +47,7 @@
 -(void)resetNextTilePositionToMiddleLeft{
     self.nextTilePosition
     = CGPointMake(self.tileSize /2 + (self.tileMargin.width /2),
-                  self.parentViewController.view.frame.size.height /2);
+                  self.parentView.frame.size.height /2);
 }
 
 
@@ -66,12 +68,19 @@
     ourNewTile.position = self.nextTilePosition;
     
     CGPoint pos =self.nextTilePosition;;
+    // set next position and wrap
     pos.x = self.nextTilePosition.x + self.tileSize + self.tileMargin.width;
-    self.nextTilePosition = pos;
+    CGRect screenBounds = self.parentView.bounds;
+    if (pos.x < screenBounds.size.width-(self.tileSize/2)) {
+        self.nextTilePosition = pos;
+    } else {
+        // wrap
+        [self newLine];
+    }
 
     ourNewTile.parentTileSystem = self;
     
-    [self.parentViewController.view addSubview:ourNewTile];
+    [self.parentView addSubview:ourNewTile];
     
     [ourNewTile addPopAnimation];
  
@@ -84,6 +93,41 @@
     pos.x = self.tileSize /2 + (self.tileMargin.width /2 );
     pos.x += self.indentSize * self.indent;
     self.nextTilePosition = pos;
+    
+    // check bounds
+    CGRect screenBounds = self.parentView.bounds;
+    if ([self.parentView isKindOfClass:[UIScrollView class]]) {
+        UIScrollView *sv = (UIScrollView *)self.parentView;
+        CGSize size = sv.contentSize;
+        if (pos.y > (size.height-(self.tileSize/2))) {
+            size.height = pos.y+(self.tileSize/2);
+            sv.contentSize = size;
+        }
+    } else {
+        if (pos.y > (screenBounds.size.height-(self.tileSize/2))) {
+            screenBounds.size.height = pos.y+(self.tileSize/2);
+            self.parentView.bounds = screenBounds;
+        }
+    }
+    
+}
+
+-(NSMutableArray*)positionStack{
+    if (!positionStack) {
+        positionStack = [NSMutableArray new];
+    }
+    return positionStack;
+}
+-(void)pushCurPositionNewLineAndIndent{
+    [self.positionStack addObject:[NSValue valueWithCGPoint:self.nextTilePosition]];
+    [self newLineAndIndent];
+}
+-(void)popPosition{
+    if (self.positionStack.count) {
+        NSValue *popValue = [self.positionStack objectAtIndex:self.positionStack.count-1];
+        [self.positionStack removeObjectAtIndex:self.positionStack.count-1];
+        self.nextTilePosition = [popValue CGPointValue];
+    }
 }
 -(void)newLineAndIndent{
     self.indent++;

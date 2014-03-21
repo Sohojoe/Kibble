@@ -14,20 +14,30 @@
 @interface KETileSystem : NSObject
 
 @property (nonatomic) CGFloat tileSize;               // assumes square size
-@property (nonatomic) UIViewController* parentViewController;
+@property (nonatomic) UIView* parentView;
 
 +(KETileSystem*)defaultTileSystem;
 
-+(KETileSystem*)tileSystemWithSquareTileSize:(float)thisTileSize parentVC:(id)thisParentViewController;
++(KETileSystem*)tileSystemWithSquareTileSize:(float)thisTileSize parentView:(id)thisParentView;
 
 -(void)editKibble:(KibbleV2*)thisKibble;
 
--(KETile*)newTile;                  // create a new tile in the logical space
 
--(void)newLine;                     // move logic space to begining of next line
--(void)newLineAndIndent;            // ... and increase indent
--(void)popIndent;                   // decrease indent
--(void)resetIndent;                 // reset indent
+/// create a new tile in the logical space
+-(KETile*)newTile;
+
+/// move logic space to begining of next line
+-(void)newLine;
+/// ... and increase indent
+-(void)newLineAndIndent;
+/// decrease indent
+-(void)popIndent;
+/// reset indent
+-(void)resetIndent;
+/// pushes next tile position on to stack and...
+-(void)pushCurPositionNewLineAndIndent;
+/// pops next tile  position from the stack...
+-(void)popPosition;
 
 -(KETile*)addWhatNextTile;
 

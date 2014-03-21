@@ -6,8 +6,9 @@
 //  Copyright (c) 2014 Vidya Gamer. All rights reserved.
 //
 
+
 #import <SensibleTableView/SensibleTableView.h>
 
-@interface RootViewController : SCTableViewController
+@interface RootViewController :  SCTableViewController
 
 @end
