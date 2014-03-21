@@ -81,7 +81,7 @@
     __block NSMutableArray *methodTiles = [NSMutableArray new];
 
     KETile *newTile = [self.tileSystem newTile];
-    newTile.display = foundation.name;
+    newTile.display = [self prettyString:foundation.name];
     newTile.dataObject = foundation;
     [newTile blockWhenClicked:^(KTFoundation *thisFoundation, KETile *tileThatWasClicked) {
         
@@ -101,7 +101,7 @@
             // create class
             KETile *classTile = [self.tileSystem newTile];
             [classTiles addObject:classTile];
-            classTile.display = aClass.name;
+            classTile.display = [self prettyString:aClass.name];
             classTile.dataObject = aClass;
             [classTile blockWhenClicked:^(KTClass *thisClass, KETile *tileThatWasClicked) {
                 
@@ -117,10 +117,15 @@
                         [self.tileSystem pushCurPositionNewLineAndIndent];
                         firstTile = NO;
                     }
+                    if (count ==0) {
+                        KETile *headerTitle = [self.tileSystem newHeaderTile];
+                        headerTitle.display = @"Class Methods";
+                        [methodTiles addObject:headerTitle];
+                    }
                     
                     KETile *methodTile = [self.tileSystem newTile];
                     [methodTiles addObject:methodTile];
-                    methodTile.display = aMethod.name;
+                    methodTile.display = [self prettyString:aMethod.name];
                     methodTile.dataObject = aMethod;
                     [methodTile blockWhenClicked:^(KTClass *thisClass, KETile *tileThatWasClicked) {
                         // remove method tiles
@@ -135,21 +140,29 @@
                 }
 
                 [thisClass enumerateInstanceMethods:^(KTMethod *aMethod) {
-                    
+
+                    // new line if we need a new line
                     if (firstTile) {
                         [self.tileSystem pushCurPositionNewLineAndIndent];
                         firstTile = NO;
                     }
+                    // header tile if first of this tyle
+                    if (count ==0) {
+                        KETile *headerTitle = [self.tileSystem newHeaderTile];
+                        headerTitle.display = @"Instance Methods";
+                        [methodTiles addObject:headerTitle];
+                    }
                     
                     KETile *methodTile = [self.tileSystem newTile];
                     [methodTiles addObject:methodTile];
-                    methodTile.display = aMethod.name;
+                    methodTile.display = [self prettyString:aMethod.name];
                     methodTile.dataObject = aMethod;
                     [methodTile blockWhenClicked:^(KTClass *thisClass, KETile *tileThatWasClicked) {
                         // remove method tiles
                         [self removeAndPopFrom:methodTiles];
                     
                     }];
+                    count++;
                 }];
 
                 if (count) {
@@ -163,16 +176,23 @@
                         [self.tileSystem pushCurPositionNewLineAndIndent];
                         firstTile = NO;
                     }
+                    // header tile if first of this tyle
+                    if (count ==0) {
+                        KETile *headerTitle = [self.tileSystem newHeaderTile];
+                        headerTitle.display = @"Class Methods";
+                        [methodTiles addObject:headerTitle];
+                    }
 
                     KETile *methodTile = [self.tileSystem newTile];
                     [methodTiles addObject:methodTile];
-                    methodTile.display = aVariable.name;
+                    methodTile.display = [self prettyString:aVariable.name];
                     methodTile.dataObject = aVariable;
                     [methodTile blockWhenClicked:^(KTClass *thisClass, KETile *tileThatWasClicked) {
                         // remove method tiles
                         [self removeAndPopFrom:methodTiles];
                         
                     }];
+                    count++;
                 }];
                 
             }];
@@ -180,6 +200,76 @@
     }];
     
     
+}
+-(NSString*)prettyString:(NSString*)srcString{
+
+    
+    int index = srcString.length;
+    NSMutableString* mutableInputString = [NSMutableString stringWithString:srcString];
+    
+    BOOL checkForNonLowercase = YES;
+    
+    if (index) {
+        index--;
+        if ([[NSCharacterSet lowercaseLetterCharacterSet] characterIsMember:[mutableInputString characterAtIndex:index]]) {
+            checkForNonLowercase = NO;
+        }
+    }
+    
+    while (index>1) {
+        
+        // if current charicter is lower case
+        // and if previous charicter is not lowercase
+        BOOL isCurCollon = NO;
+        if ([mutableInputString characterAtIndex:index] ==[@":" characterAtIndex:0]){
+            isCurCollon = YES;
+        }
+        BOOL isCurCharicterLowerCase = [[NSCharacterSet lowercaseLetterCharacterSet] characterIsMember:[mutableInputString characterAtIndex:index]];
+        BOOL isCurCharicterUpperCase = [[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember:[mutableInputString characterAtIndex:index]];
+        BOOL isPreviousCharicterLowerCase = [[NSCharacterSet lowercaseLetterCharacterSet] characterIsMember:[mutableInputString characterAtIndex:index-1]];
+        BOOL isPreviousCharicterUpperCase = [[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember:[mutableInputString characterAtIndex:index-1]];
+
+        if (isCurCollon) {
+            [mutableInputString insertString:@" " atIndex:index+1];
+        } else {
+            if (isCurCharicterUpperCase && isPreviousCharicterLowerCase) {
+                [mutableInputString insertString:@" " atIndex:index];
+            }
+            
+            if (isCurCharicterLowerCase && (isPreviousCharicterUpperCase)) {
+                [mutableInputString insertString:@" " atIndex:index-1];
+            }
+        }
+        index--;
+/*
+        
+        if (checkForNonLowercase) {
+            if ([[NSCharacterSet lowercaseLetterCharacterSet] characterIsMember:[mutableInputString characterAtIndex:index]] == NO) {
+                [mutableInputString insertString:@" " atIndex:index];
+                checkForNonLowercase = NO;
+            }
+        } else {
+            if ([[NSCharacterSet lowercaseLetterCharacterSet] characterIsMember:[mutableInputString characterAtIndex:index]]) {
+                checkForNonLowercase = YES;
+            }
+        }
+        index--;
+ */
+    }
+    
+    return [NSString stringWithString:mutableInputString];
+    
+    NSRegularExpression *regexp = [NSRegularExpression
+                                   regularExpressionWithPattern:@"([a-z])([A-Z])"
+                                   options:0
+                                   error:NULL];
+    NSString *newString = [regexp
+                           stringByReplacingMatchesInString:srcString
+                           options:0 
+                           range:NSMakeRange(0, srcString.length)
+                           withTemplate:@"$1 $2"];
+    
+    return newString;
 }
 
 -(void)removeAndPopFrom:(NSMutableArray*) tileArray{

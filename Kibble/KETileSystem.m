@@ -87,11 +87,19 @@
     
     return (ourNewTile);
 }
+-(CGFloat)nextLineX{
+    CGFloat x =self.tileSize /2 + (self.tileMargin.width /2 );
+    x += self.indentSize * self.indent;
+    return x;
+}
 -(void)newLine{
+    [self newLineWithYOffset:self.tileSize];
+}
+
+-(void)newLineWithYOffset:(CGFloat)ySize{
     CGPoint pos =self.nextTilePosition;
-    pos.y = self.nextTilePosition.y + self.tileSize + self.tileMargin.height;
-    pos.x = self.tileSize /2 + (self.tileMargin.width /2 );
-    pos.x += self.indentSize * self.indent;
+    pos.y = self.nextTilePosition.y + ySize + self.tileMargin.height;
+    pos.x = self.nextLineX;
     self.nextTilePosition = pos;
     
     // check bounds
@@ -99,18 +107,23 @@
     if ([self.parentView isKindOfClass:[UIScrollView class]]) {
         UIScrollView *sv = (UIScrollView *)self.parentView;
         CGSize size = sv.contentSize;
-        if (pos.y > (size.height-(self.tileSize/2))) {
-            size.height = pos.y+(self.tileSize/2);
+        if (pos.y > (size.height-(ySize/2))) {
+            size.height = pos.y+(ySize/2);
             sv.contentSize = size;
         }
     } else {
-        if (pos.y > (screenBounds.size.height-(self.tileSize/2))) {
-            screenBounds.size.height = pos.y+(self.tileSize/2);
+        if (pos.y > (screenBounds.size.height-(ySize/2))) {
+            screenBounds.size.height = pos.y+(ySize/2);
             self.parentView.bounds = screenBounds;
         }
     }
-    
 }
+-(void)ifNeededNewLineWithSize:(CGFloat)ySize{
+    if (self.nextTilePosition.x > self.nextLineX) {
+        [self newLineWithYOffset:ySize];
+    }
+}
+
 
 -(NSMutableArray*)positionStack{
     if (!positionStack) {
@@ -226,5 +239,19 @@
     return (newTile);
 }
 
+-(KETile*)newHeaderTile{
+    // new line if we need a new line
+    [self ifNeededNewLineWithSize:self.tileSize/2];
+    
+    KETile *newTile = [self newTile];
+    CGRect frame = newTile.frame;
+    frame.size.width *=2;
+    frame.size.height /=2;
+    newTile.frame = frame;
+
+    [self ifNeededNewLineWithSize:self.tileSize/2];
+
+    return (newTile);
+}
 
 @end

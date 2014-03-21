@@ -44,4 +44,7 @@
 // theseOptions = array of callbacks to init tiles
 -(void)subLayerAround:(KETile*)thisTile withOptions:(NSArray*)theseOptions;
 
+/// return a new header tile
+-(KETile*)newHeaderTile;
+
 @end

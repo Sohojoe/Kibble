@@ -45,6 +45,7 @@
     if (self) {
         // Initialization code
         self.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.1];
+        self.layer.shouldRasterize = YES;
     }
     return self;
 }
