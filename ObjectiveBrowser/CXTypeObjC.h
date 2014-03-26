@@ -162,7 +162,7 @@
  * If the type declaration is not a constant size type,
  *   CXTypeLayoutError_NotConstantSize is returned.
  */
-@property (nonatomic, readonly) long long alignOf;
+@property (nonatomic, readonly) NSInteger alignOf;
 //CINDEX_LINKAGE long long clang_Type_getAlignOf(CXType T);
 
 /**
@@ -182,7 +182,7 @@
  * If the type declaration is a dependent type, CXTypeLayoutError_Dependent is
  *   returned.
  */
-@property (nonatomic, readonly) long long sizeOf;
+@property (nonatomic, readonly) NSInteger sizeOf;
 //CINDEX_LINKAGE long long clang_Type_getSizeOf(CXType T);
 
 /**

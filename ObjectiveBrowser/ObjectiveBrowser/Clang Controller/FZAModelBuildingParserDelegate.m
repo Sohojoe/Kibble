@@ -143,6 +143,11 @@
                 thisMethod.isInstance = isIntanceMethod;
                 thisMethod.name = name;
                 thisMethod.comment = briefComment;
+                
+                if ([thisMethod.name isEqualToString:@"string"]) {
+                    NSLog(@"here");
+                }
+                
             } result:^(BOOL isVoid, NSString *returnName, CXTypeObjC *returnType) {
                 //
                 KTType* thisReturnType = [self ktTypeFrom:returnType];
@@ -185,12 +190,69 @@
 -(KTType*)ktTypeFrom:(CXTypeObjC*)sourceType{
     KTType* thisType = nil;
     
+    if (sourceType.rawKind == 0){
+        // this is an invalid type, return nil
+        return nil;
+    }
+    
+    thisType = [KTType new];
+    thisType.kind = (unsigned int)sourceType.rawKind;
+    //thisType.kindAsText
+    thisType.name = sourceType.typeSpelling;
+    //thisType.xxx = sourceType.typeKindSpelling;
+    if (sourceType.canonicalType) {
+        if (sourceType.canonicalType.rawKind == sourceType.rawKind) {
+            thisType.canonical = thisType;
+        } else {
+            thisType.canonical = [self ktTypeFrom:sourceType.canonicalType];
+        }
+    }
+    thisType.isConstQualified = sourceType.isConstQualifiedType;
+    thisType.isVolatileQualified = sourceType.isVolatileQualifiedType;
+    thisType.isRestrictQualified = sourceType.isRestrictQualifiedType;
+    thisType.isVariadic = sourceType.isFunctionTypeVariadic;
+    thisType.isPODType = sourceType.isPODType;
+    if (sourceType.pointeeType) {
+        thisType.pointee = [self ktTypeFrom:sourceType.pointeeType];
+    }
+    
+    // assumed this is not needed
+    //thisType.xxx = sourceType.typeDeclaration;
+    
+    // assumed this is not needed
+    //thisType.xxx = sourceType.functionTypeCallingConvDescription;
+    //thisType.xxx = sourceType.functionTypeCallingConv;
+    //if (sourceType.functionTypeCallingConv != 100) {
+    //    NSLog(@"ERROR  ktTypeFrom-->functionTypeCallingConv was NOT AS EXPECTED");
+    //}
+    
+    thisType.sizeOf = sourceType.sizeOf;
+    thisType.alignOf = sourceType.alignOf;
+    if (sourceType.resultType) {
+        thisType.resultType = [self ktTypeFrom:sourceType.resultType];
+    }
+    thisType.numArgTypes = sourceType.numArgTypes;
+    
+          //forIndex =
+          //elementType =
+          //numElements = -1
+          //arrayElementType =
+          //arraySize = -1
+          //classType =
+          //offsetOf = -1
+          //cXXRefQualifier = 0
+          //cXXRefQualifierDescription = 0
+
+    
+    
+    
+/*
     if (sourceType.rawKind == CXType_ObjCInterface) {
         thisType = [KTType objCInterface:thisType.name];
     } else if(sourceType.rawKind == CXType_ObjCObjectPointer){
         thisType = [KTType objCObjectPointer:thisType.name];
     }
-    
+*/
     
     return thisType;
 }

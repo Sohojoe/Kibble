@@ -9,7 +9,7 @@
 #import "KTClassRnD.h"
 #define kPathName       @"KTFoundations"
 #define kFileExtension  @"plist"
-#define kVersion        0.002
+#define kVersion        0.004
 
 @implementation KTClassRnD
 +(void)test{
@@ -238,6 +238,21 @@ static NSMutableDictionary *foundations;
         }];
     }
 }
+-(void)enumerateClassesInOrder:(void(^)(KTClass* aClass))block{
+    if (!block) {
+        return;
+    }
+    NSArray *keys = [self.classes allKeys];
+    keys = [keys sortedArrayUsingComparator:^(id a, id b) {
+        return [a compare:b options:NSNumericSearch];
+    }];
+    
+    [keys enumerateObjectsUsingBlock:^(NSString *key, NSUInteger idx, BOOL *stop) {
+        KTClass* aClass = [self.classes objectForKey:key];
+        block(aClass);
+    }];
+
+}
 
 
 @end
@@ -318,6 +333,8 @@ static NSMutableDictionary *foundations;
     }
  
     return returns;
+    
+
 }
 
 
@@ -378,8 +395,24 @@ static NSMutableDictionary *foundations;
     }
 }
 -(void)enumerateClassIniters:(void(^)(KTMethod* aMethod))block{
-    KTType *type =[KTType objCObjectPointer:NSStringFromClass([self class])];
-    [self enumerateClassMethodsThatReturn:type withBlock:block];
+    //KTType *type =[KTType objCObjectPointer:self.name];
+    //[self enumerateClassMethodsThatReturn:type withBlock:block];
+    KTType *returnType =[KTType objCObjectPointer:self.name];
+    [self.classMethods enumerateKeysAndObjectsUsingBlock:^(id key, KTMethod* method, BOOL *stop) {
+        if (method.returns == returnType) {
+            block(method);
+        } else if ([method.returns.name isEqualToString:@"instancetype"]) {
+            block(method);
+        }
+    }];
+    [self.instanceMethods enumerateKeysAndObjectsUsingBlock:^(id key, KTMethod* method, BOOL *stop) {
+        if (method.returns == returnType) {
+            block(method);
+        } else if ([method.returns.name isEqualToString:@"instancetype"]) {
+            block(method);
+        }
+    }];
+    
 }
 -(void)enumerateClassMethodsThatReturn:(KTType*)returns withBlock:(void(^)(KTMethod* aMethod))block{
     if (block) {
@@ -533,7 +566,7 @@ static NSMutableDictionary *foundations;
 @end
 @implementation KTType
 //@synthesize objCInterfaces, objCObjectPointers;
-static NSMutableDictionary *objCInterfaces, *objCObjectPointers;
+/*static NSMutableDictionary *objCInterfaces, *objCObjectPointers;
 -(NSMutableDictionary*)objCInterfaces{
     if (!objCInterfaces) {
         objCInterfaces = [NSMutableDictionary new];
@@ -546,15 +579,26 @@ static NSMutableDictionary *objCInterfaces, *objCObjectPointers;
     }
     return objCObjectPointers;
 }
+*/
+static NSMutableDictionary *allTypes;
+-(NSMutableDictionary*)allTypes{
+    if (!allTypes) {
+        allTypes = [NSMutableDictionary new];
+    }
+    return allTypes;
+}
+
+
 +(KTType*)objCInterface:(NSString*)thisName{
-    KTType *o = [objCInterfaces objectForKey:thisName];
+    KTType *o = [allTypes objectForKey:thisName];
     
     if (o == nil) {
         o = [KTType new];
         o.name = thisName;
         o.kind = KTCXType_ObjCInterface;
+        o.kindAsText = @"DEFINE ME";
         o.canonical = o;
-        [objCInterfaces setObject:o forKey:thisName];
+        [allTypes setObject:o forKey:thisName];
     }
     
     return o;
@@ -562,15 +606,16 @@ static NSMutableDictionary *objCInterfaces, *objCObjectPointers;
      
 
 +(KTType*)objCObjectPointer:(NSString*)thisName{
-    KTType *o = [objCObjectPointers objectForKey:thisName];
+    KTType *o = [allTypes objectForKey:thisName];
     
     if (o == nil) {
         o = [KTType new];
         o.name = [NSString stringWithFormat:@"%@ *", thisName];
         o.kind = KTCXType_ObjCObjectPointer;
+        o.kindAsText = @"DEFINE ME";
         o.canonical = o;
         o.pointee = [KTType objCInterface:thisName];
-        [objCObjectPointers setObject:o forKey:thisName];
+        [allTypes setObject:o forKey:thisName];
     }
         
      return o;
@@ -580,24 +625,88 @@ static NSMutableDictionary *objCInterfaces, *objCObjectPointers;
 #pragma mark NSCoding
 
 #define kName           @"name"
-#define kKind           @"kind"
+#define kKind           @"kindRaw"
+#define kKindAsText       @"kindText"
 #define kCanonical      @"canonical"
 #define kPointee        @"pointee"
+#define kSizeOf        @"sizeOf"
+#define kAlignOf        @"alignOf"
+#define kResultType        @"resultType"
+#define kNumArgTypes        @"numArgTypes"
+
 //#define k      @""
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:self.name forKey:kName];
     [encoder encodeObject:[NSNumber numberWithUnsignedInteger:self.kind] forKey:kKind];
+    [encoder encodeObject:self.kindAsText forKey:kKindAsText];
     [encoder encodeObject:self.canonical forKey:kCanonical];
     [encoder encodeObject:self.pointee forKey:kPointee];
+    [encoder encodeObject:[NSNumber numberWithInteger:self.sizeOf] forKey:kSizeOf];
+    [encoder encodeObject:[NSNumber numberWithInteger:self.alignOf] forKey:kAlignOf];
+    [encoder encodeObject:self.resultType forKey:kResultType];
+    [encoder encodeObject:[NSNumber numberWithInteger:self.numArgTypes] forKey:kNumArgTypes];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
     self = [super init];
     self.name = [decoder decodeObjectForKey:kName];
-    self.kind = [[decoder decodeObjectForKey:kKind] unsignedIntegerValue];
+    self.kind = (unsigned int)[[decoder decodeObjectForKey:kKind] unsignedIntegerValue];
+    self.kindAsText = [decoder decodeObjectForKey:kKindAsText];
     self.canonical = [decoder decodeObjectForKey:kCanonical];
     self.pointee = [decoder decodeObjectForKey:kPointee];
+    self.sizeOf = [[decoder decodeObjectForKey:kSizeOf] integerValue];
+    self.alignOf = [[decoder decodeObjectForKey:kAlignOf] integerValue];
+    self.resultType = [decoder decodeObjectForKey:kResultType];
+    self.numArgTypes = [[decoder decodeObjectForKey:kNumArgTypes]integerValue];
+    
+    if (self.kind == KTCXType_ObjCObjectPointer) {
+        // search list
+        KTType *o = [allTypes objectForKey:self.name];
+        if (o) {
+            // use list version
+            self = o;
+            o = nil;
+        } else {
+            // add to list
+            [allTypes setObject:self forKey:self.name];
+        }
+    } else if (self.kind == KTCXType_ObjCInterface) {
+        // search list
+        KTType *o = [allTypes objectForKey:self.name];
+        if (o) {
+            // use list version
+            self = o;
+            o = nil;
+        } else {
+            // add to list
+            [allTypes setObject:self forKey:self.name];
+        }
+    }
+    
     return self;
+}
+
+-(NSString*)description{
+    return self.name;
+}
+
+-(NSString*)debugDescription{
+    NSMutableString *output = [NSMutableString new];
+    
+    [output appendFormat:@"%@",self];
+    
+    [output appendFormat:@", kind# = %u",self.kind];
+    
+    if (self.canonical) {
+        [output appendFormat:@", canonical = %@",self.canonical];
+    }
+    
+    if (self.pointee) {
+        [output appendFormat:@", pointee = %@",self.pointee];
+    }
+    
+    return ([NSString stringWithString:output]);
+    
 }
 @end
 

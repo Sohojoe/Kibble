@@ -27,6 +27,7 @@
 -(void)addClass:(KTClass*)aClass;
 -(KTClass*)classWithName:(NSString*)aName;
 -(void)enumerateClasses:(void(^)(KTClass* aClass))block;
+-(void)enumerateClassesInOrder:(void(^)(KTClass* aClass))block;
 -(void)saveToiOSDisk;
 -(void)saveToOSXDisk;
 +(KTFoundation*)foundationFromDisk:(NSString *)name;
@@ -164,8 +165,9 @@ enum KTCXTypeKind {
 @interface KTType : NSObject <NSCoding>
 +(KTType*)objCInterface:(NSString*)thisName;
 +(KTType*)objCObjectPointer:(NSString*)thisName;
-@property (nonatomic) NSString *name;
+@property (nonatomic, strong) NSString *name;
 
+@property (nonatomic, strong) NSString *kindAsText;
 @property (nonatomic) enum KTCXTypeKind kind;
 /**
  * \brief Return the canonical type.
@@ -185,27 +187,70 @@ enum KTCXTypeKind {
  * without looking through typedefs that may have added "const" at a
  * different level.
  */
-//@property (nonatomic, readonly) BOOL isConstQualified;
+@property (nonatomic) BOOL isConstQualified;
 /**
  * \brief Determine whether a CXType has the "volatile" qualifier set,
  * without looking through typedefs that may have added "volatile" at
  * a different level.
  */
-//@property (nonatomic, readonly) BOOL isVolatileQualified;
+@property (nonatomic) BOOL isVolatileQualified;
 /**
  * \brief Determine whether a CXType has the "restrict" qualifier set,
  * without looking through typedefs that may have added "restrict" at a
  * different level.
  */
-//@property (nonatomic, readonly) BOOL isRestrictQualified;
+@property (nonatomic) BOOL isRestrictQualified;
 /**
  * \brief Returns non-zero if the given cursor is a variadic function or method.
  */
-//@property (nonatomic, readonly) BOOL isVariadic;
+@property (nonatomic) BOOL isVariadic;
 /**
  * \brief Return YES if the CXType is a POD (plain old data) type, and 0
  *  otherwise.
  */
-//@property (nonatomic, readonly) BOOL isPODType;
+@property (nonatomic) BOOL isPODType;
+
+
+//ADD THESE TO THE CODING!!!!
+
+/**
+ * \brief Return the size of a type in bytes as per C++[expr.sizeof] standard.
+ *
+ * If the type declaration is invalid, -1 (CXTypeLayoutError_Invalid) is returned.
+ * If the type declaration is an incomplete type, -2 (CXTypeLayoutError_Incomplete)
+ *   is returned.
+ * If the type declaration is a dependent type, -3 (CXTypeLayoutError_Dependent) is
+ *   returned.
+ */
+@property (nonatomic) NSInteger sizeOf;
+
+/**
+ * \brief Return the alignment of a type in bytes as per C++[expr.alignof]
+ *   standard.
+ *
+ * If the type declaration is invalid, CXTypeLayoutError_Invalid is returned.
+ * If the type declaration is an incomplete type, CXTypeLayoutError_Incomplete
+ *   is returned.
+ * If the type declaration is a dependent type, CXTypeLayoutError_Dependent is
+ *   returned.
+ * If the type declaration is not a constant size type,
+ *   CXTypeLayoutError_NotConstantSize is returned.
+ */
+@property (nonatomic) NSInteger alignOf;
+
+/**
+ * \brief Retrieve the return type associated with a function type.
+ *
+ * If a non-function type is passed in, an invalid type is returned.
+ */
+@property (nonatomic) KTType *resultType;
+
+/**
+ * \brief Retrieve the number of non-variadic parameters associated with a
+ * function type.
+ *
+ * If a non-function type is passed in, -1 is returned.
+ */
+@property (nonatomic) NSInteger numArgTypes;
 @end
 

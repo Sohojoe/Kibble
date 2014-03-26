@@ -131,10 +131,10 @@
     long long ll = (long long)clang_getArraySize(self.type);
     return ll;
 }
--(long long)alignOf{
+-(NSInteger)alignOf{
 //CINDEX_LINKAGE long long clang_Type_getAlignOf(CXType T);
-    long long ll = (long long)clang_Type_getAlignOf(self.type);
-    return ll;
+    NSInteger i = (NSInteger)clang_Type_getAlignOf(self.type);
+    return i;
 }
 -(CXTypeObjC*)classType{
 //CINDEX_LINKAGE CXType clang_Type_getClassType(CXType T);
@@ -142,10 +142,10 @@
     CXTypeObjC* t = [CXTypeObjC typeFrom:tRaw];
     return t;
 }
--(long long)sizeOf{
+-(NSInteger)sizeOf{
 //CINDEX_LINKAGE long long clang_Type_getSizeOf(CXType T);
-    long long ll = (long long)clang_Type_getSizeOf(self.type);
-    return ll;
+    NSInteger i = (NSInteger)clang_Type_getSizeOf(self.type);
+    return i;
 }
 -(long long)offsetOf:(const char*)string{
 //CINDEX_LINKAGE long long clang_Type_getOffsetOf(CXType T, const char *S);
@@ -290,6 +290,8 @@
     [output appendString:lnk];
     [output appendFormat:@"cXXRefQualifierDescription = %@", self.cXXRefQualifierDescription];
 
-return (output);
+    return (output);
 }
+
+
 @end

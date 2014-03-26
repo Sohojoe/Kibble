@@ -28,6 +28,7 @@
 @property (nonatomic, strong) VMTalk *multiply;
 @property (nonatomic, strong) VMKode *testObject;
 @property (nonatomic, strong) KibbleV2 *testKibble;
+@property (nonatomic, strong) NSMutableArray *foundations;
 @end
 
 @implementation KBRapidTestViewController
@@ -44,11 +45,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self test2];
+    [self initForTest];
+    [self test3];
 }
-
--(void)test2{
-
+-(void)initForTest{
     UIScrollView *sv = (UIScrollView *)self.view;
     if ([sv isKindOfClass:[UIScrollView class]]) {
         sv.scrollEnabled = YES;
@@ -68,11 +68,104 @@
         //[sv addSubview:imageView];
         [self.view addSubview:sv];
     }
-
+    
     
     [KETileSystem defaultTileSystem].parentView = self.view;
     self.tileSystem = [KETileSystem tileSystemWithSquareTileSize:128.0 parentView:sv];
     [self.tileSystem editKibble:self.testKibble];
+    
+    self.foundations = [NSMutableArray new];
+    [self.foundations addObject:[KTFoundation foundationFromDisk:@"TestFoundation"]];
+
+
+}
+
+-(void)test3{
+    [self newKibble:^(BOOL success, id newKibble) {
+        [self test3];
+    }];
+    
+}
+
+-(void)newKibble:(void (^)(BOOL success, id newKibble))successBlock{
+
+    [self.tileSystem pushCurPositionNewLineAndIndent];
+
+    __block KETile *newTile = [self.tileSystem newTile];
+    newTile.display = @"New\nKibble";
+    newTile.dataObject = nil;
+    __block NSMutableArray *tilesToDelete = [NSMutableArray new];
+    [tilesToDelete addObject:newTile];
+    [newTile blockWhenClicked:^(KTFoundation *thisFoundation, KETile *tileThatWasClicked) {
+        // stop self from touches
+        [tileThatWasClicked blockWhenClicked:nil];
+        
+        // add foundations
+        [self.foundations enumerateObjectsUsingBlock:^(KTFoundation *thisFoundation, NSUInteger idx, BOOL *stop) {
+            
+            newTile = [self.tileSystem newTile];
+            newTile.display = [self prettyString:thisFoundation.name];
+            newTile.dataObject = thisFoundation;
+            [tilesToDelete addObject:newTile];
+            [newTile blockWhenClicked:^(KTFoundation *thisFoundation, KETile *tileThatWasClicked) {
+                // add classes
+                [thisFoundation enumerateClassesInOrder:^(KTClass *aClass) {
+                    
+                    if ([aClass.name isEqualToString:@"NSString"] == NO) {
+                        return;
+                    }
+
+                    newTile = [self.tileSystem newTile];
+                    newTile.display = [self prettyString:aClass.name];
+                    newTile.dataObject = aClass;
+                    [tilesToDelete addObject:newTile];
+                    [newTile blockWhenClicked:^(KTClass *aClass, KETile *tileThatWasClicked) {
+                        // delete all the objects
+                        [tilesToDelete enumerateObjectsUsingBlock:^(KETile *aTile, NSUInteger idx, BOOL *stop) {
+                            [aTile dismiss];
+                        }];
+                        
+                        [self.tileSystem popPosition];
+                        [self.tileSystem pushCurPositionNewLineAndIndent];
+                        newTile = [self.tileSystem newTile];
+                        newTile.display = [self prettyString:aClass.name];
+                        [tilesToDelete addObject:newTile];
+
+                        [aClass enumerateClassIniters:^(KTMethod *aMethod) {
+                            newTile = [self.tileSystem newTile];
+                            newTile.display = [self prettyString:aMethod.name];
+                            [tilesToDelete addObject:newTile];
+                            [newTile blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
+                                // delete all the objects
+                                [tilesToDelete enumerateObjectsUsingBlock:^(KETile *aTile, NSUInteger idx, BOOL *stop) {
+                                    [aTile dismiss];
+                                }];
+                                
+                                // pop situation back to what we was
+                                [self.tileSystem popPosition];
+                                if (successBlock) successBlock(YES, dataObject);
+                            }];
+                        }];
+                        
+                        
+                        
+                    }];
+                }];
+            }];
+            
+            
+        }];
+        
+        
+        
+    }];
+    
+}
+
+
+
+-(void)test2{
+
     
     KTFoundation *foundation = [KTFoundation foundationFromDisk:@"TestFoundation"];
 
