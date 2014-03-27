@@ -13,8 +13,10 @@
 @property (strong, nonatomic) NSMutableOrderedSet *methods;
 @property (strong, nonatomic) KTMethodParam *methodParm;
 @property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *appendedName;
 @property (nonatomic) NSUInteger subNodesCount;
 @property (nonatomic) BOOL nodeCanTerminate;
+@property (nonatomic) NSMutableDictionary *nodeTreeChildren;
 @end
 
 

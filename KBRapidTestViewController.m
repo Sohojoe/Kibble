@@ -93,11 +93,12 @@
     [newTile blockWhenClicked:^(KTFoundation *thisFoundation, KETile *tileThatWasClicked) {
         [self deleteTiles:tilesToDelete];
         
+        [self.tileSystem popPosition];
         [self.tileSystem pushCurPositionNewLineAndIndent];
         
         KTInterface *dataInterface = [KTInterface interface];
         dataInterface.initerMode = YES;
-        NSMutableSet *tilesToDelete = [NSMutableSet new];
+        //NSMutableSet *tilesToDelete = [NSMutableSet new];
         [self walkInterfaceForIniter:dataInterface then:^(BOOL success, id newKibble) {
             //
         } with:tilesToDelete];
@@ -259,7 +260,19 @@
     }
     
     // if no node, select an interface
-    else if (dataInterface.curNode == nil) {
+    else {
+        newTile = [self.tileSystem newTile];
+        newTile.display = [self prettyString:dataInterface.curClass.name];
+        [tilesToDelete addObject:newTile];
+        
+        if (dataInterface.curNode) {
+            newTile = [self.tileSystem newTile];
+            newTile.display = [self prettyString:dataInterface.curNode.appendedName];
+            [tilesToDelete addObject:newTile];
+        }
+    
+    // walk the nodes
+        
         
         // add nodes
         [dataInterface.nodes enumerateObjectsUsingBlock:^(KTMethodNode *aNode, NSUInteger idx, BOOL *stop) {
@@ -267,12 +280,22 @@
             newTile.display = [self prettyString:aNode.name];
             newTile.dataObject = aNode;
             [tilesToDelete addObject:newTile];
-            [newTile blockWhenClicked:^(KTClass *aClass, KETile *tileThatWasClicked) {
+            [newTile blockWhenClicked:^(KTMethodNode *aNode, KETile *tileThatWasClicked) {
+                // set this as the class
+                dataInterface.curNode = aNode;
+                
+                // delete all the objects
+                [tilesToDelete enumerateObjectsUsingBlock:^(KETile *aTile, BOOL *stop) {
+                    [aTile dismiss];
+                }];
+                
+                [self.tileSystem popPosition];
+                [self.tileSystem pushCurPositionNewLineAndIndent];
+                
+                // recurse
+                [self walkInterfaceForIniter:dataInterface then:successBlock with:tilesToDelete];
             }];
-
         }];
-        
-        
     }
 }
 
@@ -409,10 +432,7 @@
 }
 -(NSString*)prettyString:(NSString*)srcString{
     
-    NSLog(@"%@", srcString);
-    [srcString enumerateSubstringsInRange:NSMakeRange(0, srcString.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
-        NSLog(@"%@",substring);
-    }];
+
     
     int index = srcString.length;
     NSMutableString* mutableInputString = [NSMutableString stringWithString:srcString];
