@@ -50,7 +50,7 @@
 		1868041318D826DB00B75D86 /* iPadDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1868041218D826DB00B75D86 /* iPadDetailViewController.m */; };
 		1868041618D8272E00B75D86 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1868041518D8272E00B75D86 /* RootViewController.m */; };
 		186FAF2818BC14C80074BA09 /* libSuperDBCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 186FAF2318BC14A80074BA09 /* libSuperDBCore.a */; };
-		188046B918E346840088094B /* KTClassInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 188046B818E346840088094B /* KTClassInterface.m */; };
+		188046B918E346840088094B /* KTInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 188046B818E346840088094B /* KTInterface.m */; };
 		1898C91618D5605D000E2AD2 /* KTClassRnD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1898C91518D5605D000E2AD2 /* KTClassRnD.m */; };
 		18CC492B18A48A720067D18A /* JSRnD.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC492A18A48A720067D18A /* JSRnD.m */; };
 		18CC492E18A4B93D0067D18A /* JS.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC492D18A4B93D0067D18A /* JS.m */; };
@@ -180,8 +180,8 @@
 		1868041418D8272E00B75D86 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RootViewController.h; path = Kibble/RootViewController.h; sourceTree = "<group>"; };
 		1868041518D8272E00B75D86 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RootViewController.m; path = Kibble/RootViewController.m; sourceTree = "<group>"; };
 		186FAF1D18BC14A80074BA09 /* SuperDBCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SuperDBCore.xcodeproj; path = superdb/SuperDBCore/SuperDBCore.xcodeproj; sourceTree = "<group>"; };
-		188046B718E346840088094B /* KTClassInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTClassInterface.h; sourceTree = "<group>"; };
-		188046B818E346840088094B /* KTClassInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTClassInterface.m; sourceTree = "<group>"; };
+		188046B718E346840088094B /* KTInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTInterface.h; sourceTree = "<group>"; };
+		188046B818E346840088094B /* KTInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTInterface.m; sourceTree = "<group>"; };
 		1898C91418D5605D000E2AD2 /* KTClassRnD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTClassRnD.h; sourceTree = "<group>"; };
 		1898C91518D5605D000E2AD2 /* KTClassRnD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTClassRnD.m; sourceTree = "<group>"; };
 		18CC492918A48A720067D18A /* JSRnD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSRnD.h; sourceTree = "<group>"; };
@@ -444,8 +444,8 @@
 			children = (
 				1898C91418D5605D000E2AD2 /* KTClassRnD.h */,
 				1898C91518D5605D000E2AD2 /* KTClassRnD.m */,
-				188046B718E346840088094B /* KTClassInterface.h */,
-				188046B818E346840088094B /* KTClassInterface.m */,
+				188046B718E346840088094B /* KTInterface.h */,
+				188046B818E346840088094B /* KTInterface.m */,
 			);
 			name = "Kibble Class Model";
 			sourceTree = "<group>";
@@ -655,7 +655,7 @@
 				18CC494A18A6CDCE0067D18A /* KETileSystem.m in Sources */,
 				18D6F25218B51EA000FCA279 /* KETileLayer.m in Sources */,
 				1854EEBA189D717E00C2F74A /* Narrator.m in Sources */,
-				188046B918E346840088094B /* KTClassInterface.m in Sources */,
+				188046B918E346840088094B /* KTInterface.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

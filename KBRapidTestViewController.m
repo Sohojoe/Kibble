@@ -16,7 +16,7 @@
 #import "KibbleVM.h"
 #import "KibbleV2.h"
 
-#import "KTClassRnD.h"
+#import "KTInterface.h"
 
 @interface KBRapidTestViewController ()
 //@property (nonatomic, strong) Kibble *hello;
@@ -28,7 +28,6 @@
 @property (nonatomic, strong) VMTalk *multiply;
 @property (nonatomic, strong) VMKode *testObject;
 @property (nonatomic, strong) KibbleV2 *testKibble;
-@property (nonatomic, strong) NSMutableArray *foundations;
 @end
 
 @implementation KBRapidTestViewController
@@ -74,10 +73,7 @@
     self.tileSystem = [KETileSystem tileSystemWithSquareTileSize:128.0 parentView:sv];
     [self.tileSystem editKibble:self.testKibble];
     
-    self.foundations = [NSMutableArray new];
-    [self.foundations addObject:[KTFoundation foundationFromDisk:@"TestFoundation"]];
-
-
+    [KTInterface addFoundationFromDisk:@"TestFoundation"];
 }
 
 -(void)test3{
@@ -89,7 +85,36 @@
 
 -(void)newKibble:(void (^)(BOOL success, id newKibble))successBlock{
 
+    __block KETile *newTile = [self.tileSystem newTile];
+    newTile.display = @"New\nKibble";
+    newTile.dataObject = nil;
+    __block NSMutableSet *tilesToDelete = [NSMutableSet new];
+    //[tilesToDelete addObject:newTile];
+    [newTile blockWhenClicked:^(KTFoundation *thisFoundation, KETile *tileThatWasClicked) {
+        [self deleteTiles:tilesToDelete];
+        
+        [self.tileSystem pushCurPositionNewLineAndIndent];
+        
+        KTInterface *dataInterface = [KTInterface interface];
+        dataInterface.initerMode = YES;
+        NSMutableSet *tilesToDelete = [NSMutableSet new];
+        [self walkInterfaceForIniter:dataInterface then:^(BOOL success, id newKibble) {
+            //
+        } with:tilesToDelete];
+    }];
+}
+-(void)deleteTiles:(NSMutableSet*)tilesToDelete{
+    [tilesToDelete enumerateObjectsUsingBlock:^(KETile *aTile, BOOL *stop) {
+        [aTile dismiss];
+    }];
+    [tilesToDelete removeAllObjects];
+    
+}
+-(void)newKibbleOld:(void (^)(BOOL success, id newKibble))successBlock{
+
     [self.tileSystem pushCurPositionNewLineAndIndent];
+    
+    KTInterface *kFace = [KTInterface interface];
 
     __block KETile *newTile = [self.tileSystem newTile];
     newTile.display = @"New\nKibble";
@@ -101,15 +126,19 @@
         [tileThatWasClicked blockWhenClicked:nil];
         
         // add foundations
-        [self.foundations enumerateObjectsUsingBlock:^(KTFoundation *thisFoundation, NSUInteger idx, BOOL *stop) {
+        [kFace.foundations enumerateObjectsUsingBlock:^(KTFoundation *thisFoundation, NSUInteger idx, BOOL *stop) {
             
             newTile = [self.tileSystem newTile];
             newTile.display = [self prettyString:thisFoundation.name];
             newTile.dataObject = thisFoundation;
             [tilesToDelete addObject:newTile];
             [newTile blockWhenClicked:^(KTFoundation *thisFoundation, KETile *tileThatWasClicked) {
+                
+                // set this as the foundation
+                kFace.foundation = thisFoundation;
+                
                 // add classes
-                [thisFoundation enumerateClassesInOrder:^(KTClass *aClass) {
+                [kFace.classes enumerateObjectsUsingBlock:^(KTClass *aClass, NSUInteger idx, BOOL *stop) {
                     
                     if ([aClass.name isEqualToString:@"NSString"] == NO) {
                         return;
@@ -120,6 +149,11 @@
                     newTile.dataObject = aClass;
                     [tilesToDelete addObject:newTile];
                     [newTile blockWhenClicked:^(KTClass *aClass, KETile *tileThatWasClicked) {
+
+                        // set this as the class
+                        kFace.curClass = aClass;
+                        
+                        
                         // delete all the objects
                         [tilesToDelete enumerateObjectsUsingBlock:^(KETile *aTile, NSUInteger idx, BOOL *stop) {
                             [aTile dismiss];
@@ -162,6 +196,85 @@
     
 }
 
+-(void)walkInterfaceForIniter:(KTInterface*)dataInterface then:(void (^)(BOOL success, id newKibble))successBlock with:(NSMutableSet *)tilesToDelete{
+
+    if (tilesToDelete == nil) {
+        tilesToDelete = [NSMutableSet new];
+    }
+    __block KETile *newTile = nil;
+
+    // if no foundation, select a foundation
+    if (dataInterface.foundation == nil) {
+
+        // add foundations
+        [dataInterface.foundations enumerateObjectsUsingBlock:^(KTFoundation *thisFoundation, NSUInteger idx, BOOL *stop) {
+            
+            newTile = [self.tileSystem newTile];
+            newTile.display = [self prettyString:thisFoundation.name];
+            newTile.dataObject = thisFoundation;
+            [tilesToDelete addObject:newTile];
+            [newTile blockWhenClicked:^(KTFoundation *thisFoundation, KETile *tileThatWasClicked) {
+                
+                // set this as the class
+                dataInterface.foundation = thisFoundation;
+                
+                // recurse
+                [self walkInterfaceForIniter:dataInterface then:successBlock with:tilesToDelete];
+            }];
+        }];
+
+    }
+    
+    // if no class, select a class
+    else if (dataInterface.curClass == nil) {
+        // add classes
+        [dataInterface.classes enumerateObjectsUsingBlock:^(KTClass *aClass, NSUInteger idx, BOOL *stop) {
+            
+            if ([aClass.name isEqualToString:@"NSString"] == NO) {
+                return;
+            }
+            
+            newTile = [self.tileSystem newTile];
+            newTile.display = [self prettyString:aClass.name];
+            newTile.dataObject = aClass;
+            [tilesToDelete addObject:newTile];
+            [newTile blockWhenClicked:^(KTClass *aClass, KETile *tileThatWasClicked) {
+                
+                // set this as the class
+                dataInterface.curClass = aClass;
+                
+                
+                // delete all the objects
+                [tilesToDelete enumerateObjectsUsingBlock:^(KETile *aTile, BOOL *stop) {
+                    [aTile dismiss];
+                }];
+                
+                [self.tileSystem popPosition];
+                [self.tileSystem pushCurPositionNewLineAndIndent];
+
+                // recurse
+                [self walkInterfaceForIniter:dataInterface then:successBlock with:tilesToDelete];
+            }];
+        }];
+    }
+    
+    // if no node, select an interface
+    else if (dataInterface.curNode == nil) {
+        
+        // add nodes
+        [dataInterface.nodes enumerateObjectsUsingBlock:^(KTMethodNode *aNode, NSUInteger idx, BOOL *stop) {
+            newTile = [self.tileSystem newTile];
+            newTile.display = [self prettyString:aNode.name];
+            newTile.dataObject = aNode;
+            [tilesToDelete addObject:newTile];
+            [newTile blockWhenClicked:^(KTClass *aClass, KETile *tileThatWasClicked) {
+            }];
+
+        }];
+        
+        
+    }
+}
 
 
 -(void)test2{
@@ -295,7 +408,11 @@
     
 }
 -(NSString*)prettyString:(NSString*)srcString{
-
+    
+    NSLog(@"%@", srcString);
+    [srcString enumerateSubstringsInRange:NSMakeRange(0, srcString.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+        NSLog(@"%@",substring);
+    }];
     
     int index = srcString.length;
     NSMutableString* mutableInputString = [NSMutableString stringWithString:srcString];
@@ -334,35 +451,12 @@
             }
         }
         index--;
-/*
-        
-        if (checkForNonLowercase) {
-            if ([[NSCharacterSet lowercaseLetterCharacterSet] characterIsMember:[mutableInputString characterAtIndex:index]] == NO) {
-                [mutableInputString insertString:@" " atIndex:index];
-                checkForNonLowercase = NO;
-            }
-        } else {
-            if ([[NSCharacterSet lowercaseLetterCharacterSet] characterIsMember:[mutableInputString characterAtIndex:index]]) {
-                checkForNonLowercase = YES;
-            }
-        }
-        index--;
- */
+
     }
     
     return [NSString stringWithString:mutableInputString];
     
-    NSRegularExpression *regexp = [NSRegularExpression
-                                   regularExpressionWithPattern:@"([a-z])([A-Z])"
-                                   options:0
-                                   error:NULL];
-    NSString *newString = [regexp
-                           stringByReplacingMatchesInString:srcString
-                           options:0 
-                           range:NSMakeRange(0, srcString.length)
-                           withTemplate:@"$1 $2"];
-    
-    return newString;
+
 }
 
 -(void)removeAndPopFrom:(NSMutableArray*) tileArray{

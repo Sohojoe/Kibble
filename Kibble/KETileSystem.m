@@ -133,10 +133,15 @@
 }
 -(void)pushCurPositionNewLineAndIndent{
     [self.positionStack addObject:[NSValue valueWithCGPoint:self.nextTilePosition]];
+    [self.positionStack addObject:[NSNumber numberWithUnsignedInteger:self.indent]];
     [self newLineAndIndent];
 }
 -(void)popPosition{
     if (self.positionStack.count) {
+        NSNumber *popIndent = [self.positionStack objectAtIndex:self.positionStack.count-1];
+        [self.positionStack removeObjectAtIndex:self.positionStack.count-1];
+        self.indent = [popIndent unsignedIntegerValue];
+        
         NSValue *popValue = [self.positionStack objectAtIndex:self.positionStack.count-1];
         [self.positionStack removeObjectAtIndex:self.positionStack.count-1];
         self.nextTilePosition = [popValue CGPointValue];
