@@ -226,11 +226,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KBRapidTestViewController.m"
-            timestampString = "417651101.202802"
+            timestampString = "417652942.408221"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "615"
-            endingLineNumber = "615"
+            startingLineNumber = "532"
+            endingLineNumber = "532"
             landmarkName = "-test1"
             landmarkType = "5">
          </BreakpointContent>
@@ -716,11 +716,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTClassRnD.m"
-            timestampString = "417506825.812096"
+            timestampString = "417657708.778238"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "716"
-            endingLineNumber = "716"
+            startingLineNumber = "706"
+            endingLineNumber = "706"
             landmarkName = "@implementation KTVariable"
             landmarkType = "3">
          </BreakpointContent>
@@ -796,11 +796,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTClassRnD.m"
-            timestampString = "417506825.812096"
+            timestampString = "417657708.778238"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "720"
-            endingLineNumber = "720"
+            startingLineNumber = "710"
+            endingLineNumber = "710"
             landmarkName = "-encodeWithCoder:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1144,11 +1144,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KBRapidTestViewController.m"
-            timestampString = "417651101.202802"
+            timestampString = "417652942.408221"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "421"
-            endingLineNumber = "421"
+            startingLineNumber = "338"
+            endingLineNumber = "338"
             landmarkName = "-test2"
             landmarkType = "5">
          </BreakpointContent>
@@ -1160,11 +1160,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KBRapidTestViewController.m"
-            timestampString = "417651101.202802"
+            timestampString = "417652942.408221"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "444"
-            endingLineNumber = "444"
+            startingLineNumber = "361"
+            endingLineNumber = "361"
             landmarkName = "-prettyString:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1176,11 +1176,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KBRapidTestViewController.m"
-            timestampString = "417651101.202802"
+            timestampString = "417652942.408221"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "477"
-            endingLineNumber = "477"
+            startingLineNumber = "394"
+            endingLineNumber = "394"
             landmarkName = "-prettyString:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1192,11 +1192,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KBRapidTestViewController.m"
-            timestampString = "417651101.202802"
+            timestampString = "417652942.408221"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "458"
-            endingLineNumber = "458"
+            startingLineNumber = "375"
+            endingLineNumber = "375"
             landmarkName = "-prettyString:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1208,11 +1208,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KBRapidTestViewController.m"
-            timestampString = "417651101.202802"
+            timestampString = "417652942.408221"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "465"
-            endingLineNumber = "465"
+            startingLineNumber = "382"
+            endingLineNumber = "382"
             landmarkName = "-prettyString:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1224,11 +1224,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KBRapidTestViewController.m"
-            timestampString = "417651101.202802"
+            timestampString = "417652942.408221"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "455"
-            endingLineNumber = "455"
+            startingLineNumber = "372"
+            endingLineNumber = "372"
             landmarkName = "-prettyString:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1240,11 +1240,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTClassRnD.m"
-            timestampString = "417506825.812096"
+            timestampString = "417657708.778238"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "686"
-            endingLineNumber = "686"
+            startingLineNumber = "676"
+            endingLineNumber = "676"
             landmarkName = "-initWithCoder:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1272,43 +1272,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KBRapidTestViewController.m"
-            timestampString = "417651101.202802"
+            timestampString = "417652942.408221"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
-            landmarkName = "-newKibbleOld:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KBRapidTestViewController.m"
-            timestampString = "417651101.202802"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
-            landmarkName = "-newKibbleOld:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KBRapidTestViewController.m"
-            timestampString = "417651101.202802"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "202"
-            endingLineNumber = "202"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
             landmarkName = "-walkInterfaceForIniter:then:with:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1390,6 +1358,198 @@
             startingLineNumber = "83"
             endingLineNumber = "83"
             landmarkName = "-nodes"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KTInterface.m"
+            timestampString = "417666632.567381"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "298"
+            endingLineNumber = "298"
+            landmarkName = "-enumerateKeyWords:for:calling:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KTInterface.m"
+            timestampString = "417666632.567381"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
+            landmarkName = "-oldcollapseTree:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KTInterface.m"
+            timestampString = "417666632.567381"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "211"
+            endingLineNumber = "211"
+            landmarkName = "-oldcollapseTree:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KTInterface.m"
+            timestampString = "417666632.567381"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
+            landmarkName = "-collapseTree:into:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KTInterface.m"
+            timestampString = "417666632.567381"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
+            landmarkName = "-collapseTree:into:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KTInterface.m"
+            timestampString = "417666632.567381"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "185"
+            endingLineNumber = "185"
+            landmarkName = "-collapseTree:into:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KTInterface.m"
+            timestampString = "417667166.619239"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
+            landmarkName = "-collapseTree:into:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KTInterface.m"
+            timestampString = "417666632.567381"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "-collapseTree:into:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KTClassRnD.m"
+            timestampString = "417657735.451993"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "403"
+            endingLineNumber = "403"
+            landmarkName = "-enumerateClassIniters:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KTClassRnD.m"
+            timestampString = "417657270.936751"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "410"
+            endingLineNumber = "410"
+            landmarkName = "-enumerateClassIniters:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KTInterface.m"
+            timestampString = "417667318.52408"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
+            landmarkName = "-enumerateKeyWords:for:calling:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KTInterface.m"
+            timestampString = "417667374.388499"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "271"
+            endingLineNumber = "271"
+            landmarkName = "-enumerateKeyWords:for:calling:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

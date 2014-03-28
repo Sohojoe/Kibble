@@ -77,10 +77,10 @@ static NSMutableSet *masterFoundationSet;
         self.masterNodes = [NSMutableOrderedSet new];
         if (self.initerMode) {
 
-            NSMutableDictionary *nodeTreeRoot = [self nodeTreeForIniters];
 
             // collapse tree where there is no split
-            [self collapseTree:nodeTreeRoot];
+            NSMutableDictionary *nodeTreeRoot = [NSMutableDictionary new];
+            [self collapseTree:[self nodeTreeForIniters] into:nodeTreeRoot];
             
             // add trees to master
             [nodeTreeRoot enumerateKeysAndObjectsUsingBlock:^(id key, KTMethodNode *aNode, BOOL *stop) {
@@ -95,7 +95,7 @@ static NSMutableSet *masterFoundationSet;
         NSMutableDictionary *nodeTreeRoot = self.curNode.nodeTreeChildren;
         
         // collapse tree where there is no split
-        [self collapseTree:nodeTreeRoot];
+        [self collapseTree:self.curNode.nodeTreeChildren into:nodeTreeRoot];
         
         // add trees to master
         [nodeTreeRoot enumerateKeysAndObjectsUsingBlock:^(id key, KTMethodNode *aNode, BOOL *stop) {
@@ -112,17 +112,10 @@ static NSMutableSet *masterFoundationSet;
     NSMutableDictionary *nodeTreeRoot = [NSMutableDictionary new];
     
     [self.curClass enumerateClassIniters:^(KTMethod *aMethod) {
-        
-        NSString *name = aMethod.name;
-        if (aMethod.params.count) {
-            KTMethodParam *param = aMethod.params[0];
-            name = param.name;
-        }
-        
         //
         __block NSMutableDictionary *nodeTree = nodeTreeRoot;
         
-        [self enumerateKeyWordsIn:name calling:^(NSString *nodeName, NSString *nodeAppendedName) {
+        [self enumerateKeyWordsIn:aMethod calling:^(NSString *nodeName, NSString *nodeAppendedName, KTMethodParam *aParam) {
             
             KTMethodNode *aNode = [nodeTree objectForKey:nodeName];
             
@@ -136,7 +129,7 @@ static NSMutableSet *masterFoundationSet;
                 
                 aNode.methods = [NSMutableOrderedSet new];
                 [aNode.methods addObject:aMethod];
-                aNode.methodParm = nil;
+                aNode.methodParm = aParam;
                 aNode.name = nodeName;
                 aNode.appendedName = nodeAppendedName;
                 aNode.nodeTreeChildren = [NSMutableDictionary new];
@@ -153,6 +146,11 @@ static NSMutableSet *masterFoundationSet;
             if (aMethod.params.count == 0) {
                 aNode.nodeCanTerminate = YES;
             }
+            // look see if this the end of a param
+            if ([aParam.name isEqualToString:aNode.appendedName]) {
+                aNode.nodeCanTerminate = YES;
+                aNode.nodeIsParamTerminator = YES;
+            }
             
             // set nodeTree to child of this tree
             nodeTree = aNode.nodeTreeChildren;
@@ -162,17 +160,61 @@ static NSMutableSet *masterFoundationSet;
     return nodeTreeRoot;
 }
 
--(void)collapseTree:(NSMutableDictionary*)aTree{
+
+-(void)collapseTree:(NSMutableDictionary*)aTree into:(NSMutableDictionary*)newTree{
+    if (newTree == nil) {
+        newTree = [NSMutableDictionary new];
+    }
+    
+    [aTree enumerateKeysAndObjectsUsingBlock:^(id key, KTMethodNode *aNode, BOOL *stop) {
+        
+        if ((aNode.nodeCanTerminate && aNode.nodeTreeChildren.count) ||
+            (aNode.nodeIsParamTerminator && aNode.nodeTreeChildren.count)) {
+            // add
+            [newTree setObject:aNode forKey:aNode.name];
+        }
+        
+        while (aNode.nodeTreeChildren.count == 1) {
+            // collapse child into me
+            NSEnumerator *oe = [aNode.nodeTreeChildren objectEnumerator];
+            KTMethodNode *childNode = [oe nextObject];
+            childNode.name = [aNode.name stringByAppendingString:childNode.name];
+            aNode = childNode;
+        }
+        
+        if (aNode.nodeTreeChildren.count >1) {
+            // recerse
+            NSMutableDictionary *newTreeBranch = [NSMutableDictionary new];
+            [self collapseTree:aNode.nodeTreeChildren into:newTreeBranch];
+            aNode.nodeTreeChildren = newTreeBranch;
+            if ([aNode.name hasSuffix:@"…"] == NO) {
+                aNode.name = [aNode.name stringByAppendingString:@"…"];
+            }
+            [newTree setObject:aNode forKey:aNode.name];
+        } else {
+            [newTree setObject:aNode forKey:aNode.name];
+        }
+    }];
+}
+
+    
+
+-(void)oldcollapseTree:(NSMutableDictionary*)aTree{
     [aTree enumerateKeysAndObjectsUsingBlock:^(id key, KTMethodNode *aNode, BOOL *stop) {
         
         if (aNode.nodeTreeChildren.count == 1 &&
             aNode.nodeCanTerminate == NO) {
             // one child
-            [aNode.nodeTreeChildren enumerateKeysAndObjectsUsingBlock:^(id key, KTMethodNode *childNode, BOOL *stop) {
+            NSEnumerator *oe = [aNode.nodeTreeChildren objectEnumerator];
+            KTMethodNode *childNode = [oe nextObject];
+            childNode.name = [aNode.name stringByAppendingString:childNode.name];
+            aNode = childNode;
+            
+            //[aNode.nodeTreeChildren enumerateKeysAndObjectsUsingBlock:^(id key, KTMethodNode *childNode, BOOL *stop) {
                 // collopase into the child
-                aNode.name = [aNode.name stringByAppendingString:childNode.name];
-                aNode.nodeTreeChildren = childNode.nodeTreeChildren;
-            }];
+                //aNode.name = [aNode.name stringByAppendingString:childNode.name];
+                //aNode.nodeTreeChildren = childNode.nodeTreeChildren;
+            //}];
             
             
         } else if (aNode.nodeTreeChildren.count > 1) {
@@ -184,7 +226,7 @@ static NSMutableSet *masterFoundationSet;
         }
         if (aNode.nodeTreeChildren) {
             // just walk through the kids
-            [self collapseTree:aNode.nodeTreeChildren];
+            //[self collapseTree:aNode.nodeTreeChildren];
         }
         
     }];
@@ -192,7 +234,22 @@ static NSMutableSet *masterFoundationSet;
 
 //-------------------------------------
 //-- helpers
--(void)enumerateKeyWordsIn:(NSString*)thisString calling:(void(^)(NSString *substring, NSString *appendedSubstring))block{
+-(void)enumerateKeyWordsIn:(KTMethod *)aMethod calling:(void(^)(NSString *substring, NSString *appendedSubstring, KTMethodParam *forParam))block{
+    if (aMethod.params.count) {
+        [aMethod.params enumerateObjectsUsingBlock:^(KTMethodParam *aMethodParm, NSUInteger idx, BOOL *stop) {
+            NSString *name = aMethodParm.name;
+            if (idx < aMethod.params.count) {
+                [name stringByAppendingString:@":"];
+            }
+                [self enumerateKeyWords:name for:aMethodParm calling:block];
+        }];
+    } else {
+        [self enumerateKeyWords:aMethod.name for:nil calling:block];
+    }
+}
+
+
+-(void)enumerateKeyWords:(NSString*)thisString for:(KTMethodParam*) forParam calling:(void(^)(NSString *substring, NSString *appendedSubstring, KTMethodParam *forParam))block{
     if (!block){
         // early exit
         return;
@@ -242,7 +299,7 @@ static NSMutableSet *masterFoundationSet;
     NSMutableString *appendedSubstring = [NSMutableString new];
     [mutableInputString enumerateSubstringsInRange:NSMakeRange(0, mutableInputString.length) options:NSStringEnumerationByWords usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
         [appendedSubstring appendString:substring];
-        block(substring, [NSString stringWithString:appendedSubstring]);
+        block(substring, [NSString stringWithString:appendedSubstring], forParam);
     }];
     
 }

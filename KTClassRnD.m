@@ -606,7 +606,7 @@ static NSMutableDictionary *allTypes;
      
 
 +(KTType*)objCObjectPointer:(NSString*)thisName{
-    KTType *o = [allTypes objectForKey:thisName];
+    KTType *o = [allTypes objectForKey:[NSString stringWithFormat:@"%@ *", thisName]];
     
     if (o == nil) {
         o = [KTType new];
@@ -648,6 +648,9 @@ static NSMutableDictionary *allTypes;
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
+    if (allTypes == nil){
+        allTypes = [NSMutableDictionary new];
+    }
     self = [super init];
     self.name = [decoder decodeObjectForKey:kName];
     self.kind = (unsigned int)[[decoder decodeObjectForKey:kKind] unsignedIntegerValue];
@@ -659,28 +662,15 @@ static NSMutableDictionary *allTypes;
     self.resultType = [decoder decodeObjectForKey:kResultType];
     self.numArgTypes = [[decoder decodeObjectForKey:kNumArgTypes]integerValue];
     
-    if (self.kind == KTCXType_ObjCObjectPointer) {
-        // search list
-        KTType *o = [allTypes objectForKey:self.name];
-        if (o) {
-            // use list version
-            self = o;
-            o = nil;
-        } else {
-            // add to list
-            [allTypes setObject:self forKey:self.name];
-        }
-    } else if (self.kind == KTCXType_ObjCInterface) {
-        // search list
-        KTType *o = [allTypes objectForKey:self.name];
-        if (o) {
-            // use list version
-            self = o;
-            o = nil;
-        } else {
-            // add to list
-            [allTypes setObject:self forKey:self.name];
-        }
+    // search list
+    KTType *o = [allTypes objectForKey:self.name];
+    if (o) {
+        // use list version
+        self = o;
+        o = nil;
+    } else {
+        // add to list
+        [allTypes setObject:self forKey:self.name];
     }
     
     return self;

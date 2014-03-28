@@ -16,6 +16,7 @@
 @property (strong, nonatomic) NSString *appendedName;
 @property (nonatomic) NSUInteger subNodesCount;
 @property (nonatomic) BOOL nodeCanTerminate;
+@property (nonatomic) BOOL nodeIsParamTerminator;
 @property (nonatomic) NSMutableDictionary *nodeTreeChildren;
 @end
 

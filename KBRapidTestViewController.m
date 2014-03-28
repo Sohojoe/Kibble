@@ -111,91 +111,7 @@
     [tilesToDelete removeAllObjects];
     
 }
--(void)newKibbleOld:(void (^)(BOOL success, id newKibble))successBlock{
 
-    [self.tileSystem pushCurPositionNewLineAndIndent];
-    
-    KTInterface *kFace = [KTInterface interface];
-
-    __block KETile *newTile = [self.tileSystem newTile];
-    newTile.display = @"New\nKibble";
-    newTile.dataObject = nil;
-    __block NSMutableArray *tilesToDelete = [NSMutableArray new];
-    [tilesToDelete addObject:newTile];
-    [newTile blockWhenClicked:^(KTFoundation *thisFoundation, KETile *tileThatWasClicked) {
-        // stop self from touches
-        [tileThatWasClicked blockWhenClicked:nil];
-        
-        // add foundations
-        [kFace.foundations enumerateObjectsUsingBlock:^(KTFoundation *thisFoundation, NSUInteger idx, BOOL *stop) {
-            
-            newTile = [self.tileSystem newTile];
-            newTile.display = [self prettyString:thisFoundation.name];
-            newTile.dataObject = thisFoundation;
-            [tilesToDelete addObject:newTile];
-            [newTile blockWhenClicked:^(KTFoundation *thisFoundation, KETile *tileThatWasClicked) {
-                
-                // set this as the foundation
-                kFace.foundation = thisFoundation;
-                
-                // add classes
-                [kFace.classes enumerateObjectsUsingBlock:^(KTClass *aClass, NSUInteger idx, BOOL *stop) {
-                    
-                    if ([aClass.name isEqualToString:@"NSString"] == NO) {
-                        return;
-                    }
-
-                    newTile = [self.tileSystem newTile];
-                    newTile.display = [self prettyString:aClass.name];
-                    newTile.dataObject = aClass;
-                    [tilesToDelete addObject:newTile];
-                    [newTile blockWhenClicked:^(KTClass *aClass, KETile *tileThatWasClicked) {
-
-                        // set this as the class
-                        kFace.curClass = aClass;
-                        
-                        
-                        // delete all the objects
-                        [tilesToDelete enumerateObjectsUsingBlock:^(KETile *aTile, NSUInteger idx, BOOL *stop) {
-                            [aTile dismiss];
-                        }];
-                        
-                        [self.tileSystem popPosition];
-                        [self.tileSystem pushCurPositionNewLineAndIndent];
-                        newTile = [self.tileSystem newTile];
-                        newTile.display = [self prettyString:aClass.name];
-                        [tilesToDelete addObject:newTile];
-
-                        [aClass enumerateClassIniters:^(KTMethod *aMethod) {
-                            newTile = [self.tileSystem newTile];
-                            newTile.display = [self prettyString:aMethod.name];
-                            [tilesToDelete addObject:newTile];
-                            [newTile blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
-                                // delete all the objects
-                                [tilesToDelete enumerateObjectsUsingBlock:^(KETile *aTile, NSUInteger idx, BOOL *stop) {
-                                    [aTile dismiss];
-                                }];
-                                
-                                // pop situation back to what we was
-                                [self.tileSystem popPosition];
-                                if (successBlock) successBlock(YES, dataObject);
-                            }];
-                        }];
-                        
-                        
-                        
-                    }];
-                }];
-            }];
-            
-            
-        }];
-        
-        
-        
-    }];
-    
-}
 
 -(void)walkInterfaceForIniter:(KTInterface*)dataInterface then:(void (^)(BOOL success, id newKibble))successBlock with:(NSMutableSet *)tilesToDelete{
 
@@ -277,7 +193,8 @@
         // add nodes
         [dataInterface.nodes enumerateObjectsUsingBlock:^(KTMethodNode *aNode, NSUInteger idx, BOOL *stop) {
             newTile = [self.tileSystem newTile];
-            newTile.display = [self prettyString:aNode.name];
+            //newTile.display = [self prettyString:aNode.name];
+            newTile.display = aNode.name;
             newTile.dataObject = aNode;
             [tilesToDelete addObject:newTile];
             [newTile blockWhenClicked:^(KTMethodNode *aNode, KETile *tileThatWasClicked) {
