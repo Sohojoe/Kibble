@@ -9,18 +9,68 @@
 #import "KTInterface.h"
 
 @implementation KTMethodNode
-//@property (strong, nonatomic) KTMethod *method;
-//@property (strong, nonatomic) KTMethodParam *methodParm;
-//@property (nonatomic) NSUInteger subNodesCount;
--(void)listSubNodes:(void(^)(NSOrderedSet* subNodes))block{
+
+-(id)copyWithZone:(NSZone *)zone {
+    KTMethodNode *copy = [[[self class] alloc] init];
     
+    if (copy) {
+        // Copy NSObject subclasses
+        copy.methods = [NSMutableOrderedSet orderedSetWithOrderedSet:self.methods];
+        copy.name = [NSString stringWithString:self.name];
+        copy.appendedName = [NSString stringWithString:self.appendedName];
+        copy.nodeCanTerminate = self.nodeCanTerminate;
+        copy.nodeTreeChildren = [NSMutableDictionary dictionaryWithDictionary:self.nodeTreeChildren];
+    }
+    
+    return copy;
 }
-//@property (nonatomic) BOOL nodeCanTerminate;
+@end
+
+@implementation KTMethodChunk
++(instancetype)chunkWith:(NSString*)aName apppended:(NSString*)aAppendedName requires:(BOOL)doesRequireParam{
+    KTMethodChunk *aChunk = [KTMethodChunk new];
+    if (aChunk) {
+        aChunk.name = aName;
+        aChunk.appendedName = aAppendedName;
+        aChunk.requiresParam = doesRequireParam;
+        aChunk.brancesTo = [NSMutableDictionary new];
+    }
+    return aChunk;
+}
+-(void)completeWith:(KTMethod *)aMethod{
+    [self.brancesTo setObject:aMethod forKey:@"done"];
+}
+-(void)addChild:(KTMethodChunk *)aChunk{
+    [self.brancesTo setObject:aChunk forKey:aChunk.name];
+}
+-(NSString*)description{
+    return self.name;
+}
+-(NSString*)debugDescription{
+    NSMutableString *output = [NSMutableString stringWithFormat:@"%@",self.name];
+    [output appendFormat:@", %@",self.appendedName];
+    if (self.requiresParam) {
+        [output appendString:@", requiresParam = TRUE"];
+    } else {
+        [output appendString:@", requiresParam = FALSE"];
+    }
+    if (self.brancesTo.count) {
+        [output appendString:@", brancesTo <"];
+        [self.brancesTo enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            [output appendFormat:@"%@, ",key];
+        }];
+        [output appendString:@">"];
+    }
+ 
+    return output;
+}
 @end
 
 @interface KTInterface ()
 @property (nonatomic, strong) NSMutableOrderedSet *masterClasses;
 @property (nonatomic, strong) NSMutableOrderedSet *masterNodes;
+@property (nonatomic, strong) NSMutableDictionary *masterChunks;
+@property (nonatomic, strong) NSMutableDictionary *activeChunks;
 @end
 
 @implementation KTInterface
@@ -37,6 +87,21 @@ static NSMutableSet *masterFoundationSet;
 }
 
 @synthesize foundations, classes, nodes, foundation, curClass, curNode;
+@synthesize paramContent, paramList;
+// --------------------------------
+// lazy
+-(NSMutableOrderedSet*)paramList{
+    if (paramList == nil) {
+        paramList = [NSMutableOrderedSet new];
+    }
+    return paramList;
+}
+-(NSMutableOrderedSet*)paramContent{
+    if (paramContent == nil) {
+        paramContent = [NSMutableOrderedSet new];
+    }
+    return paramContent;
+}
 
 
 // --------------------------------
@@ -66,10 +131,125 @@ static NSMutableSet *masterFoundationSet;
 -(void)setCurClass:(KTClass *)aClass{
     curClass = aClass;
     self.masterNodes = nil;
+    [self buildChunks];
+}
+
+// --------------------------------
+// chunk interface
+-(void)buildChunks{
+    // initers
+    self.masterChunks = [NSMutableDictionary new];
+    self.activeChunks = self.masterChunks;
+    self.chunkList = [NSMutableOrderedSet new];
+    
+    [self.curClass enumerateClassIniters:^(KTMethod *aMethod) {
+        
+        if (aMethod.params.count) {
+            // has params
+            __block NSString *appendedString = @"";
+            __block KTMethodChunk *parentChunk = nil;
+            [aMethod.params enumerateObjectsUsingBlock:^(KTMethodParam *aParam, NSUInteger idx, BOOL *stop) {
+                NSString *name = aParam.name;
+                name = [name stringByAppendingString:@":"];
+                appendedString = [appendedString stringByAppendingString:name];
+                KTMethodChunk *aChunk = [self.masterChunks objectForKey:appendedString];
+                if (aChunk == nil) {
+                    aChunk = [KTMethodChunk chunkWith:name apppended:appendedString requires:YES];
+                    if (parentChunk == nil) {
+                        // add to chunks as we are a root
+                        NSLog(@"%@", aChunk);
+                        [self.masterChunks setObject:aChunk forKey:appendedString];
+                    }
+                }
+                if (parentChunk) {
+                    [parentChunk addChild:aChunk];
+                }
+                parentChunk = aChunk;
+                // check if last
+                if (idx >= aMethod.params.count-1) {
+                    // add done
+                    [aChunk completeWith:aMethod];
+                }
+                
+            }];
+        } else {
+            KTMethodChunk *aChunk = [self.masterChunks objectForKey:aMethod.name];
+            if (aChunk == nil) {
+                aChunk = [KTMethodChunk chunkWith:aMethod.name apppended:aMethod.name requires:NO];
+                NSLog(@"%@", aChunk);
+                [self.masterChunks setObject:aChunk forKey:aMethod.name];
+            }
+            [aChunk completeWith:aMethod];
+        }
+    }];
+    
+}
+-(NSOrderedSet*)chunks{
+    NSMutableOrderedSet *chunkSet = [NSMutableOrderedSet new];
+    
+    [self.activeChunks enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        if ([obj isKindOfClass:[KTMethodChunk class]]) {
+            // we have a chunk
+            KTMethodChunk *aChunk = obj;
+            [chunkSet addObject:aChunk];
+        }
+    }];
+    
+    // sort
+    [chunkSet sortUsingComparator:(NSComparator)^(KTMethodChunk * obj1, KTMethodChunk * obj2){
+        return [obj1.name localizedCaseInsensitiveCompare:obj2.name];
+    }];
+    
+    NSOrderedSet *s = [NSOrderedSet orderedSetWithOrderedSet:chunkSet];
+    return s;
+}
+-(void)selectChunk:(KTMethodChunk*)aChunk{
+    [self.chunkList addObject:aChunk];
+    if (aChunk.requiresParam) {
+        
+    }
+    if (aChunk.brancesTo.count) {
+        self.activeChunks = aChunk.brancesTo;
+    }
+        
 }
 
 // --------------------------------
 // node interface
+-(void)setCurNode:(KTMethodNode *)aNode{
+    curNode = aNode;
+    
+    if (aNode.nodeCanTerminate) {
+        NSEnumerator *en = [aNode.methods objectEnumerator];
+        KTMethod *aMethod = [en nextObject];
+        KTMethodParam *aParam = [aMethod.params objectAtIndex:self.paramIdx];
+        if (aParam) {
+            [self.paramList setObject:aParam atIndex:self.paramIdx];
+            self.needsParam = YES;
+        }
+        if (aNode.methods.count == 1) {
+            self.method = aMethod;
+        }
+    }
+}
+-(void)setParamContentWith:(id)thisContent{
+    if (thisContent == nil) {
+        thisContent = [NSNull null];
+    }
+    [self.paramContent setObject:thisContent atIndex:self.paramIdx];
+    self.needsParam = NO;
+    
+    // reset the nodes
+    self.masterNodes = nil;
+    self.curNode = nil;
+    
+    self.paramIdx++;
+    if(self.method) {
+        if (self.paramIdx > self.method.params.count) {
+            // done
+        }
+    }
+}
 
 
 -(NSOrderedSet*)nodes{
@@ -129,7 +309,6 @@ static NSMutableSet *masterFoundationSet;
                 
                 aNode.methods = [NSMutableOrderedSet new];
                 [aNode.methods addObject:aMethod];
-                aNode.methodParm = aParam;
                 aNode.name = nodeName;
                 aNode.appendedName = nodeAppendedName;
                 aNode.nodeTreeChildren = [NSMutableDictionary new];
@@ -149,7 +328,7 @@ static NSMutableSet *masterFoundationSet;
             // look see if this the end of a param
             if ([aParam.name isEqualToString:aNode.appendedName]) {
                 aNode.nodeCanTerminate = YES;
-                aNode.nodeIsParamTerminator = YES;
+                //aNode.nodeIsParamTerminator = YES;
             }
             
             // set nodeTree to child of this tree
@@ -168,10 +347,21 @@ static NSMutableSet *masterFoundationSet;
     
     [aTree enumerateKeysAndObjectsUsingBlock:^(id key, KTMethodNode *aNode, BOOL *stop) {
         
-        if ((aNode.nodeCanTerminate && aNode.nodeTreeChildren.count) ||
-            (aNode.nodeIsParamTerminator && aNode.nodeTreeChildren.count)) {
-            // add
-            [newTree setObject:aNode forKey:aNode.name];
+        if ((aNode.nodeCanTerminate && aNode.nodeTreeChildren.count)){
+            __block KTMethod *aMethod = nil;
+            [aNode.methods enumerateObjectsUsingBlock:^(KTMethod *thisMethod, NSUInteger idx, BOOL *stop) {
+                if ([thisMethod.name isEqualToString:aNode.name]) {
+                    aMethod = thisMethod;
+                }
+            }];
+            KTMethodNode *newNode = [aNode copy];
+            newNode.methods = [NSMutableOrderedSet new];
+            if (aMethod) {
+                [newNode.methods addObject:aMethod];
+                [aNode.methods removeObject:aMethod];
+            }
+            [newTree setObject:newNode forKey:newNode.name];
+            aNode.nodeCanTerminate = NO;
         }
         
         while (aNode.nodeTreeChildren.count == 1) {
@@ -197,52 +387,29 @@ static NSMutableSet *masterFoundationSet;
     }];
 }
 
-    
 
--(void)oldcollapseTree:(NSMutableDictionary*)aTree{
-    [aTree enumerateKeysAndObjectsUsingBlock:^(id key, KTMethodNode *aNode, BOOL *stop) {
-        
-        if (aNode.nodeTreeChildren.count == 1 &&
-            aNode.nodeCanTerminate == NO) {
-            // one child
-            NSEnumerator *oe = [aNode.nodeTreeChildren objectEnumerator];
-            KTMethodNode *childNode = [oe nextObject];
-            childNode.name = [aNode.name stringByAppendingString:childNode.name];
-            aNode = childNode;
-            
-            //[aNode.nodeTreeChildren enumerateKeysAndObjectsUsingBlock:^(id key, KTMethodNode *childNode, BOOL *stop) {
-                // collopase into the child
-                //aNode.name = [aNode.name stringByAppendingString:childNode.name];
-                //aNode.nodeTreeChildren = childNode.nodeTreeChildren;
-            //}];
-            
-            
-        } else if (aNode.nodeTreeChildren.count > 1) {
-            // more than one child
-            
-            
-        } else {
-            // no children
-        }
-        if (aNode.nodeTreeChildren) {
-            // just walk through the kids
-            //[self collapseTree:aNode.nodeTreeChildren];
-        }
-        
-    }];
-}
+
 
 //-------------------------------------
 //-- helpers
 -(void)enumerateKeyWordsIn:(KTMethod *)aMethod calling:(void(^)(NSString *substring, NSString *appendedSubstring, KTMethodParam *forParam))block{
     if (aMethod.params.count) {
-        [aMethod.params enumerateObjectsUsingBlock:^(KTMethodParam *aMethodParm, NSUInteger idx, BOOL *stop) {
+        KTMethodParam *aMethodParm = [aMethod.params objectAtIndex:self.paramIdx];
+
+        NSString *name = aMethodParm.name;
+        if (self.paramIdx < aMethod.params.count) {
+            [name stringByAppendingString:@":"];
+        }
+        [self enumerateKeyWords:name for:aMethodParm calling:block];
+        
+        /*        [aMethod.params enumerateObjectsUsingBlock:^(KTMethodParam *aMethodParm, NSUInteger idx, BOOL *stop) {
             NSString *name = aMethodParm.name;
             if (idx < aMethod.params.count) {
                 [name stringByAppendingString:@":"];
             }
                 [self enumerateKeyWords:name for:aMethodParm calling:block];
         }];
+ */
     } else {
         [self enumerateKeyWords:aMethod.name for:nil calling:block];
     }

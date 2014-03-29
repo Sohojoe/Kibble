@@ -175,11 +175,26 @@
         }];
     }
     
-    // if no node, select an interface
+    else if (dataInterface.needsParam) {
+        // skip for now
+        [dataInterface setParamContentWith:nil];
+
+        // recurse
+        [self walkInterfaceForIniter:dataInterface then:successBlock with:tilesToDelete];
+    }
+    
+    
+    // walk nodes
     else {
         newTile = [self.tileSystem newTile];
         newTile.display = [self prettyString:dataInterface.curClass.name];
         [tilesToDelete addObject:newTile];
+        
+        [dataInterface.chunkList enumerateObjectsUsingBlock:^(KTMethodChunk *aChunk, NSUInteger idx, BOOL *stop) {
+            newTile = [self.tileSystem newTile];
+            newTile.display = aChunk.name;
+            [tilesToDelete addObject:newTile];
+        }];
         
         if (dataInterface.curNode) {
             newTile = [self.tileSystem newTile];
@@ -187,7 +202,122 @@
             [tilesToDelete addObject:newTile];
         }
     
-    // walk the nodes
+        // walk the chunks
+        [dataInterface.chunks enumerateObjectsUsingBlock:^(KTMethodChunk *aChunk, NSUInteger idx, BOOL *stop) {
+            newTile = [self.tileSystem newTile];
+            //newTile.display = [self prettyString:aNode.name];
+            newTile.display = aChunk.name;
+            newTile.dataObject = aChunk;
+            [tilesToDelete addObject:newTile];
+            [newTile blockWhenClicked:^(KTMethodChunk *aChunk, KETile *tileThatWasClicked) {
+                // select this chunk
+                [dataInterface selectChunk:aChunk];
+                
+                // delete all the objects
+                [tilesToDelete enumerateObjectsUsingBlock:^(KETile *aTile, BOOL *stop) {
+                    [aTile dismiss];
+                }];
+                
+                [self.tileSystem popPosition];
+                [self.tileSystem pushCurPositionNewLineAndIndent];
+                
+                // recurse
+                [self walkInterfaceForIniter:dataInterface then:successBlock with:tilesToDelete];
+            }];
+        }];
+    }
+}
+
+-(void)__OLDwalkInterfaceForIniter:(KTInterface*)dataInterface then:(void (^)(BOOL success, id newKibble))successBlock with:(NSMutableSet *)tilesToDelete{
+    
+    if (tilesToDelete == nil) {
+        tilesToDelete = [NSMutableSet new];
+    }
+    __block KETile *newTile = nil;
+    
+    // if no foundation, select a foundation
+    if (dataInterface.foundation == nil) {
+        
+        // add foundations
+        [dataInterface.foundations enumerateObjectsUsingBlock:^(KTFoundation *thisFoundation, NSUInteger idx, BOOL *stop) {
+            
+            newTile = [self.tileSystem newTile];
+            newTile.display = [self prettyString:thisFoundation.name];
+            newTile.dataObject = thisFoundation;
+            [tilesToDelete addObject:newTile];
+            [newTile blockWhenClicked:^(KTFoundation *thisFoundation, KETile *tileThatWasClicked) {
+                
+                // set this as the class
+                dataInterface.foundation = thisFoundation;
+                
+                // recurse
+                [self walkInterfaceForIniter:dataInterface then:successBlock with:tilesToDelete];
+            }];
+        }];
+        
+    }
+    
+    // if no class, select a class
+    else if (dataInterface.curClass == nil) {
+        // add classes
+        [dataInterface.classes enumerateObjectsUsingBlock:^(KTClass *aClass, NSUInteger idx, BOOL *stop) {
+            
+            if ([aClass.name isEqualToString:@"NSString"] == NO) {
+                return;
+            }
+            
+            newTile = [self.tileSystem newTile];
+            newTile.display = [self prettyString:aClass.name];
+            newTile.dataObject = aClass;
+            [tilesToDelete addObject:newTile];
+            [newTile blockWhenClicked:^(KTClass *aClass, KETile *tileThatWasClicked) {
+                
+                // set this as the class
+                dataInterface.curClass = aClass;
+                
+                
+                // delete all the objects
+                [tilesToDelete enumerateObjectsUsingBlock:^(KETile *aTile, BOOL *stop) {
+                    [aTile dismiss];
+                }];
+                
+                [self.tileSystem popPosition];
+                [self.tileSystem pushCurPositionNewLineAndIndent];
+                
+                // recurse
+                [self walkInterfaceForIniter:dataInterface then:successBlock with:tilesToDelete];
+            }];
+        }];
+    }
+    
+    else if (dataInterface.needsParam) {
+        // skip for now
+        [dataInterface setParamContentWith:nil];
+        
+        // recurse
+        [self walkInterfaceForIniter:dataInterface then:successBlock with:tilesToDelete];
+    }
+    
+    
+    // walk nodes
+    else {
+        newTile = [self.tileSystem newTile];
+        newTile.display = [self prettyString:dataInterface.curClass.name];
+        [tilesToDelete addObject:newTile];
+        
+        [dataInterface.paramList enumerateObjectsUsingBlock:^(KTMethodParam *aParam, NSUInteger idx, BOOL *stop) {
+            newTile = [self.tileSystem newTile];
+            newTile.display = aParam.name;
+            [tilesToDelete addObject:newTile];
+        }];
+        
+        if (dataInterface.curNode) {
+            newTile = [self.tileSystem newTile];
+            newTile.display = [self prettyString:dataInterface.curNode.appendedName];
+            [tilesToDelete addObject:newTile];
+        }
+        
+        // walk the nodes
         
         
         // add nodes
