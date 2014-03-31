@@ -533,6 +533,9 @@ static NSMutableDictionary *foundations;
     o.paramType = type;
     return o;
 }
+-(NSString*)description{
+    return self.name;
+}
 //---
 #pragma mark NSCoding
 

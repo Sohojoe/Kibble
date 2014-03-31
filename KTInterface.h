@@ -20,13 +20,19 @@
 @property (nonatomic, strong) NSMutableDictionary *nodeTreeChildren;
 @end
 
+
+/// \brief a chunk of a KTMethod. Chunked at each paramater
 @interface KTMethodChunk : NSObject
+/// \brief name of this chunk
 @property (strong, nonatomic) NSString *name;
+/// \brief full name including parent chunks
 @property (strong, nonatomic) NSString *appendedName;
+/// \brief chunk requires a param
 @property (nonatomic) BOOL requiresParam;
 @property (nonatomic,strong) KTMethodParam *param;
 @property (nonatomic, strong) NSMutableDictionary *brancesTo;
-+(instancetype)chunkWith:(NSString*)aName apppended:(NSString*)aAppendedName requires:(BOOL)doesRequireParam;
++(instancetype)chunkWith:(NSString*)aName apppended:(NSString*)aAppendedName;
++(instancetype)chunkWith:(NSString*)aName apppended:(NSString*)aAppendedName param:(KTMethodParam*)aParam;
 -(void)completeWith:(KTMethod*)aMethod;
 -(void)addChild:(KTMethodChunk *)aChunk;
 @end
@@ -57,7 +63,11 @@
 -(void)setParamContentWith:(id)thisContent;
 
 @property (strong, nonatomic, readonly) NSOrderedSet *chunks;
-@property (nonatomic, strong) NSMutableOrderedSet *chunkList;
 -(void)selectChunk:(KTMethodChunk*)aChunk;
+/// calls walks through and call first a chunk and then its param (i.e. aChunk:aParam aChunk:aParam ...)
+-(void)enumerateChunks:(void(^)(KTMethodChunk *aChunk, NSUInteger idx)) chunkBlock andParams:(void(^)(KTMethodParam *aParm, KTMethodChunk *aChunk, NSUInteger idx)) paramBlock;
+@property (nonatomic) BOOL messageComplete;
+@property (nonatomic) BOOL messageHasMoreChunks;
+
 
 @end

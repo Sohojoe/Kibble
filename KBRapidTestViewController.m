@@ -130,6 +130,9 @@
             newTile.display = [self prettyString:thisFoundation.name];
             newTile.dataObject = thisFoundation;
             [tilesToDelete addObject:newTile];
+            
+            [self.tileSystem newLineAndIndent];
+            
             [newTile blockWhenClicked:^(KTFoundation *thisFoundation, KETile *tileThatWasClicked) {
                 
                 // set this as the class
@@ -155,6 +158,9 @@
             newTile.display = [self prettyString:aClass.name];
             newTile.dataObject = aClass;
             [tilesToDelete addObject:newTile];
+            
+            [self.tileSystem newLineAndIndent];
+            
             [newTile blockWhenClicked:^(KTClass *aClass, KETile *tileThatWasClicked) {
                 
                 // set this as the class
@@ -190,18 +196,30 @@
         newTile.display = [self prettyString:dataInterface.curClass.name];
         [tilesToDelete addObject:newTile];
         
-        [dataInterface.chunkList enumerateObjectsUsingBlock:^(KTMethodChunk *aChunk, NSUInteger idx, BOOL *stop) {
+        // add chunk & params
+        [dataInterface enumerateChunks:^(KTMethodChunk *aChunk, NSUInteger idx) {
+            // add chunk
             newTile = [self.tileSystem newTile];
             newTile.display = aChunk.name;
             [tilesToDelete addObject:newTile];
+        } andParams:^(KTMethodParam *aParm, KTMethodChunk *aChunk, NSUInteger idx) {
+            // chunk param data
+            newTile = [self.tileSystem newTile];
+            newTile.display = [NSString stringWithFormat:@"+\n(%@)", aChunk.param.paramType];
+            [tilesToDelete addObject:newTile];
         }];
         
-        if (dataInterface.curNode) {
+        // add + if message is complete and if message has more options
+        if (dataInterface.messageComplete && dataInterface.messageHasMoreChunks) {
             newTile = [self.tileSystem newTile];
-            newTile.display = [self prettyString:dataInterface.curNode.appendedName];
+            newTile.display = @"+";
             [tilesToDelete addObject:newTile];
         }
+        [self.tileSystem newLineAndIndent];
     
+        if (dataInterface.messageComplete) {
+            return;
+        }
         // walk the chunks
         [dataInterface.chunks enumerateObjectsUsingBlock:^(KTMethodChunk *aChunk, NSUInteger idx, BOOL *stop) {
             newTile = [self.tileSystem newTile];

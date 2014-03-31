@@ -27,12 +27,22 @@
 @end
 
 @implementation KTMethodChunk
-+(instancetype)chunkWith:(NSString*)aName apppended:(NSString*)aAppendedName requires:(BOOL)doesRequireParam{
++(instancetype)chunkWith:(NSString*)aName apppended:(NSString*)aAppendedName{
     KTMethodChunk *aChunk = [KTMethodChunk new];
     if (aChunk) {
         aChunk.name = aName;
         aChunk.appendedName = aAppendedName;
-        aChunk.requiresParam = doesRequireParam;
+        aChunk.brancesTo = [NSMutableDictionary new];
+    }
+    return aChunk;
+}
++(instancetype)chunkWith:(NSString*)aName apppended:(NSString*)aAppendedName param:(KTMethodParam*)aParam{
+    KTMethodChunk *aChunk = [KTMethodChunk new];
+    if (aChunk) {
+        aChunk.name = aName;
+        aChunk.appendedName = aAppendedName;
+        aChunk.requiresParam = YES;
+        aChunk.param = aParam;
         aChunk.brancesTo = [NSMutableDictionary new];
     }
     return aChunk;
@@ -71,6 +81,8 @@
 @property (nonatomic, strong) NSMutableOrderedSet *masterNodes;
 @property (nonatomic, strong) NSMutableDictionary *masterChunks;
 @property (nonatomic, strong) NSMutableDictionary *activeChunks;
+@property (nonatomic, strong) NSMutableOrderedSet *chunkList;
+@property (nonatomic, strong) NSMutableArray *paramObjectList;
 @end
 
 @implementation KTInterface
@@ -141,6 +153,7 @@ static NSMutableSet *masterFoundationSet;
     self.masterChunks = [NSMutableDictionary new];
     self.activeChunks = self.masterChunks;
     self.chunkList = [NSMutableOrderedSet new];
+    self.paramObjectList = [NSMutableArray new];
     
     [self.curClass enumerateClassIniters:^(KTMethod *aMethod) {
         
@@ -154,10 +167,9 @@ static NSMutableSet *masterFoundationSet;
                 appendedString = [appendedString stringByAppendingString:name];
                 KTMethodChunk *aChunk = [self.masterChunks objectForKey:appendedString];
                 if (aChunk == nil) {
-                    aChunk = [KTMethodChunk chunkWith:name apppended:appendedString requires:YES];
+                    aChunk = [KTMethodChunk chunkWith:name apppended:appendedString param:aParam];
                     if (parentChunk == nil) {
                         // add to chunks as we are a root
-                        NSLog(@"%@", aChunk);
                         [self.masterChunks setObject:aChunk forKey:appendedString];
                     }
                 }
@@ -175,8 +187,7 @@ static NSMutableSet *masterFoundationSet;
         } else {
             KTMethodChunk *aChunk = [self.masterChunks objectForKey:aMethod.name];
             if (aChunk == nil) {
-                aChunk = [KTMethodChunk chunkWith:aMethod.name apppended:aMethod.name requires:NO];
-                NSLog(@"%@", aChunk);
+                aChunk = [KTMethodChunk chunkWith:aMethod.name apppended:aMethod.name];
                 [self.masterChunks setObject:aChunk forKey:aMethod.name];
             }
             [aChunk completeWith:aMethod];
@@ -206,12 +217,48 @@ static NSMutableSet *masterFoundationSet;
 -(void)selectChunk:(KTMethodChunk*)aChunk{
     [self.chunkList addObject:aChunk];
     if (aChunk.requiresParam) {
-        
+        [self.paramObjectList addObject:[NSNull class]];
     }
     if (aChunk.brancesTo.count) {
         self.activeChunks = aChunk.brancesTo;
+        if (self.activeChunks.count == 1) {
+            NSEnumerator *en = [self.activeChunks objectEnumerator];
+            id obj = [en nextObject];
+            if ([obj isKindOfClass:[KTMethodChunk class]]) {
+                [self selectChunk:obj];
+            } else {
+                // we are done
+                self.messageComplete = YES;
+                self.messageHasMoreChunks = NO;
+            }
+        } else {
+            // we have more potential objects
+            self.messageHasMoreChunks = YES;
+            [self.activeChunks enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+                if ([key isEqualToString:@"done"]) {
+                    // we are done
+                    self.messageComplete = YES;
+                }
+            }];
+        }
     }
-        
+}
+-(void)enumerateChunks:(void(^)(KTMethodChunk *aChunk, NSUInteger idx)) chunkBlock andParams:(void(^)(KTMethodParam *aParm, KTMethodChunk *aChunk, NSUInteger idx)) paramBlock{
+    
+    NSUInteger idx = 0;
+    
+    while (idx < self.chunkList.count) {
+        if (chunkBlock) {
+            chunkBlock(self.chunkList[idx], idx);
+        }
+        if (paramBlock) {
+            if (self.paramObjectList.count > idx) {
+                paramBlock(self.paramObjectList[idx], self.chunkList[idx], idx);
+            }
+        }
+        idx++;
+    }
+    
 }
 
 // --------------------------------
