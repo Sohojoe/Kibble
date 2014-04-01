@@ -62,8 +62,22 @@
 @property (nonatomic) BOOL needsParam;
 -(void)setParamContentWith:(id)thisContent;
 
+//
+/**
+ * \brief Call blocks with chunks at this idx.
+ *
+ * This function visits all the potential chunks at this idx
+ *
+ * \param idx the index to inspect
+ *
+ * \param chunksBlock called for each valid chunk.
+ *
+ * \param doneBlock called if this chunk can terminate as a complete function.
+ *
+ */
+-(void)enumerateChunksAtIndex:(NSUInteger)idx chunks:(void (^)(KTMethodChunk *aChunk)) chunksBlock done:(void (^)(KTMethod *aMethod)) doneBlock;
 @property (strong, nonatomic, readonly) NSOrderedSet *chunks;
--(void)selectChunk:(KTMethodChunk*)aChunk;
+-(void)setChunkIdx:(NSUInteger)idx with:(KTMethodChunk*)aChunk;
 /// calls walks through and call first a chunk and then its param (i.e. aChunk:aParam aChunk:aParam ...)
 -(void)enumerateChunks:(void(^)(KTMethodChunk *aChunk, NSUInteger idx)) chunkBlock andParams:(void(^)(KTMethodParam *aParm, KTMethodChunk *aChunk, NSUInteger idx)) paramBlock;
 @property (nonatomic) BOOL messageComplete;

@@ -195,6 +195,35 @@ static NSMutableSet *masterFoundationSet;
     }];
     
 }
+
+-(void)enumerateChunksAtIndex:(NSUInteger)idx chunks:(void (^)(KTMethodChunk *aChunk)) chunksBlock done:(void (^)(KTMethod *aMethod)) doneBlock{
+    self.activeChunks = self.masterChunks;
+    if (idx && idx <= self.chunkList.count) {
+        KTMethodChunk *aChunk = [self.chunkList objectAtIndex:idx-1];
+        self.activeChunks = aChunk.brancesTo;
+    }
+
+    __block KTMethod *doneMethod = nil;
+    [self.activeChunks enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        if ([obj isKindOfClass:[KTMethodChunk class]]) {
+            // we have a chunk
+            if (chunksBlock) {
+                KTMethodChunk *aChunk = obj;
+                chunksBlock(aChunk);
+            }
+        } else if ([obj isKindOfClass:[KTMethod class]]) {
+            // we have a chunk
+            doneMethod = obj;
+        }
+    }];
+    // check if we need to call the doneBlock, we do this last so it's at the end of the list
+    if (doneBlock && doneMethod) {
+        doneBlock(doneMethod);
+    }
+
+
+}
+
 -(NSOrderedSet*)chunks{
     NSMutableOrderedSet *chunkSet = [NSMutableOrderedSet new];
     
@@ -214,18 +243,43 @@ static NSMutableSet *masterFoundationSet;
     NSOrderedSet *s = [NSOrderedSet orderedSetWithOrderedSet:chunkSet];
     return s;
 }
--(void)selectChunk:(KTMethodChunk*)aChunk{
+-(void)setChunkIdx:(NSUInteger)idx with:(KTMethodChunk*)aChunk{
+    // check if we need to remove chunks
+    while (self.chunkList.count > idx) {
+        [self.chunkList removeObjectAtIndex:self.chunkList.count-1];
+    }
+    
+    // early exit if no new chunk
+    if (aChunk == nil) {
+        // no chunk, but need to tidy up
+        if (idx) {
+            // recurse with previous chunk
+            [self setChunkIdx:idx-1 with:[self.chunkList objectAtIndex:idx-1]];
+        } else {
+            self.messageComplete = NO;
+        }
+        return;
+    }
+    
+    // add this chunk
     [self.chunkList addObject:aChunk];
     if (aChunk.requiresParam) {
-        [self.paramObjectList addObject:[NSNull class]];
+        if (self.paramObjectList.count >= idx+1) {
+            // param exits, check it is the right type
+            // TO DO
+            [self.paramObjectList replaceObjectAtIndex:idx withObject:[NSNull class]];
+        } else {
+            [self.paramObjectList addObject:[NSNull class]];
+        }
     }
+    
     if (aChunk.brancesTo.count) {
         self.activeChunks = aChunk.brancesTo;
         if (self.activeChunks.count == 1) {
             NSEnumerator *en = [self.activeChunks objectEnumerator];
             id obj = [en nextObject];
             if ([obj isKindOfClass:[KTMethodChunk class]]) {
-                [self selectChunk:obj];
+                [self setChunkIdx:idx+1 with:obj];
             } else {
                 // we are done
                 self.messageComplete = YES;
