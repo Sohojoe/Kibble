@@ -34,6 +34,8 @@
 -(void)popIndent;
 /// reset indent
 -(void)resetIndent;
+/// pushes next tile position on to stack
+-(void)pushCurPosition;
 /// pushes next tile position on to stack and...
 -(void)pushCurPositionNewLineAndIndent;
 /// pops next tile  position from the stack...

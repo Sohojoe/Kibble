@@ -93,11 +93,12 @@
     newTile.dataObject = nil;
     __block NSMutableSet *tilesToDelete = [NSMutableSet new];
     //[tilesToDelete addObject:newTile];
+    [self.tileSystem pushCurPosition];
     [newTile blockWhenClicked:^(KTFoundation *thisFoundation, KETile *tileThatWasClicked) {
         [self deleteTiles:tilesToDelete];
         
         [self.tileSystem popPosition];
-        [self.tileSystem pushCurPositionNewLineAndIndent];
+        [self.tileSystem pushCurPosition];
         
         KTInterface *dataInterface = [KTInterface interface];
         dataInterface.initerMode = YES;

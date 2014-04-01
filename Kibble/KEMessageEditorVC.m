@@ -31,7 +31,8 @@
     
     // get new layer & screen
     
-    [o refreshTiles];
+    [o.tileSystem pushCurPosition];
+    [o redrawTiles];
     
     return o;
 }
@@ -42,7 +43,7 @@
     self.successBlock = nil;
     self.dataInterface = nil;
 }
--(void)refreshTiles{
+-(void)redrawTiles{
     //delete current
     [self deleteTiles:self.tilesToDelete];
     
@@ -80,7 +81,7 @@
                 self.dataInterface.foundation = thisFoundation;
                 
                 // recurse
-                [self refreshTiles];
+                [self redrawTiles];
             }];
         }];
         
@@ -113,7 +114,7 @@
                 self.dataInterface.curClass = aClass;
 
                 // recurse
-                [self refreshTiles];
+                [self redrawTiles];
             }];
         }];
     }
@@ -139,7 +140,7 @@
             [self.dataInterface setChunkIdx:idx with:nil];
             
             // recurse
-            [self refreshTiles];
+            [self redrawTiles];
             if (self.dataInterface.chunks.count) {
                 [self editChunk:idx];
             }
@@ -161,7 +162,7 @@
                     if (mEdit) {
                         [mEdit dismiss];
                     }
-                    [self.tileSystem pushCurPositionNewLineAndIndent];
+                    //[self.tileSystem pushCurPositionNewLineAndIndent];
                     mEdit = [KEMessageEditorVC messageEditorUsing:dataInterface using:self.tileSystem then:^(BOOL success, id newKibble) {
                         
                     }];
@@ -212,7 +213,7 @@
             [self.dataInterface setChunkIdx:idx with:aChunk];
             
             // recurse
-            [self refreshTiles];
+            [self redrawTiles];
         }];
         
     } done:^(KTMethod *aMethod) {
@@ -227,7 +228,7 @@
             //[self.tileSystem pushCurPositionNewLineAndIndent];
             
             // recurse
-            [self refreshTiles];
+            [self redrawTiles];
         }];
     }];
 }

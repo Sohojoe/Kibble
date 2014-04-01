@@ -131,9 +131,12 @@
     }
     return positionStack;
 }
--(void)pushCurPositionNewLineAndIndent{
+-(void)pushCurPosition{
     [self.positionStack addObject:[NSValue valueWithCGPoint:self.nextTilePosition]];
     [self.positionStack addObject:[NSNumber numberWithUnsignedInteger:self.indent]];
+}
+-(void)pushCurPositionNewLineAndIndent{
+    [self pushCurPosition];
     [self newLineAndIndent];
 }
 -(void)popPosition{
