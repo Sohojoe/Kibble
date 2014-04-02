@@ -41,6 +41,7 @@
 @interface KTInterface : NSObject
 +(void)addFoundationFromDisk:(NSString*)foundationName;
 +(instancetype)interface;
++(instancetype)interfaceForClassNamed:(NSString*)aClassName;
 /// initerMode only looks for initer nodes and sets up the function
 @property (nonatomic) BOOL initerMode;
 

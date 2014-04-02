@@ -260,16 +260,32 @@ static NSMutableDictionary *foundations;
 @implementation KTClass
 //---
 +(KTClass*)classWithName:(NSString *)name{
-    KTClass *o = [KTClass new];
-    o.name = name;
-    o.classMethods = [NSMutableDictionary new];
-    o.instanceMethods = [NSMutableDictionary new];
-    o.classVars = [NSMutableDictionary new];
-    o.instanceVars = [NSMutableDictionary new];
+    KTClass *o = [self findClassWithName:name];
+    
+    if (o == nil){
+        // create class
+    
+        o = [KTClass new];
+        o.name = name;
+        o.classMethods = [NSMutableDictionary new];
+        o.instanceMethods = [NSMutableDictionary new];
+        o.classVars = [NSMutableDictionary new];
+        o.instanceVars = [NSMutableDictionary new];
+        
+        [allClasses setObject:o forKey:name];
+    }
     return o;
 }
-//---
++(KTClass*)findClassWithName:(NSString *)name{
+    if (!allClasses) {
+        allClasses = [NSMutableDictionary new];
+    }
+    KTClass *o = [allClasses objectForKey:name];
+    return o;
+}
 
+//---
+static NSMutableDictionary *allClasses;
 /*
 +(id)sendMessageToClass:(KTClass*)aClass message:(NSString*)aMessage params:(id)params, ...{
 

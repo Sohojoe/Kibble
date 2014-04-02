@@ -9,6 +9,7 @@
 #import "KEPickFromSet.h"
 #import "KETileSystem.h"
 #import "KTInterface.h"
+#import "KBEditorObject.h"
 
 @interface KEPickFromSet ()
 @property (nonatomic, strong) KETileSystem *tileSystem;
@@ -22,19 +23,21 @@
     KEPickFromSet *o = [KEPickFromSet new];
     
     // set up class
-    o.tileSystem = aTileSystem;
+    o.tileSystem = [aTileSystem sublayerTileSystem];
     o.successBlock = aSuccessBlock;
     o.tilesToDelete = [NSMutableSet new];
     o.objectsToPickFrom = [NSMutableOrderedSet new];
     [o addObjectToSet:aSetOfObjects];
     // get new layer & screen
     
+    //[o.tileSystem newLineAndIndent];
     [o.tileSystem pushCurPosition];
     [o redrawTiles];
     
     return o;
 }
 -(void)dismiss{
+    [self.tileSystem dismiss];
     [self deleteTiles:self.tilesToDelete];
     self.tilesToDelete = nil;
     self.tileSystem = nil;
@@ -42,12 +45,12 @@
 }
 
 -(void)addObjectToSet:(id)anObject{
-    BOOL setWasEmpty = (BOOL)self.objectsToPickFrom.count;
+    BOOL setHasObjects = (BOOL)self.objectsToPickFrom.count;
     
     // look at different types of objects that we support
     if ([anObject isKindOfClass:[NSOrderedSet class]]) {
         NSOrderedSet *anOrderedSet = anObject;
-        if (setWasEmpty) {
+        if (setHasObjects == NO) {
             [anOrderedSet enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 [self addObjectToSet:obj];
             }];
@@ -68,7 +71,7 @@
     [self deleteTiles:self.tilesToDelete];
     
     [self.tileSystem popPosition];
-    [self.tileSystem pushCurPositionNewLineAndIndent];
+    [self.tileSystem pushCurPosition];
     
     [self drawSet:setToDraw];
 }
@@ -101,21 +104,28 @@
 
         // handle chunks & params
         else if ([obj isKindOfClass:[KTMethodChunk class]] ||
-            [obj isKindOfClass:[KTMethodParam class]] ) {
+                 [obj isKindOfClass:[KTMethodParam class]] ||
+                 [obj isKindOfClass:[KTClass class]] ||
+                 [obj isKindOfClass:[KTFoundation class]] ) {
             
             newTile = [self.tileSystem newTile];
-            newTile.display = obj[@"name"];
+            if ([obj respondsToSelector:@selector(name)]) {
+                newTile.display = [obj performSelector:@selector(name)];
+            }
             [self.tilesToDelete addObject:newTile];
             
             [newTile blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
                 
                 // we're done, we've found our object
-                [self dismiss];
                 if (self.successBlock) {
                     self.successBlock(YES,obj);
                 }
+                [self dismiss];
             }];
         }
+        else if ([obj isKindOfClass:[KBEditorObject class]]){
+        }
+        
         else {
             // un supported class
             NSLog(@"KEPickFromSet->drawSet: Class type '%@' is not supported", [obj class]);

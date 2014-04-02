@@ -97,6 +97,12 @@ static NSMutableSet *masterFoundationSet;
     KTInterface *o = [KTInterface new];
     return o;
 }
++(instancetype)interfaceForClassNamed:(NSString*)aClassName{
+    KTInterface *o = [super new];
+    o.initerMode = YES;
+    o.curClass = [KTClass findClassWithName:aClassName];
+    return o;
+}
 
 @synthesize foundations, classes, nodes, foundation, curClass, curNode;
 @synthesize paramContent, paramList;

@@ -53,6 +53,7 @@
 		188046B918E346840088094B /* KTInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 188046B818E346840088094B /* KTInterface.m */; };
 		188046C218EA885B0088094B /* KEMessageEditorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 188046C118EA885B0088094B /* KEMessageEditorVC.m */; };
 		188046C518EB2F7D0088094B /* KEPickFromSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 188046C418EB2F7D0088094B /* KEPickFromSet.m */; };
+		188046C818EB6BCF0088094B /* KBEditorObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 188046C718EB6BCF0088094B /* KBEditorObject.m */; };
 		1898C91618D5605D000E2AD2 /* KTClassRnD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1898C91518D5605D000E2AD2 /* KTClassRnD.m */; };
 		18CC492B18A48A720067D18A /* JSRnD.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC492A18A48A720067D18A /* JSRnD.m */; };
 		18CC492E18A4B93D0067D18A /* JS.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC492D18A4B93D0067D18A /* JS.m */; };
@@ -188,6 +189,8 @@
 		188046C118EA885B0088094B /* KEMessageEditorVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KEMessageEditorVC.m; sourceTree = "<group>"; };
 		188046C318EB2F7D0088094B /* KEPickFromSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KEPickFromSet.h; sourceTree = "<group>"; };
 		188046C418EB2F7D0088094B /* KEPickFromSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KEPickFromSet.m; sourceTree = "<group>"; };
+		188046C618EB6BCF0088094B /* KBEditorObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBEditorObject.h; sourceTree = "<group>"; };
+		188046C718EB6BCF0088094B /* KBEditorObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBEditorObject.m; sourceTree = "<group>"; };
 		1898C91418D5605D000E2AD2 /* KTClassRnD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTClassRnD.h; sourceTree = "<group>"; };
 		1898C91518D5605D000E2AD2 /* KTClassRnD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTClassRnD.m; sourceTree = "<group>"; };
 		18CC492918A48A720067D18A /* JSRnD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSRnD.h; sourceTree = "<group>"; };
@@ -491,6 +494,8 @@
 				188046C118EA885B0088094B /* KEMessageEditorVC.m */,
 				188046C318EB2F7D0088094B /* KEPickFromSet.h */,
 				188046C418EB2F7D0088094B /* KEPickFromSet.m */,
+				188046C618EB6BCF0088094B /* KBEditorObject.h */,
+				188046C718EB6BCF0088094B /* KBEditorObject.m */,
 			);
 			name = "Kibble Editor";
 			path = Kibble;
@@ -643,6 +648,7 @@
 				1854EEE3189D778500C2F74A /* KBRapidTestViewController.m in Sources */,
 				1854EECA189D726D00C2F74A /* SCElement.m in Sources */,
 				188046C518EB2F7D0088094B /* KEPickFromSet.m in Sources */,
+				188046C818EB6BCF0088094B /* KBEditorObject.m in Sources */,
 				1854EEB5189D717E00C2F74A /* UIAlertViewBlock.m in Sources */,
 				18CC494118A5C7CC0067D18A /* VMKode.m in Sources */,
 				18CC494718A6C44F0067D18A /* KETile.m in Sources */,

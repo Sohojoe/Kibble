@@ -41,6 +41,29 @@
     [newSystem resetNextTilePositionToTopLeft];
     return (newSystem);
 }
+
+-(KETileSystem*)sublayerTileSystem{
+    KETileSystem *newSystem = [[KETileSystem alloc]init];
+    newSystem.tileSize = self.tileSize;
+    newSystem.parentView = self.parentView;
+    newSystem.nextTilePosition = self.nextTilePosition;
+    newSystem.indent = self.indent;
+    
+    // see if we need a new line
+    if ([newSystem isNextTilePositionAtBeginingOfLine]) {
+        // indent
+        [newSystem addIndent];
+    } else {
+        [newSystem newLineAndIndent];
+    }
+    return (newSystem);
+}
+-(void)dismiss{
+    self.positionStack = nil;
+    self.parentView = nil;
+}
+
+
 -(void)resetNextTilePositionToTopLeft{
     self.nextTilePosition = CGPointMake(self.tileSize /2 + (self.tileMargin.width /2), self.tileSize /2 + (self.tileMargin.height /2));
 }
@@ -57,7 +80,7 @@
     // defaults
     self.tileSize = 128;
     self.tileMargin = CGSizeMake(8.0, 8.0);
-    self.indentSize = self.tileSize /2;
+    self.indentSize = self.tileSize /4;
     return self;
 }
 
@@ -92,6 +115,14 @@
     x += self.indentSize * self.indent;
     return x;
 }
+-(void)addIndent{
+    self.indent++;
+    CGPoint pos = self.nextTilePosition;
+    if (pos.x < self.nextLineX) {
+        pos.x = self.nextLineX;
+        self.nextTilePosition = pos;
+    }
+}
 -(void)newLine{
     [self newLineWithYOffset:self.tileSize];
 }
@@ -118,8 +149,14 @@
         }
     }
 }
+
+-(BOOL)isNextTilePositionAtBeginingOfLine{
+// self.nextTilePosition.x > self.nextLineX) {
+    BOOL res = (self.nextTilePosition.x == self.nextLineX) ? YES : NO;
+    return res;
+}
 -(void)ifNeededNewLineWithSize:(CGFloat)ySize{
-    if (self.nextTilePosition.x > self.nextLineX) {
+    if ([self isNextTilePositionAtBeginingOfLine] == NO){
         [self newLineWithYOffset:ySize];
     }
 }

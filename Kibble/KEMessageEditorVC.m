@@ -9,12 +9,15 @@
 #import "KEMessageEditorVC.h"
 #import "KTInterface.h"
 #import "KETileSystem.h"
-
+#import "KEPickFromSet.h"
+#import "KBEditorObject.h"
 
 @interface KEMessageEditorVC ()
 @property (nonatomic, strong) KTInterface *dataInterface;
 @property (nonatomic, strong) KETileSystem *tileSystem;
 @property (nonatomic, strong) void(^successBlock)(BOOL success, id newKibble);
+@property (nonatomic, strong) KEPickFromSet *pickSetInterface;
+@property (nonatomic, strong) KEMessageEditorVC *paramInterface;
 @property (nonatomic, strong) NSMutableSet *tilesToDelete;
 @end
 
@@ -25,13 +28,11 @@
     
     // set up class
     o.dataInterface = aDataInterface;
-    o.tileSystem = aTileSystem;
+    o.tileSystem = [aTileSystem sublayerTileSystem];
     o.successBlock = aSuccessBlock;
     o.tilesToDelete = [NSMutableSet new];
     
     // get new layer & screen
-    
-    [o.tileSystem pushCurPosition];
     [o redrawTiles];
     
     return o;
@@ -42,13 +43,22 @@
     self.tileSystem = nil;
     self.successBlock = nil;
     self.dataInterface = nil;
+    if (self.paramInterface) {
+        [self.paramInterface dismiss];
+    }
+    if (self.pickSetInterface) {
+        [self.pickSetInterface dismiss];
+        self.paramInterface = nil;
+    }
+    self.pickSetInterface = nil;
+    [self.tileSystem dismiss];
 }
 -(void)redrawTiles{
     //delete current
     [self deleteTiles:self.tilesToDelete];
     
     [self.tileSystem popPosition];
-    [self.tileSystem pushCurPositionNewLineAndIndent];
+    [self.tileSystem pushCurPosition];
 
     
     if (self.dataInterface.curClass == nil) {
@@ -59,30 +69,54 @@
         [self editMessage];
     }
 }
+
+-(void)pickFromSet:(NSOrderedSet*)aSet then:(void (^)(BOOL success, id selectedObject))aSuccessBlock{
+
+    // dismiss interfaces
+    if (self.pickSetInterface) {
+        [self.pickSetInterface dismiss];
+    }
+    if (self.paramInterface) {
+        [self.paramInterface dismiss];
+    }
+    
+    self.pickSetInterface = [KEPickFromSet pickFromSet:aSet using:self.tileSystem then:aSuccessBlock];
+}
+-(void)createParam:(KTMethodParam *)aParam then:(void (^)(BOOL success, id selectedObject))aSuccessBlock{
+    // dismiss interfaces
+    if (self.pickSetInterface) {
+        [self.pickSetInterface dismiss];
+    }
+    if (self.paramInterface) {
+        [self.paramInterface dismiss];
+    }
+    
+    KTInterface *dataInterface = [KTInterface interfaceForClassNamed:aParam.paramType.pointee.name];
+
+
+    self.paramInterface = [KEMessageEditorVC messageEditorUsing:dataInterface using:self.tileSystem then:aSuccessBlock];
+}
+
 -(void)editClass{
     __block KETile *newTile = nil;
     
     // if no foundation, select a foundation
     if (self.dataInterface.foundation == nil) {
         
-        // add foundations
-        [self.dataInterface.foundations enumerateObjectsUsingBlock:^(KTFoundation *thisFoundation, NSUInteger idx, BOOL *stop) {
-            
-            newTile = [self.tileSystem newTile];
-            newTile.display = [self prettyString:thisFoundation.name];
-            newTile.dataObject = thisFoundation;
-            [self.tilesToDelete addObject:newTile];
-            
-            [self.tileSystem newLineAndIndent];
-            
-            [newTile blockWhenClicked:^(KTFoundation *thisFoundation, KETile *tileThatWasClicked) {
-                
-                // set this as the class
-                self.dataInterface.foundation = thisFoundation;
-                
+        NSMutableOrderedSet *foundationSet = [NSMutableOrderedSet orderedSetWithOrderedSet:self.dataInterface.foundations];
+        // sort
+        [foundationSet sortUsingComparator:(NSComparator)^(KTFoundation * obj1, KTFoundation * obj2){
+            return [obj1.name localizedCaseInsensitiveCompare:obj2.name];
+        }];
+        
+        [self pickFromSet:foundationSet then:^(BOOL success, id selectedObject) {
+            // set this as the foundation
+            if ([selectedObject isKindOfClass:[KTFoundation class]]) {
+                 self.dataInterface.foundation = selectedObject;
                 // recurse
                 [self redrawTiles];
-            }];
+            }
+            
         }];
         
     }
@@ -95,27 +129,22 @@
         [self.tilesToDelete addObject:newTile];
         
         [self.tileSystem newLineAndIndent];
+
+        NSMutableOrderedSet *classesSet = [NSMutableOrderedSet orderedSetWithOrderedSet:self.dataInterface.classes];
+        // sort
+        [classesSet sortUsingComparator:(NSComparator)^(KTClass * obj1, KTClass * obj2){
+            return [obj1.name localizedCaseInsensitiveCompare:obj2.name];
+        }];
         
         // add classes
-        [self.dataInterface.classes enumerateObjectsUsingBlock:^(KTClass *aClass, NSUInteger idx, BOOL *stop) {
+        [self pickFromSet:classesSet then:^(BOOL success, id selectedObject) {
+            // set this as the class
+            if ([selectedObject isKindOfClass:[KTClass class]]) {
+                self.dataInterface.curClass = selectedObject;
+            }
             
-            //if ([aClass.name isEqualToString:@"NSString"] == NO) {
-            //    return;
-            //}
-            
-            newTile = [self.tileSystem newTile];
-            newTile.display = [self prettyString:aClass.name];
-            newTile.dataObject = aClass;
-            [self.tilesToDelete addObject:newTile];
-            
-            [newTile blockWhenClicked:^(KTClass *aClass, KETile *tileThatWasClicked) {
-                
-                // set this as the class
-                self.dataInterface.curClass = aClass;
-
-                // recurse
-                [self redrawTiles];
-            }];
+            // recurse
+            [self redrawTiles];
         }];
     }
 
@@ -154,20 +183,11 @@
             
             if (self.dataInterface.messageComplete) {
                 [newTile blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
-                    KTInterface *dataInterface = [KTInterface interface];
-                    dataInterface.initerMode = YES;
-                    dataInterface.curClass = [KTClass classWithName:aChunk.param.paramType.pointee.name];
                     
-                    static KEMessageEditorVC *mEdit;
-                    if (mEdit) {
-                        [mEdit dismiss];
-                    }
-                    //[self.tileSystem pushCurPositionNewLineAndIndent];
-                    mEdit = [KEMessageEditorVC messageEditorUsing:dataInterface using:self.tileSystem then:^(BOOL success, id newKibble) {
-                        
+                    
+                    [self createParam:aChunk.param then:^(BOOL success, id newKibble) {
                     }];
 
-                
                 }];
             }
         }
@@ -182,7 +202,6 @@
             [self editChunk:chunkIdx];
         }];
     }
-    [self.tileSystem newLineAndIndent];
     
     if (self.dataInterface.messageComplete == NO) {
         [self editChunk:chunkIdx];
@@ -190,47 +209,28 @@
 }
 
 
-
-
 -(void)editChunk:(NSUInteger) idx{
     
-    __block KETile *newTile = nil;
-    
-    // delete any existing tiles
-    //[self deleteChunkTiles];
-    
-    //    [self.tileSystem pushCurPositionNewLineAndIndent];
-    
+    NSMutableOrderedSet *chunkSet = [NSMutableOrderedSet new];
     // walk the chunks
     [self.dataInterface enumerateChunksAtIndex:idx chunks:^(KTMethodChunk *aChunk) {
-        newTile = [self.tileSystem newTile];
-        //newTile.display = [self prettyString:aNode.name];
-        newTile.display = aChunk.name;
-        newTile.dataObject = aChunk;
-        [self.tilesToDelete addObject:newTile];
-        [newTile blockWhenClicked:^(KTMethodChunk *aChunk, KETile *tileThatWasClicked) {
-            // select this chunk
-            [self.dataInterface setChunkIdx:idx with:aChunk];
-            
-            // recurse
-            [self redrawTiles];
-        }];
+        [chunkSet addObject:aChunk];
+        
         
     } done:^(KTMethod *aMethod) {
-        newTile = [self.tileSystem newTile];
-        newTile.display = @"DONE";
-        [self.tilesToDelete addObject:newTile];
-        [newTile blockWhenClicked:^(KTMethodChunk *aChunk, KETile *tileThatWasClicked) {
-            // delete these tiles
-            //[self deleteTiles:self.tilesToDelete];
-            
-            //[self.tileSystem popPosition];
-            //[self.tileSystem pushCurPositionNewLineAndIndent];
-            
-            // recurse
-            [self redrawTiles];
-        }];
+        [chunkSet addObject:[KBEditorObjectDone editorObject]];
     }];
+    
+    [self pickFromSet:chunkSet then:^(BOOL success, id selectedObject) {
+        if ([selectedObject isKindOfClass:[KTMethodChunk class]]) {
+            // select this chunk
+            [self.dataInterface setChunkIdx:idx with:selectedObject];
+        }
+        
+        // recurse
+        [self redrawTiles];
+    }];
+    
 }
 //---------------------------------------------------------
 //

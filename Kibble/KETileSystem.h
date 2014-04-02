@@ -20,6 +20,11 @@
 
 +(KETileSystem*)tileSystemWithSquareTileSize:(float)thisTileSize parentView:(id)thisParentView;
 
+/// create a sub layer tile system starting from the current parent position
+-(KETileSystem*)sublayerTileSystem;
+-(void)dismiss;
+
+
 -(void)editKibble:(KibbleV2*)thisKibble;
 
 

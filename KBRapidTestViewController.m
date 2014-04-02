@@ -93,6 +93,7 @@
     newTile.dataObject = nil;
     __block NSMutableSet *tilesToDelete = [NSMutableSet new];
     //[tilesToDelete addObject:newTile];
+    [self.tileSystem newLineAndIndent];
     [self.tileSystem pushCurPosition];
     [newTile blockWhenClicked:^(KTFoundation *thisFoundation, KETile *tileThatWasClicked) {
         [self deleteTiles:tilesToDelete];

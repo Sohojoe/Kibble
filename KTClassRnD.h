@@ -25,7 +25,10 @@
 +(KTFoundation*)foundationWithName:(NSString *)name;
 +(void)enumerateFoundations:(void(^)(KTFoundation* aFoundation))block;
 -(void)addClass:(KTClass*)aClass;
+
+
 -(KTClass*)classWithName:(NSString*)aName;
+
 -(void)enumerateClasses:(void(^)(KTClass* aClass))block;
 -(void)enumerateClassesInOrder:(void(^)(KTClass* aClass))block;
 -(void)saveToiOSDisk;
@@ -39,7 +42,21 @@
 @class KTVariable;
 @interface KTClass : NSObject <KTClassProtocol, NSCoding>
 @property (nonatomic, strong) NSString* name;
+/**
+ * Create a KTclass with this name
+ * Will search to see if the class exists, if it does it will return that class, otherwise it will create and return a new class
+ * @param aName the name to of the class
+ * @return KTClass the class instance
+ */
 +(KTClass*)classWithName:(NSString*)name;
+
+/**
+ * finds and returns the KTclass with this name
+ * @param aName the name to search for
+ * @return KTClass the class or nil if no class
+ */
++(KTClass*)findClassWithName:(NSString*)aName;
+
 -(void)addClassMethod:(KTMethod*)aMethod;
 -(void)addInstanceMethod:(KTMethod*)aMethod;
 -(void)enumerateClassIniters:(void(^)(KTMethod* aMethod))block;
