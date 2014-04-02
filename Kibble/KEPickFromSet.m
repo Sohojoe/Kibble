@@ -89,6 +89,7 @@
             [self.tilesToDelete addObject:newTile];
             
             [newTile blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
+
                 // draw this list
                 [self clearThenDrawSet:aSet];
                 
@@ -124,6 +125,19 @@
             }];
         }
         else if ([obj isKindOfClass:[KBEditorObject class]]){
+            newTile = [self.tileSystem newTile];
+            if ([obj respondsToSelector:@selector(name)]) {
+                newTile.display = [obj performSelector:@selector(name)];
+            }
+            [self.tilesToDelete addObject:newTile];
+            
+            [newTile blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
+                // we're done
+                if (self.successBlock) {
+                    self.successBlock(YES,obj);
+                }
+                [self dismiss];
+            }];
         }
         
         else {
