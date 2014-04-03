@@ -108,7 +108,8 @@
         if (mEdit) {
             [mEdit dismiss];
         }
-        mEdit = [KEMessageEditorVC messageEditorUsing:dataInterface using:self.tileSystem then:^(BOOL success, id newKibble) {
+        mEdit = [KEMessageEditorVC messageEditorUsing:dataInterface using:self.tileSystem then:^(BOOL success, id result) {
+            NSLog(@"%@",result);
             
         }];
         

@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "KETile.h"
-#import "KETileLayer.h"
 
 @class KibbleV2;
 @interface KETileSystem : NSObject

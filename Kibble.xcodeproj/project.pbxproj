@@ -54,6 +54,7 @@
 		188046C218EA885B0088094B /* KEMessageEditorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 188046C118EA885B0088094B /* KEMessageEditorVC.m */; };
 		188046C518EB2F7D0088094B /* KEPickFromSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 188046C418EB2F7D0088094B /* KEPickFromSet.m */; };
 		188046C818EB6BCF0088094B /* KBEditorObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 188046C718EB6BCF0088094B /* KBEditorObject.m */; };
+		188FBE1418ED1F410054AE0E /* KTMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 188FBE1318ED1F410054AE0E /* KTMessage.m */; };
 		1898C91618D5605D000E2AD2 /* KTClassRnD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1898C91518D5605D000E2AD2 /* KTClassRnD.m */; };
 		18CC492B18A48A720067D18A /* JSRnD.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC492A18A48A720067D18A /* JSRnD.m */; };
 		18CC492E18A4B93D0067D18A /* JS.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC492D18A4B93D0067D18A /* JS.m */; };
@@ -66,7 +67,6 @@
 		18CC494418A693B70067D18A /* VMTalkPhase.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC494318A693B70067D18A /* VMTalkPhase.m */; };
 		18CC494718A6C44F0067D18A /* KETile.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC494618A6C44F0067D18A /* KETile.m */; };
 		18CC494A18A6CDCE0067D18A /* KETileSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC494918A6CDCE0067D18A /* KETileSystem.m */; };
-		18D6F25218B51EA000FCA279 /* KETileLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D6F25118B51EA000FCA279 /* KETileLayer.m */; };
 		18D6F25518B52CDF00FCA279 /* KibbleV2.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D6F25418B52CDF00FCA279 /* KibbleV2.m */; };
 		18D7422418A1961B001F8586 /* MathHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D7422318A1961B001F8586 /* MathHelper.m */; };
 		18D7422718A199E5001F8586 /* KibbleTalk.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D7422618A199E5001F8586 /* KibbleTalk.m */; };
@@ -191,6 +191,8 @@
 		188046C418EB2F7D0088094B /* KEPickFromSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KEPickFromSet.m; sourceTree = "<group>"; };
 		188046C618EB6BCF0088094B /* KBEditorObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBEditorObject.h; sourceTree = "<group>"; };
 		188046C718EB6BCF0088094B /* KBEditorObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBEditorObject.m; sourceTree = "<group>"; };
+		188FBE1218ED1F410054AE0E /* KTMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTMessage.h; sourceTree = "<group>"; };
+		188FBE1318ED1F410054AE0E /* KTMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTMessage.m; sourceTree = "<group>"; };
 		1898C91418D5605D000E2AD2 /* KTClassRnD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTClassRnD.h; sourceTree = "<group>"; };
 		1898C91518D5605D000E2AD2 /* KTClassRnD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTClassRnD.m; sourceTree = "<group>"; };
 		18CC492918A48A720067D18A /* JSRnD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSRnD.h; sourceTree = "<group>"; };
@@ -215,8 +217,6 @@
 		18CC494618A6C44F0067D18A /* KETile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KETile.m; sourceTree = "<group>"; };
 		18CC494818A6CDCE0067D18A /* KETileSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KETileSystem.h; sourceTree = "<group>"; };
 		18CC494918A6CDCE0067D18A /* KETileSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KETileSystem.m; sourceTree = "<group>"; };
-		18D6F25018B51EA000FCA279 /* KETileLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KETileLayer.h; sourceTree = "<group>"; };
-		18D6F25118B51EA000FCA279 /* KETileLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KETileLayer.m; sourceTree = "<group>"; };
 		18D6F25318B52CDF00FCA279 /* KibbleV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KibbleV2.h; sourceTree = "<group>"; };
 		18D6F25418B52CDF00FCA279 /* KibbleV2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KibbleV2.m; sourceTree = "<group>"; };
 		18D7422218A1961B001F8586 /* MathHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathHelper.h; sourceTree = "<group>"; };
@@ -455,6 +455,8 @@
 				1898C91518D5605D000E2AD2 /* KTClassRnD.m */,
 				188046B718E346840088094B /* KTInterface.h */,
 				188046B818E346840088094B /* KTInterface.m */,
+				188FBE1218ED1F410054AE0E /* KTMessage.h */,
+				188FBE1318ED1F410054AE0E /* KTMessage.m */,
 			);
 			name = "Kibble Class Model";
 			sourceTree = "<group>";
@@ -486,8 +488,6 @@
 			children = (
 				18CC494818A6CDCE0067D18A /* KETileSystem.h */,
 				18CC494918A6CDCE0067D18A /* KETileSystem.m */,
-				18D6F25018B51EA000FCA279 /* KETileLayer.h */,
-				18D6F25118B51EA000FCA279 /* KETileLayer.m */,
 				18CC494518A6C44F0067D18A /* KETile.h */,
 				18CC494618A6C44F0067D18A /* KETile.m */,
 				188046C018EA885B0088094B /* KEMessageEditorVC.h */,
@@ -636,6 +636,7 @@
 				1854EED9189D754D00C2F74A /* SCTest.m in Sources */,
 				1854EEE9189DA6F000C2F74A /* Kibble.m in Sources */,
 				1854EE7E189D712D00C2F74A /* KBViewController.m in Sources */,
+				188FBE1418ED1F410054AE0E /* KTMessage.m in Sources */,
 				1854EEC6189D724B00C2F74A /* SCElementViewController.m in Sources */,
 				1854EEEC189DBA1C00C2F74A /* KBDatabase.m in Sources */,
 				1854EEBB189D717E00C2F74A /* BackEnd.m in Sources */,
@@ -671,7 +672,6 @@
 				188046C218EA885B0088094B /* KEMessageEditorVC.m in Sources */,
 				1854EECD189D754100C2F74A /* SCDatabase.m in Sources */,
 				18CC494A18A6CDCE0067D18A /* KETileSystem.m in Sources */,
-				18D6F25218B51EA000FCA279 /* KETileLayer.m in Sources */,
 				1854EEBA189D717E00C2F74A /* Narrator.m in Sources */,
 				188046B918E346840088094B /* KTInterface.m in Sources */,
 			);

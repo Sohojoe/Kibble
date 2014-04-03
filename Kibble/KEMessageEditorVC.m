@@ -91,10 +91,21 @@
         [self.paramInterface dismiss];
     }
     
-    KTInterface *dataInterface = [KTInterface interfaceForClassNamed:aParam.paramType.pointee.name];
-
+    NSString *className = aParam.paramType.name;
+    if (aParam.paramType.pointee) {
+        className = aParam.paramType.pointee.name;
+    }
+    KTInterface *dataInterface = [KTInterface interfaceForClassNamed:className];
 
     self.paramInterface = [KEMessageEditorVC messageEditorUsing:dataInterface using:self.tileSystem then:aSuccessBlock];
+    
+    dataInterface.callWithCompletedMessage = ^(KTMessage *aMessage){
+        if (self.paramInterface.successBlock) {
+            self.paramInterface.successBlock(YES, aMessage);
+        }
+        
+    };
+
 }
 
 -(void)editClass{
@@ -178,16 +189,25 @@
         // chunk param data
         if (aChunk.requiresParam) {
             newTile = [self.tileSystem newTile];
-            newTile.display = [NSString stringWithFormat:@"+\n(%@)", aChunk.param.paramType];
             [self.tilesToDelete addObject:newTile];
             
-            if (self.dataInterface.messageComplete) {
-                [newTile blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
-                    
-                    
-                    [self createParam:aChunk.param then:^(BOOL success, id newKibble) {
-                    }];
+            __weak __block id paramData = [self.dataInterface.theMessage.params objectAtIndex:idx];
+            if (paramData == nil || paramData == [NSNull class]) {
+                newTile.display = [NSString stringWithFormat:@"+\n(%@)", aChunk.param.paramType];
 
+                [newTile blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
+                    [self createParam:aChunk.param then:^(BOOL success, id result) {
+                        [self.dataInterface setParamData:idx with:[result sendMessage]];
+                        [self redrawTiles];
+                    }];
+                }];
+            } else {
+                newTile.display = [paramData description];
+                [newTile blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
+                    [self createParam:aChunk.param then:^(BOOL success, id result) {
+                        [self.dataInterface setParamData:idx with:[result sendMessage]];
+                        [self redrawTiles];
+                    }];
                 }];
             }
         }

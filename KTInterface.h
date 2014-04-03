@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "KTClassRnD.h"
+#import "KTMessage.h"
 
 @interface KTMethodNode : NSObject <NSCopying>
 @property (strong, nonatomic) NSMutableOrderedSet *methods;
@@ -54,14 +55,14 @@
 @property (strong, nonatomic, readonly) NSOrderedSet *classes;
 
 //-(void)listMethodNodes:(void(^)(NSOrderedSet* methodNodes))block;
-@property (strong, nonatomic, readonly) NSOrderedSet *nodes;
-@property (nonatomic, strong) KTMethodNode* curNode;
-@property (nonatomic) NSUInteger paramIdx;
-@property (nonatomic, strong) NSMutableOrderedSet *paramList;
-@property (nonatomic, strong) NSMutableOrderedSet *paramContent;
-@property (nonatomic, strong) KTMethod *method;
-@property (nonatomic) BOOL needsParam;
--(void)setParamContentWith:(id)thisContent;
+//@property (strong, nonatomic, readonly) NSOrderedSet *nodes;
+//@property (nonatomic, strong) KTMethodNode* curNode;
+//@property (nonatomic) NSUInteger paramIdx;
+//@property (nonatomic, strong) NSMutableOrderedSet *paramList;
+//@property (nonatomic, strong) NSMutableOrderedSet *paramContent;
+//@property (nonatomic, strong) KTMethod *method;
+//@property (nonatomic) BOOL needsParam;
+//-(void)setParamContentWith:(id)thisContent;
 
 //
 /**
@@ -77,12 +78,17 @@
  *
  */
 -(void)enumerateChunksAtIndex:(NSUInteger)idx chunks:(void (^)(KTMethodChunk *aChunk)) chunksBlock done:(void (^)(KTMethod *aMethod)) doneBlock;
+
 @property (strong, nonatomic, readonly) NSOrderedSet *chunks;
+
 -(void)setChunkIdx:(NSUInteger)idx with:(KTMethodChunk*)aChunk;
+-(void)setParamData:(NSUInteger)idx with:(id)aData;
 /// calls walks through and call first a chunk and then its param (i.e. aChunk:aParam aChunk:aParam ...)
 -(void)enumerateChunks:(void(^)(KTMethodChunk *aChunk, NSUInteger idx)) chunkBlock andParams:(void(^)(KTMethodParam *aParm, KTMethodChunk *aChunk, NSUInteger idx)) paramBlock;
 @property (nonatomic) BOOL messageComplete;
 @property (nonatomic) BOOL messageHasMoreChunks;
+@property (nonatomic, strong) KTMessage *theMessage;
+@property (nonatomic, strong) void(^callWithCompletedMessage)(KTMessage *aMessage);
 
 
 @end

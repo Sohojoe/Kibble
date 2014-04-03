@@ -7,6 +7,7 @@
 //
 
 #import "KTInterface.h"
+#import "KTMessage.h"
 
 @implementation KTMethodNode
 
@@ -82,7 +83,17 @@
 @property (nonatomic, strong) NSMutableDictionary *masterChunks;
 @property (nonatomic, strong) NSMutableDictionary *activeChunks;
 @property (nonatomic, strong) NSMutableOrderedSet *chunkList;
-@property (nonatomic, strong) NSMutableArray *paramObjectList;
+
+//TODELETE
+@property (strong, nonatomic, readonly) NSOrderedSet *nodes;
+@property (nonatomic, strong) KTMethodNode* curNode;
+@property (nonatomic) NSUInteger paramIdx;
+@property (nonatomic, strong) NSMutableOrderedSet *paramList;
+@property (nonatomic, strong) NSMutableOrderedSet *paramContent;
+@property (nonatomic, strong) KTMethod *method;
+@property (nonatomic) BOOL needsParam;
+-(void)setParamContentWith:(id)thisContent;
+//end
 @end
 
 @implementation KTInterface
@@ -103,8 +114,18 @@ static NSMutableSet *masterFoundationSet;
     o.curClass = [KTClass findClassWithName:aClassName];
     return o;
 }
+-(instancetype)init{
+    KTInterface *o = [super init];
+    
+    if (o) {
+        
+    }
+    return o;
+}
+@synthesize foundations, classes, nodes, foundation, curClass;
 
-@synthesize foundations, classes, nodes, foundation, curClass, curNode;
+// TO DELETE
+@synthesize curNode;
 @synthesize paramContent, paramList;
 // --------------------------------
 // lazy
@@ -120,7 +141,7 @@ static NSMutableSet *masterFoundationSet;
     }
     return paramContent;
 }
-
+// END
 
 // --------------------------------
 // foundation interface
@@ -150,6 +171,9 @@ static NSMutableSet *masterFoundationSet;
     curClass = aClass;
     self.masterNodes = nil;
     [self buildChunks];
+    
+    Class rawClass = NSClassFromString(aClass.name);
+    self.theMessage.recievingObject = rawClass;
 }
 
 // --------------------------------
@@ -159,7 +183,9 @@ static NSMutableSet *masterFoundationSet;
     self.masterChunks = [NSMutableDictionary new];
     self.activeChunks = self.masterChunks;
     self.chunkList = [NSMutableOrderedSet new];
-    self.paramObjectList = [NSMutableArray new];
+    if (self.theMessage == nil) {
+        self.theMessage = [KTMessage new];
+    }
     
     [self.curClass enumerateClassIniters:^(KTMethod *aMethod) {
         
@@ -270,12 +296,12 @@ static NSMutableSet *masterFoundationSet;
     // add this chunk
     [self.chunkList addObject:aChunk];
     if (aChunk.requiresParam) {
-        if (self.paramObjectList.count >= idx+1) {
+        if (self.theMessage.params.count >= idx+1) {
             // param exits, check it is the right type
             // TO DO
-            [self.paramObjectList replaceObjectAtIndex:idx withObject:[NSNull class]];
+            [self.theMessage.params replaceObjectAtIndex:idx withObject:[NSNull class]];
         } else {
-            [self.paramObjectList addObject:[NSNull class]];
+            [self.theMessage.params addObject:[NSNull class]];
         }
     }
     
@@ -302,6 +328,24 @@ static NSMutableSet *masterFoundationSet;
             }];
         }
     }
+    
+    // build message name
+    self.theMessage.messageName = @"";
+    [self.chunkList enumerateObjectsUsingBlock:^(KTMethodChunk *aChunk, NSUInteger idx, BOOL *stop) {
+        self.theMessage.messageName = [self.theMessage.messageName stringByAppendingString:aChunk.name];
+    }];
+    
+    if (self.messageComplete) {
+        if (self.callWithCompletedMessage) {
+            self.callWithCompletedMessage(self.theMessage);
+        }
+    }
+}
+-(void)setParamData:(NSUInteger)idx with:(id)aData{
+    if (aData == nil) {
+        aData = [NSNull class];
+    }
+    [self.theMessage.params replaceObjectAtIndex:idx withObject:aData];
 }
 -(void)enumerateChunks:(void(^)(KTMethodChunk *aChunk, NSUInteger idx)) chunkBlock andParams:(void(^)(KTMethodParam *aParm, KTMethodChunk *aChunk, NSUInteger idx)) paramBlock{
     
@@ -312,8 +356,8 @@ static NSMutableSet *masterFoundationSet;
             chunkBlock(self.chunkList[idx], idx);
         }
         if (paramBlock) {
-            if (self.paramObjectList.count > idx) {
-                paramBlock(self.paramObjectList[idx], self.chunkList[idx], idx);
+            if (self.theMessage.params.count > idx) {
+                paramBlock(self.theMessage.params[idx], self.chunkList[idx], idx);
             }
         }
         idx++;
@@ -321,6 +365,7 @@ static NSMutableSet *masterFoundationSet;
     
 }
 
+// TO DELETE
 // --------------------------------
 // node interface
 -(void)setCurNode:(KTMethodNode *)aNode{
@@ -493,6 +538,7 @@ static NSMutableSet *masterFoundationSet;
         }
     }];
 }
+// TO DELETE END
 
 
 
