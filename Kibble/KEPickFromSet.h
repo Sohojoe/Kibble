@@ -19,7 +19,7 @@
  * @param aSuccessBlock block that will be called when the picker has finished
  * @return instancetype an instance of KETileSystem
  */
-+(instancetype)pickFromSet:(NSOrderedSet*)aTileSystem using:(KETileSystem*)aTileSystem then:(void (^)(BOOL success, id selectedObject))aSuccessBlock;
++(instancetype)pickFromSet:(NSOrderedSet*)aTileSystem using:(KETileSystem*)aTileSystem then:(void (^)(id selectedObject))aSuccessBlock;
 
 /**
  * adds an object or set of objects to the pickFromSet

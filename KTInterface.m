@@ -281,6 +281,9 @@ static NSMutableSet *masterFoundationSet;
         [self.chunkList removeObjectAtIndex:self.chunkList.count-1];
     }
     
+    // ensure the message is tydy
+    [self.theMessage deleteParamFromIdx:idx];
+    
     // early exit if no new chunk
     if (aChunk == nil) {
         // no chunk, but need to tidy up
@@ -296,13 +299,7 @@ static NSMutableSet *masterFoundationSet;
     // add this chunk
     [self.chunkList addObject:aChunk];
     if (aChunk.requiresParam) {
-        if (self.theMessage.params.count >= idx+1) {
-            // param exits, check it is the right type
-            // TO DO
-            [self.theMessage.params replaceObjectAtIndex:idx withObject:[NSNull class]];
-        } else {
-            [self.theMessage.params addObject:[NSNull class]];
-        }
+        [self.theMessage initParamAtIdx:idx withParam:(KTMethodParam*)aChunk.param];
     }
     
     if (aChunk.brancesTo.count) {
@@ -341,12 +338,7 @@ static NSMutableSet *masterFoundationSet;
         }
     }
 }
--(void)setParamData:(NSUInteger)idx with:(id)aData{
-    if (aData == nil) {
-        aData = [NSNull class];
-    }
-    [self.theMessage.params replaceObjectAtIndex:idx withObject:aData];
-}
+
 -(void)enumerateChunks:(void(^)(KTMethodChunk *aChunk, NSUInteger idx)) chunkBlock andParams:(void(^)(KTMethodParam *aParm, KTMethodChunk *aChunk, NSUInteger idx)) paramBlock{
     
     NSUInteger idx = 0;
@@ -356,8 +348,8 @@ static NSMutableSet *masterFoundationSet;
             chunkBlock(self.chunkList[idx], idx);
         }
         if (paramBlock) {
-            if (self.theMessage.params.count > idx) {
-                paramBlock(self.theMessage.params[idx], self.chunkList[idx], idx);
+            if ([self.theMessage paramCount] > idx) {
+                paramBlock([self.theMessage paramSyntaxAtIdx:idx], self.chunkList[idx], idx);
             }
         }
         idx++;

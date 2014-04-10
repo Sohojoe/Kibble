@@ -102,14 +102,14 @@
         [self.tileSystem pushCurPosition];
         
         KTInterface *dataInterface = [KTInterface interface];
-        dataInterface.initerMode = YES;
+        //dataInterface.initerMode = YES;
         
         static KEMessageEditorVC *mEdit;
         if (mEdit) {
             [mEdit dismiss];
         }
-        mEdit = [KEMessageEditorVC messageEditorUsing:dataInterface using:self.tileSystem then:^(BOOL success, id result) {
-            NSLog(@"%@",result);
+        mEdit = [KEMessageEditorVC messageEditorUsing:dataInterface using:self.tileSystem then:^(KTMessage *newMessage) {
+            NSLog(@"%@",newMessage);
             
         }];
         

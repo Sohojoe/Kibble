@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @class KTInterface, KETileSystem;
+@class KTMessage;
 @interface KEMessageEditorVC : NSObject
 
-+(instancetype)messageEditorUsing:(KTInterface*)aDataInterface using:(KETileSystem*)aTileSystem then:(void (^)(BOOL success, id newKibble))aSuccessBlock;
++(instancetype)messageEditorUsing:(KTInterface*)aDataInterface using:(KETileSystem*)aTileSystem then:(void (^)(KTMessage *newMessage))aSuccessBlock;
 -(void)dismiss;
 @end

@@ -13,7 +13,7 @@
 @interface KETileSystem : NSObject
 
 @property (nonatomic) CGFloat tileSize;               // assumes square size
-@property (nonatomic) UIView* parentView;
+@property (nonatomic) UIScrollView* parentView;
 
 +(KETileSystem*)defaultTileSystem;
 

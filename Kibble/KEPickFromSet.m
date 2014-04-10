@@ -13,13 +13,13 @@
 
 @interface KEPickFromSet ()
 @property (nonatomic, strong) KETileSystem *tileSystem;
-@property (nonatomic, strong) void(^successBlock)(BOOL success, id selectedObject);
+@property (nonatomic, strong) void(^successBlock)(id selectedObject);
 @property (nonatomic, strong) NSMutableSet *tilesToDelete;
 @property (nonatomic, strong) NSMutableOrderedSet *objectsToPickFrom;
 @end
 
 @implementation KEPickFromSet
-+(instancetype)pickFromSet:(NSOrderedSet*)aSetOfObjects using:(KETileSystem*)aTileSystem then:(void (^)(BOOL success, id selectedObject))aSuccessBlock{
++(instancetype)pickFromSet:(NSOrderedSet*)aSetOfObjects using:(KETileSystem*)aTileSystem then:(void (^)(id selectedObject))aSuccessBlock{
     KEPickFromSet *o = [KEPickFromSet new];
     
     // set up class
@@ -119,7 +119,7 @@
                 
                 // we're done, we've found our object
                 if (self.successBlock) {
-                    self.successBlock(YES,obj);
+                    self.successBlock(obj);
                 }
                 [self dismiss];
             }];
@@ -134,7 +134,7 @@
             [newTile blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
                 // we're done
                 if (self.successBlock) {
-                    self.successBlock(YES,obj);
+                    self.successBlock(obj);
                 }
                 [self dismiss];
             }];

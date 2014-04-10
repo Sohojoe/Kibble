@@ -7,8 +7,13 @@
 //
 
 #import "KTMessage.h"
+@interface KTMessage ()
+@property (nonatomic, strong) NSMutableArray *paramMessageAtIdx;
+@property (nonatomic, strong) NSMutableArray *paramSyntaxAtIdx;
+@end
 
 @implementation KTMessage
+/*
 +(instancetype)messageWith:(NSString*)aMessageName with:(NSMutableArray*)theParams{
     KTMessage *o = [KTMessage new];
     
@@ -22,16 +27,39 @@
     }
     return o;
 }
+*/
 -(instancetype)init{
     KTMessage *o = [KTMessage alloc];
     
     if (o) {
-        if (o.params == nil) {
-            o.params = [NSMutableArray new];
+        if (o.paramMessageAtIdx == nil) {
+            o.paramMessageAtIdx = [NSMutableArray new];
+        }
+        if (o.paramSyntaxAtIdx == nil) {
+            o.paramSyntaxAtIdx = [NSMutableArray new];
         }
     }
     return o;
 }
+
+static KTMessage *blank = nil;
++blankMessage{
+    if (blank == nil) {
+        blank = [KTMessage new];
+        blank.messageName = @"blank";
+    }
+    return blank;
+}
+@synthesize isBlankMessage;
+-(BOOL)isBlankMessage{
+    if (self == [KTMessage blankMessage]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+
 -(id)sendMessage{
     id returns = [self sendMessageTo:self.recievingObject];
     return returns;
@@ -49,11 +77,27 @@
         [inv setSelector:theSelector];
         [inv setTarget:recievingObject];
         
-        [self.params enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        __block BOOL messageIsIncomplete = NO;
+        [self.paramMessageAtIdx enumerateObjectsUsingBlock:^(KTMessage *paramMessage, NSUInteger idx, BOOL *stop) {
+
             NSUInteger trueIndex = 2 + idx; //arguments 0 and 1 are self and _cmd respectively, automatically set by NSInvocation
-            [inv setArgument:&(obj) atIndex:trueIndex];
+            
+            // abort if this param has not being defined
+            if (paramMessage.isBlankMessage) {
+                messageIsIncomplete = YES;
+                *stop = YES;
+                return;
+            }
+            
+            id __autoreleasing paramResult = nil;
+            paramResult = [self sendMessage];
+
+            [inv setArgument:&paramResult atIndex:trueIndex];
         }];
-        
+        if (messageIsIncomplete) {
+            // exit
+            return ([KTMessage blankMessage]);
+        }
         [inv invoke];
         
         NSString *methodReturnType = [NSString stringWithUTF8String:inv.methodSignature.methodReturnType];
@@ -82,6 +126,55 @@
     
     return self.returnedObject;
 }
+
+
+// params
+-(void)setParamMessageAtIdx:(NSUInteger)idx withMessage:(KTMessage*)aMessage{
+    if (aMessage == nil) {
+        aMessage = [KTMessage blankMessage];
+    }
+    [self.paramMessageAtIdx replaceObjectAtIndex:idx withObject:aMessage];
+}
+-(KTMessage*)paramMessageAtIdx:(NSUInteger)idx{
+    KTMessage* aParam = nil;
+    aParam = [self.paramMessageAtIdx objectAtIndex:idx];
+    return aParam;
+}
+-(KTMethodParam*)paramSyntaxAtIdx:(NSUInteger)idx{
+    KTMethodParam* aParam = nil;
+    aParam = [self.paramSyntaxAtIdx objectAtIndex:idx];
+    return aParam;
+}
+-(id)paramResultAtIdx:(NSUInteger)idx{
+    KTMessage *paramMessage =[self.paramMessageAtIdx objectAtIndex:idx];
+    id result = [paramMessage sendMessage];
+    return result;
+}
+
+@synthesize paramCount;
+-(NSUInteger)paramCount{
+    return (self.paramMessageAtIdx.count);
+}
+
+// init and setting up a param
+-(void)deleteParamFromIdx:(NSUInteger)idx{
+    // check if we need to remove params
+    while (self.paramMessageAtIdx.count > idx) {
+        [self.paramSyntaxAtIdx  removeObjectAtIndex:self.paramMessageAtIdx.count-1];
+        [self.paramMessageAtIdx removeObjectAtIndex:self.paramMessageAtIdx.count-1];
+    }
+}
+
+-(void)initParamAtIdx:(NSUInteger)idx withParam:(KTMethodParam *)aParam{
+    if (idx+1 < self.paramMessageAtIdx.count) {
+        [self.paramSyntaxAtIdx replaceObjectAtIndex:idx withObject:aParam];
+        [self.paramMessageAtIdx replaceObjectAtIndex:idx withObject:[KTMessage blankMessage]];
+    } else {
+        [self.paramSyntaxAtIdx addObject:aParam];
+        [self.paramMessageAtIdx addObject:[KTMessage blankMessage]];
+    }
+}
+
 -(NSString*)description{return self.messageName;}
--(NSString*)debugDescription{return [NSString stringWithFormat:@"%@ params=%@", self.messageName, self.params];}
+-(NSString*)debugDescription{return [NSString stringWithFormat:@"%@ params=%@", self.messageName, self.paramMessageAtIdx];}
 @end

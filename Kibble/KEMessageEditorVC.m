@@ -15,7 +15,7 @@
 @interface KEMessageEditorVC ()
 @property (nonatomic, strong) KTInterface *dataInterface;
 @property (nonatomic, strong) KETileSystem *tileSystem;
-@property (nonatomic, strong) void(^successBlock)(BOOL success, id newKibble);
+@property (nonatomic, strong) void(^successBlock)(KTMessage *newMessage);
 @property (nonatomic, strong) KEPickFromSet *pickSetInterface;
 @property (nonatomic, strong) KEMessageEditorVC *paramInterface;
 @property (nonatomic, strong) NSMutableSet *tilesToDelete;
@@ -23,7 +23,7 @@
 
 @implementation KEMessageEditorVC
 
-+(instancetype)messageEditorUsing:(KTInterface*)aDataInterface using:(KETileSystem*)aTileSystem then:(void (^)(BOOL success, id newKibble))aSuccessBlock{
++(instancetype)messageEditorUsing:(KTInterface*)aDataInterface using:(KETileSystem*)aTileSystem then:(void (^)(KTMessage *newMessage))aSuccessBlock{
     KEMessageEditorVC *o = [KEMessageEditorVC new];
     
     // set up class
@@ -70,7 +70,7 @@
     }
 }
 
--(void)pickFromSet:(NSOrderedSet*)aSet then:(void (^)(BOOL success, id selectedObject))aSuccessBlock{
+-(void)pickFromSet:(NSOrderedSet*)aSet then:(void (^)(id selectedObject))aSuccessBlock{
 
     // dismiss interfaces
     if (self.pickSetInterface) {
@@ -82,7 +82,7 @@
     
     self.pickSetInterface = [KEPickFromSet pickFromSet:aSet using:self.tileSystem then:aSuccessBlock];
 }
--(void)createParam:(KTMethodParam *)aParam then:(void (^)(BOOL success, id selectedObject))aSuccessBlock{
+-(void)createParamForIdx:(NSUInteger)idx then:(void (^)(KTMessage *newMessage))aSuccessBlock{
     // dismiss interfaces
     if (self.pickSetInterface) {
         [self.pickSetInterface dismiss];
@@ -91,6 +91,7 @@
         [self.paramInterface dismiss];
     }
     
+    KTMethodParam *aParam = [self.dataInterface.theMessage paramSyntaxAtIdx:idx];
     NSString *className = aParam.paramType.name;
     if (aParam.paramType.pointee) {
         className = aParam.paramType.pointee.name;
@@ -101,7 +102,8 @@
     
     dataInterface.callWithCompletedMessage = ^(KTMessage *aMessage){
         if (self.paramInterface.successBlock) {
-            self.paramInterface.successBlock(YES, aMessage);
+            [self.dataInterface.theMessage setParamMessageAtIdx:idx withMessage:aMessage];
+            self.paramInterface.successBlock(aMessage);
         }
         
     };
@@ -120,7 +122,7 @@
             return [obj1.name localizedCaseInsensitiveCompare:obj2.name];
         }];
         
-        [self pickFromSet:foundationSet then:^(BOOL success, id selectedObject) {
+        [self pickFromSet:foundationSet then:^(id selectedObject) {
             // set this as the foundation
             if ([selectedObject isKindOfClass:[KTFoundation class]]) {
                  self.dataInterface.foundation = selectedObject;
@@ -148,7 +150,7 @@
         }];
         
         // add classes
-        [self pickFromSet:classesSet then:^(BOOL success, id selectedObject) {
+        [self pickFromSet:classesSet then:^(id selectedObject) {
             // set this as the class
             if ([selectedObject isKindOfClass:[KTClass class]]) {
                 self.dataInterface.curClass = selectedObject;
@@ -164,7 +166,13 @@
     __block KETile *newTile = nil;
 
     newTile = [self.tileSystem newTile];
-    newTile.display = [self prettyString:self.dataInterface.curClass.name];
+    id result = [self.dataInterface.theMessage sendMessage];
+    if (result == [KTMessage blankMessage] ||
+        result == nil) {
+        newTile.display = [self prettyString:self.dataInterface.curClass.name];
+    } else {
+        newTile.display = [result description];
+    }
     [self.tilesToDelete addObject:newTile];
     
     __block NSUInteger chunkIdx = 0;
@@ -191,21 +199,19 @@
             newTile = [self.tileSystem newTile];
             [self.tilesToDelete addObject:newTile];
             
-            __weak __block id paramData = [self.dataInterface.theMessage.params objectAtIndex:idx];
+            __weak __block id paramData = [self.dataInterface.theMessage paramResultAtIdx:idx];
             if (paramData == nil || paramData == [NSNull class]) {
                 newTile.display = [NSString stringWithFormat:@"+\n(%@)", aChunk.param.paramType];
 
                 [newTile blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
-                    [self createParam:aChunk.param then:^(BOOL success, id result) {
-                        [self.dataInterface setParamData:idx with:[result sendMessage]];
+                    [self createParamForIdx:idx then:^(KTMessage *newMessage) {
                         [self redrawTiles];
                     }];
                 }];
             } else {
                 newTile.display = [paramData description];
                 [newTile blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
-                    [self createParam:aChunk.param then:^(BOOL success, id result) {
-                        [self.dataInterface setParamData:idx with:[result sendMessage]];
+                    [self createParamForIdx:idx then:^(KTMessage *newMessage) {
                         [self redrawTiles];
                     }];
                 }];
@@ -241,7 +247,7 @@
         [chunkSet addObject:[KBEditorObjectDone editorObject]];
     }];
     
-    [self pickFromSet:chunkSet then:^(BOOL success, id selectedObject) {
+    [self pickFromSet:chunkSet then:^(id selectedObject) {
         if ([selectedObject isKindOfClass:[KTMethodChunk class]]) {
             // select this chunk
             [self.dataInterface setChunkIdx:idx with:selectedObject];

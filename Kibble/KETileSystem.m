@@ -19,6 +19,8 @@
 @property (nonatomic,strong) KibbleV2 *kibbleBeingEdited;
 @property (nonatomic, strong) KETile *tileInFocus;
 @property (nonatomic, strong) NSMutableArray *positionStack;
+@property (nonatomic) CGPoint orginalTilePosition;
+@property (nonatomic, weak) KETileSystem *parentTileSystem;
 @end
 
 @implementation KETileSystem
@@ -39,6 +41,7 @@
     newSystem.parentView = thisParentView;
     
     [newSystem resetNextTilePositionToTopLeft];
+    newSystem.orginalTilePosition = newSystem.nextTilePosition;
     return (newSystem);
 }
 
@@ -56,6 +59,20 @@
     } else {
         [newSystem newLineAndIndent];
     }
+
+    newSystem.orginalTilePosition = newSystem.nextTilePosition;
+    newSystem.parentTileSystem = self;
+    
+    // make sure it's visiable
+    KETileSystem *parent = self;
+    if (parent.parentTileSystem) {
+        parent = parent.parentTileSystem;
+    }
+    if (parent.parentTileSystem) {
+        parent = parent.parentTileSystem;
+    }
+    [parent scrollAndMakeVisiable];
+    
     return (newSystem);
 }
 -(void)dismiss{
@@ -63,6 +80,13 @@
     self.parentView = nil;
 }
 
+-(void)scrollAndMakeVisiable{
+    CGPoint adjustedPos = self.orginalTilePosition;
+    adjustedPos.x -= self.tileSize /2;
+    adjustedPos.x = 0;                                  // for now, do this
+    adjustedPos.y -= self.tileSize /2;
+    [self.parentView setContentOffset:adjustedPos animated:YES];
+}
 
 -(void)resetNextTilePositionToTopLeft{
     self.nextTilePosition = CGPointMake(self.tileSize /2 + (self.tileMargin.width /2), self.tileSize /2 + (self.tileMargin.height /2));
