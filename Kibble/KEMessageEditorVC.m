@@ -11,6 +11,8 @@
 #import "KETileSystem.h"
 #import "KEPickFromSet.h"
 #import "KBEditorObject.h"
+#import "UIAlertViewBlock.h"
+
 
 @interface KEMessageEditorVC ()
 @property (nonatomic, strong) KTInterface *dataInterface;
@@ -32,11 +34,24 @@
     o.successBlock = aSuccessBlock;
     o.tilesToDelete = [NSMutableSet new];
     
+    __weak typeof(o) weakSelf = o;
+    o.dataInterface.callWithCompletedMessage = ^(KTMessage *aMessage){
+        if ([aMessage isKindOfClass:[KTMessage class]] == NO) {
+            // it's an object
+            weakSelf.dataInterface.theMessage.targetObject = aMessage;
+        }
+        
+        if (weakSelf.successBlock) {
+            weakSelf.successBlock(aMessage);
+        }
+    };
+    
     // get new layer & screen
     [o redrawTiles];
     
     return o;
 }
+
 -(void)dismiss{
     [self deleteTiles:self.tilesToDelete];
     self.tilesToDelete = nil;
@@ -102,7 +117,7 @@
     
     dataInterface.callWithCompletedMessage = ^(KTMessage *aMessage){
         if (self.paramInterface.successBlock) {
-            [self.dataInterface.theMessage setParamMessageAtIdx:idx withMessage:aMessage];
+            [self.dataInterface.theMessage setParamMessageAtIdx:idx withMessageOrObject:aMessage];
             self.paramInterface.successBlock(aMessage);
         }
         
@@ -166,7 +181,10 @@
     __block KETile *newTile = nil;
 
     newTile = [self.tileSystem newTile];
-    id result = [self.dataInterface.theMessage sendMessage];
+    id result = nil;
+    if (self.dataInterface.messageComplete) {
+        result = [self.dataInterface.theMessage sendMessage];
+    }
     if (result == [KTMessage blankMessage] ||
         result == nil) {
         newTile.display = [self prettyString:self.dataInterface.curClass.name];
@@ -199,7 +217,7 @@
             newTile = [self.tileSystem newTile];
             [self.tilesToDelete addObject:newTile];
             
-            __weak __block id paramData = [self.dataInterface.theMessage paramResultAtIdx:idx];
+            __weak __block id paramData = [self.dataInterface.theMessage paramResultOrObjectAtIdx:idx];
             if (paramData == nil || paramData == [NSNull class]) {
                 newTile.display = [NSString stringWithFormat:@"+\n(%@)", aChunk.param.paramType];
 
@@ -238,23 +256,47 @@
 -(void)editChunk:(NSUInteger) idx{
     
     NSMutableOrderedSet *chunkSet = [NSMutableOrderedSet new];
+    
+    if (idx == 0) {
+        if ([self canInitCurClassFromInput]) {
+            [chunkSet addObject:[KBEditorObject editorObjectFromInput]];
+        }
+    }
+    
     // walk the chunks
     [self.dataInterface enumerateChunksAtIndex:idx chunks:^(KTMethodChunk *aChunk) {
         [chunkSet addObject:aChunk];
         
         
     } done:^(KTMethod *aMethod) {
-        [chunkSet addObject:[KBEditorObjectDone editorObject]];
+        [chunkSet addObject:[KBEditorObject editorObjectDone]];
     }];
     
     [self pickFromSet:chunkSet then:^(id selectedObject) {
         if ([selectedObject isKindOfClass:[KTMethodChunk class]]) {
             // select this chunk
             [self.dataInterface setChunkIdx:idx with:selectedObject];
+            // recurse
+            [self redrawTiles];
+        } else if ([selectedObject isKindOfClass:[KBEditorObject class]]) {
+            if ([selectedObject isTypeFromInput]) {
+                // get from input
+                [self inputFromString:^(NSString *inputStr) {
+                    id result = [self dataObjectFrom:inputStr];
+                    // select this object
+                    [self.dataInterface setIndex:idx with:result];
+                    
+                    // ensure the message is tydy
+                    //[self.dataInterface.theMessage deleteParamFromIdx:idx];
+                    //[self.dataInterface.theMessage setParamMessageAtIdx:idx withMessage:result];
+                    // recurse
+                    [self redrawTiles];
+                }];
+            }
+        } else {
+            // recurse
+            [self redrawTiles];
         }
-        
-        // recurse
-        [self redrawTiles];
     }];
     
 }
@@ -317,6 +359,86 @@
 }
 
 
+/// YES if this can be taken from a string input
+-(BOOL)canInitCurClassFromInput{
+    BOOL res = NO;
+    
+    res |= [self isCurClassFromInputCompatableString];
+    res |= [self isCurClassFromInputCompatableNumber];
+    
+    return res;
+}
+-(BOOL)isCurClassFromInputCompatableString{
+    BOOL res = NO;
+    if ([self.dataInterface.theMessage.targetObject isKindOfClass:[NSString class]] ||
+        self.dataInterface.theMessage.targetObject == [NSString class]){
+        res = YES;
+    }
+    return res;
+}
+-(BOOL)isCurClassFromInputCompatableNumber{
+    BOOL res = NO;
+    if ([self.dataInterface.theMessage.targetObject isKindOfClass:[NSNumber class]] ||
+        self.dataInterface.theMessage.targetObject == [NSNumber class]){
+        res = YES;
+    }
+    return res;
+}
 
+
+/// convert a text input into the best fit of data
+-(id)dataObjectFrom:(NSString*)anInputString{
+    NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+    
+    if ([self isCurClassFromInputCompatableNumber]) {
+        if ([self.dataInterface.theMessage.targetObject isKindOfClass:[NSDecimalNumber class]] ||
+            self.dataInterface.theMessage.targetObject == [NSDecimalNumber class] ) {
+            f.generatesDecimalNumbers = YES;
+        }
+        [f setNumberStyle:NSNumberFormatterNoStyle];
+        NSNumber * aNumber = [f numberFromString:anInputString];
+        return aNumber;
+    } else if ([self isCurClassFromInputCompatableString]) {
+        return anInputString;
+    }
+    
+    f.generatesDecimalNumbers = YES;
+    [f setNumberStyle:NSNumberFormatterNoStyle];
+    NSNumber * aNumber = [f numberFromString:anInputString];
+    if (aNumber) {
+        return aNumber;
+    }
+    
+    /*
+     [f setNumberStyle:NSNumberFormatterSpellOutStyle];
+     f.generatesDecimalNumbers = YES;
+     aNumber = [f numberFromString:anInputString];
+     if (aNumber) {
+     return aNumber;
+     }
+     */
+    return anInputString;
+}
+/// input from string
+-(void)inputFromString:(void (^)(NSString *inputStr))aSuccessBlock{
+    __block UIAlertViewBlock *alert = [[UIAlertViewBlock alloc] initWithTitle:@"Create Kibble From Input"
+                                                                      message:@"Type in a string or number\n"
+                                                                   completion:^(BOOL cancelled, NSInteger buttonIndex)
+                                       {
+                                           if(cancelled) {
+                                               
+                                           } else {
+                                               // success
+                                               if (aSuccessBlock) aSuccessBlock([alert textFieldAtIndex:0].text);
+                                               }
+                                       }
+                                                            cancelButtonTitle:@"CANCEL"
+                                                            otherButtonTitles:@"OK", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    //[alert textFieldAtIndex:0].keyboardType = UIKeyboardTypeNumberPad;
+    [alert textFieldAtIndex:0].placeholder = @"...";
+    [alert show];
+    
+}
 
 @end

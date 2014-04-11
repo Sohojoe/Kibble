@@ -108,6 +108,13 @@ static NSMutableSet *masterFoundationSet;
     KTInterface *o = [KTInterface new];
     return o;
 }
++(instancetype)interfaceFromObject:(id)anObject{
+    KTInterface *o = [KTInterface new];
+    o.theMessage = [KTMessage new];
+    o.theMessage.targetObject = anObject;
+    o.curClass = [KTClass findClassOfObject:anObject];
+    return o;
+}
 +(instancetype)interfaceForClassNamed:(NSString*)aClassName{
     KTInterface *o = [super new];
     o.initerMode = YES;
@@ -173,7 +180,7 @@ static NSMutableSet *masterFoundationSet;
     [self buildChunks];
     
     Class rawClass = NSClassFromString(aClass.name);
-    self.theMessage.recievingObject = rawClass;
+    self.theMessage.targetObject = rawClass;
 }
 
 // --------------------------------
@@ -187,46 +194,70 @@ static NSMutableSet *masterFoundationSet;
         self.theMessage = [KTMessage new];
     }
     
-    [self.curClass enumerateClassIniters:^(KTMethod *aMethod) {
-        
-        if (aMethod.params.count) {
-            // has params
-            __block NSString *appendedString = @"";
-            __block KTMethodChunk *parentChunk = nil;
-            [aMethod.params enumerateObjectsUsingBlock:^(KTMethodParam *aParam, NSUInteger idx, BOOL *stop) {
-                NSString *name = aParam.name;
-                name = [name stringByAppendingString:@":"];
-                appendedString = [appendedString stringByAppendingString:name];
-                KTMethodChunk *aChunk = [self.masterChunks objectForKey:appendedString];
-                if (aChunk == nil) {
-                    aChunk = [KTMethodChunk chunkWith:name apppended:appendedString param:aParam];
-                    if (parentChunk == nil) {
-                        // add to chunks as we are a root
-                        [self.masterChunks setObject:aChunk forKey:appendedString];
-                    }
-                }
-                if (parentChunk) {
-                    [parentChunk addChild:aChunk];
-                }
-                parentChunk = aChunk;
-                // check if last
-                if (idx >= aMethod.params.count-1) {
-                    // add done
-                    [aChunk completeWith:aMethod];
-                }
-                
-            }];
-        } else {
-            KTMethodChunk *aChunk = [self.masterChunks objectForKey:aMethod.name];
-            if (aChunk == nil) {
-                aChunk = [KTMethodChunk chunkWith:aMethod.name apppended:aMethod.name];
-                [self.masterChunks setObject:aChunk forKey:aMethod.name];
+    if (self.initerMode) {
+        // TO FIX USE [KTClass findClassOfObject:anObject]
+        [self.curClass enumerateClassIniters:^(KTMethod *aMethod) {
+            [self buildChunksDisplay:aMethod];
+        }];
+    } else if (self.theMessage.targetObject){
+        // instance
+        // TO FIX USE [KTClass findClassOfObject:anObject]
+        [self.curClass enumerateInterface:^(KTMethod *aClassMethod, KTMethod *anIntanceMethod, KTVariable *anInstanceVariable) {
+            if (anIntanceMethod) {
+                [self buildChunksDisplay:anIntanceMethod];
             }
-            [aChunk completeWith:aMethod];
-        }
-    }];
+            if (anInstanceVariable) {
+                
+            }
+        }];
+    } else {
+        // class
+        // TO FIX USE [KTClass findClassOfObject:anObject]
+        [self.curClass enumerateClassMethods:^(KTMethod *aMethod) {
+            [self buildChunksDisplay:aMethod];
+        }];
+    }
     
 }
+
+-(void)buildChunksDisplay:(KTMethod*) aMethod{
+    if (aMethod.params.count) {
+        // has params
+        __block NSString *appendedString = @"";
+        __block KTMethodChunk *parentChunk = nil;
+        [aMethod.params enumerateObjectsUsingBlock:^(KTMethodParam *aParam, NSUInteger idx, BOOL *stop) {
+            NSString *name = aParam.name;
+            name = [name stringByAppendingString:@":"];
+            appendedString = [appendedString stringByAppendingString:name];
+            KTMethodChunk *aChunk = [self.masterChunks objectForKey:appendedString];
+            if (aChunk == nil) {
+                aChunk = [KTMethodChunk chunkWith:name apppended:appendedString param:aParam];
+                if (parentChunk == nil) {
+                    // add to chunks as we are a root
+                    [self.masterChunks setObject:aChunk forKey:appendedString];
+                }
+            }
+            if (parentChunk) {
+                [parentChunk addChild:aChunk];
+            }
+            parentChunk = aChunk;
+            // check if last
+            if (idx >= aMethod.params.count-1) {
+                // add done
+                [aChunk completeWith:aMethod];
+            }
+            
+        }];
+    } else {
+        KTMethodChunk *aChunk = [self.masterChunks objectForKey:aMethod.name];
+        if (aChunk == nil) {
+            aChunk = [KTMethodChunk chunkWith:aMethod.name apppended:aMethod.name];
+            [self.masterChunks setObject:aChunk forKey:aMethod.name];
+        }
+        [aChunk completeWith:aMethod];
+    }
+}
+
 
 -(void)enumerateChunksAtIndex:(NSUInteger)idx chunks:(void (^)(KTMethodChunk *aChunk)) chunksBlock done:(void (^)(KTMethod *aMethod)) doneBlock{
     self.activeChunks = self.masterChunks;
@@ -338,6 +369,13 @@ static NSMutableSet *masterFoundationSet;
         }
     }
 }
+-(void)setIndex:(NSUInteger)idx with:(id)anObject{
+    self.messageComplete = YES;
+    if (self.callWithCompletedMessage) {
+        self.callWithCompletedMessage(anObject);
+    }
+}
+
 
 -(void)enumerateChunks:(void(^)(KTMethodChunk *aChunk, NSUInteger idx)) chunkBlock andParams:(void(^)(KTMethodParam *aParm, KTMethodChunk *aChunk, NSUInteger idx)) paramBlock{
     
@@ -435,6 +473,7 @@ static NSMutableSet *masterFoundationSet;
     // look for initer functions
     NSMutableDictionary *nodeTreeRoot = [NSMutableDictionary new];
     
+    // TO FIX USE [KTClass findClassOfObject:anObject]
     [self.curClass enumerateClassIniters:^(KTMethod *aMethod) {
         //
         __block NSMutableDictionary *nodeTree = nodeTreeRoot;

@@ -42,6 +42,7 @@
 @interface KTInterface : NSObject
 +(void)addFoundationFromDisk:(NSString*)foundationName;
 +(instancetype)interface;
++(instancetype)interfaceFromObject:(id)anObject;
 +(instancetype)interfaceForClassNamed:(NSString*)aClassName;
 /// initerMode only looks for initer nodes and sets up the function
 @property (nonatomic) BOOL initerMode;
@@ -82,6 +83,7 @@
 @property (strong, nonatomic, readonly) NSOrderedSet *chunks;
 
 -(void)setChunkIdx:(NSUInteger)idx with:(KTMethodChunk*)aChunk;
+-(void)setIndex:(NSUInteger)idx with:(id)anObject;
 /// calls walks through and call first a chunk and then its param (i.e. aChunk:aParam aChunk:aParam ...)
 -(void)enumerateChunks:(void(^)(KTMethodChunk *aChunk, NSUInteger idx)) chunkBlock andParams:(void(^)(KTMethodParam *aParm, KTMethodChunk *aChunk, NSUInteger idx)) paramBlock;
 @property (nonatomic) BOOL messageComplete;

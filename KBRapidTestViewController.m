@@ -19,6 +19,8 @@
 #import "KTInterface.h"
 #import "KEMessageEditorVC.h"
 
+#import "UIAlertViewBlock.h"
+
 @interface KBRapidTestViewController ()
 //@property (nonatomic, strong) Kibble *hello;
 //@property (nonatomic, strong) KibbleTalk *testNumber;
@@ -93,8 +95,6 @@
     newTile.dataObject = nil;
     __block NSMutableSet *tilesToDelete = [NSMutableSet new];
     //[tilesToDelete addObject:newTile];
-    [self.tileSystem newLineAndIndent];
-    [self.tileSystem pushCurPosition];
     [newTile blockWhenClicked:^(KTFoundation *thisFoundation, KETile *tileThatWasClicked) {
         [self deleteTiles:tilesToDelete];
         
@@ -102,7 +102,7 @@
         [self.tileSystem pushCurPosition];
         
         KTInterface *dataInterface = [KTInterface interface];
-        //dataInterface.initerMode = YES;
+        dataInterface.initerMode = YES;
         
         static KEMessageEditorVC *mEdit;
         if (mEdit) {
@@ -117,7 +117,79 @@
         //    //
         //} with:tilesToDelete];
     }];
+
+
+    newTile = [self.tileSystem newTile];
+    newTile.display = @"New Kibble\nFrom Input";
+    //[tilesToDelete addObject:newTile];
+    [newTile blockWhenClicked:^(KTFoundation *thisFoundation, KETile *tileThatWasClicked) {
+        
+        __block UIAlertViewBlock *alert = [[UIAlertViewBlock alloc] initWithTitle:@"Create Kibble From Input"
+                                                                  message:@"Type in a string or number\n"
+                                                               completion:^(BOOL cancelled, NSInteger buttonIndex)
+                                   {
+                                       if(cancelled) {
+                                           
+                                       } else {
+                                           // success
+                                           [self deleteTiles:tilesToDelete];
+                                           [self.tileSystem popPosition];
+                                           [self.tileSystem pushCurPosition];
+                                           id newObject = [self dataObjectFrom:[alert textFieldAtIndex:0].text];
+                                           newTile = [self.tileSystem newTile];
+                                           newTile.display = [newObject description];
+                                           [tilesToDelete addObject:newTile];
+                                           [newTile blockWhenClicked:^(KTFoundation *thisFoundation, KETile *tileThatWasClicked) {
+
+                                               KTInterface *dataInterface = [KTInterface interfaceFromObject:newObject];
+                                               //dataInterface.initerMode = YES;
+                                               
+                                               static KEMessageEditorVC *mEdit;
+                                               if (mEdit) {
+                                                   [mEdit dismiss];
+                                               }
+                                               mEdit = [KEMessageEditorVC messageEditorUsing:dataInterface using:self.tileSystem then:^(KTMessage *newMessage) {
+                                                   NSLog(@"%@",newMessage);
+                                                   
+                                               }];
+
+                                               
+                                           }];
+                                       }
+                                   }
+                                                        cancelButtonTitle:@"CANCEL"
+                                                        otherButtonTitles:@"OK", nil];
+        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        //[alert textFieldAtIndex:0].keyboardType = UIKeyboardTypeNumberPad;
+        [alert textFieldAtIndex:0].placeholder = @"...";
+        [alert show];
+
+    }];
+
+    [self.tileSystem newLineAndIndent];
+    [self.tileSystem pushCurPosition];
 }
+/// convert a text input into the best fit of data
+-(id)dataObjectFrom:(NSString*)aString{
+    NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+    f.generatesDecimalNumbers = YES;
+    [f setNumberStyle:NSNumberFormatterNoStyle];
+    NSNumber * aNumber = [f numberFromString:aString];
+    if (aNumber) {
+        return aNumber;
+    }
+
+/*
+    [f setNumberStyle:NSNumberFormatterSpellOutStyle];
+    f.generatesDecimalNumbers = YES;
+    aNumber = [f numberFromString:aString];
+    if (aNumber) {
+        return aNumber;
+    }
+*/
+    return aString;
+}
+
 -(void)deleteTiles:(NSMutableSet*)tilesToDelete{
     [tilesToDelete enumerateObjectsUsingBlock:^(KETile *aTile, BOOL *stop) {
         [aTile dismiss];

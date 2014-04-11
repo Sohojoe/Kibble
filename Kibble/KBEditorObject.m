@@ -8,12 +8,35 @@
 
 #import "KBEditorObject.h"
 
+#define kDone @"DONE"
+#define kPlus @"+"
+#define kFromInput @"FROM\nINPUT"
+
 @implementation KBEditorObject
 
 +(instancetype)editorObject{
     KBEditorObject *o = [self new];
     return o;
 }
++(instancetype)editorObjectDone{
+    KBEditorObject *o = [self editorObjectWithName:kDone];
+    return o;}
+-(BOOL)isTypeDone{
+    BOOL res = ([self.name isEqualToString:kDone] == NSOrderedSame);
+    return res;}
++(instancetype)editorObjectPlus{
+    KBEditorObject *o = [self editorObjectWithName:kPlus];
+    return o;}
+-(BOOL)isTypePlus{
+    BOOL res = ([self.name isEqualToString:kPlus] == NSOrderedSame);
+    return res;}
++(instancetype)editorObjectFromInput{
+    KBEditorObject *o = [self editorObjectWithName:kFromInput];
+    return o;}
+-(BOOL)isTypeFromInput{
+    BOOL res = ([self.name isEqualToString:kFromInput]);
+    return res;}
+
 +(instancetype)editorObjectWithName:(NSString*)aName{
     KBEditorObject *o = [self editorObject];
     o.name = aName;
@@ -27,6 +50,7 @@
 }
 @end
 
+/*
 @implementation KBEditorObjectDone : KBEditorObject
 +(instancetype)editorObject{
     KBEditorObjectDone *o = [super editorObject];
@@ -42,3 +66,4 @@
     return o;
 }
 @end
+ */

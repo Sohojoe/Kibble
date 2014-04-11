@@ -56,6 +56,13 @@
  * @return KTClass the class or nil if no class
  */
 +(KTClass*)findClassWithName:(NSString*)aName;
+/**
+ * Finds and returns the KTclass from this object
+ * NB: will recruse on super class if nothing found
+ * @param anObject the object to search from
+ * @return KTClass the class or nil if no class
+ */
++(KTClass*)findClassOfObject:(id)anObject;
 
 -(void)addClassMethod:(KTMethod*)aMethod;
 -(void)addInstanceMethod:(KTMethod*)aMethod;

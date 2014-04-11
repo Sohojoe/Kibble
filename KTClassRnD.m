@@ -276,6 +276,16 @@ static NSMutableDictionary *foundations;
     }
     return o;
 }
++(KTClass*)findClassOfObject:(id)anObject{
+    KTClass *c = [KTClass findClassWithName:NSStringFromClass([anObject class])];
+    
+    if (c == nil){
+        if ([anObject superclass]) {
+            c = [KTClass findClassOfObject:[anObject superclass]];
+        }
+    }
+    return c;
+}
 +(KTClass*)findClassWithName:(NSString *)name{
     if (!allClasses) {
         allClasses = [NSMutableDictionary new];

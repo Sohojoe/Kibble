@@ -61,13 +61,13 @@ static KTMessage *blank = nil;
 
 
 -(id)sendMessage{
-    id returns = [self sendMessageTo:self.recievingObject];
+    id returns = [self sendMessageTo:self.targetObject];
     return returns;
 }
 -(id)sendMessageTo:(id)recievingObject{
-    self.returnedObject = nil;
-    //returns = @"Tuesday at tea time";
-    //return returns;
+    self.returnedObject = recievingObject;
+    
+
     SEL theSelector = NSSelectorFromString(self.messageName);
 
     //Class theClass = NSClassFromString(self.name);
@@ -81,6 +81,14 @@ static KTMessage *blank = nil;
         [self.paramMessageAtIdx enumerateObjectsUsingBlock:^(KTMessage *paramMessage, NSUInteger idx, BOOL *stop) {
 
             NSUInteger trueIndex = 2 + idx; //arguments 0 and 1 are self and _cmd respectively, automatically set by NSInvocation
+            
+            // handle objects as parms
+            if ([paramMessage isKindOfClass:[KTMessage class]] == NO) {
+                // param is an object
+                id __autoreleasing paramResult = paramMessage;
+                [inv setArgument:&paramResult atIndex:trueIndex];
+                return;
+            }
             
             // abort if this param has not being defined
             if (paramMessage.isBlankMessage) {
@@ -129,13 +137,18 @@ static KTMessage *blank = nil;
 
 
 // params
--(void)setParamMessageAtIdx:(NSUInteger)idx withMessage:(KTMessage*)aMessage{
+-(void)setParamMessageAtIdx:(NSUInteger)idx withMessageOrObject:(KTMessage*)aMessage{
     if (aMessage == nil) {
         aMessage = [KTMessage blankMessage];
     }
-    [self.paramMessageAtIdx replaceObjectAtIndex:idx withObject:aMessage];
+    if (idx+1 <= self.paramMessageAtIdx.count) {
+        [self.paramMessageAtIdx replaceObjectAtIndex:idx withObject:aMessage];
+    } else {
+        [self.paramMessageAtIdx addObject:aMessage];
+        //[self.paramSyntaxAtIdx addObject:nil];
+    }
 }
--(KTMessage*)paramMessageAtIdx:(NSUInteger)idx{
+-(KTMessage*)paramMessageOrObjectAtIdx:(NSUInteger)idx{
     KTMessage* aParam = nil;
     aParam = [self.paramMessageAtIdx objectAtIndex:idx];
     return aParam;
@@ -145,10 +158,13 @@ static KTMessage *blank = nil;
     aParam = [self.paramSyntaxAtIdx objectAtIndex:idx];
     return aParam;
 }
--(id)paramResultAtIdx:(NSUInteger)idx{
+-(id)paramResultOrObjectAtIdx:(NSUInteger)idx{
     KTMessage *paramMessage =[self.paramMessageAtIdx objectAtIndex:idx];
-    id result = [paramMessage sendMessage];
-    return result;
+    if ([paramMessage isKindOfClass:[KTMessage class]]) {
+        id result = [paramMessage sendMessage];
+        return result;
+    }
+    return paramMessage;
 }
 
 @synthesize paramCount;

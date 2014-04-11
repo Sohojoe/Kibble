@@ -12,11 +12,21 @@
 @property (nonatomic, strong) NSString* name;
 +(instancetype)editorObject;
 +(instancetype)editorObjectWithName:(NSString*)aName;
+
++(instancetype)editorObjectDone;
+-(BOOL)isTypeDone;
++(instancetype)editorObjectPlus;
+-(BOOL)isTypePlus;
++(instancetype)editorObjectFromInput;
+-(BOOL)isTypeFromInput;
+
+
 @end
 
+/*
 @interface KBEditorObjectDone : KBEditorObject
 @end
 
 @interface KBEditorObjectPlus : KBEditorObject
 @end
-
+*/
