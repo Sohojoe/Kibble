@@ -102,7 +102,6 @@
         [self.tileSystem pushCurPosition];
         
         KTInterface *dataInterface = [KTInterface interface];
-        dataInterface.initerMode = YES;
         
         static KEMessageEditorVC *mEdit;
         if (mEdit) {
@@ -142,7 +141,6 @@
                                            [newTile blockWhenClicked:^(KTFoundation *thisFoundation, KETile *tileThatWasClicked) {
 
                                                KTInterface *dataInterface = [KTInterface interfaceFromObject:newObject];
-                                               //dataInterface.initerMode = YES;
                                                
                                                static KEMessageEditorVC *mEdit;
                                                if (mEdit) {

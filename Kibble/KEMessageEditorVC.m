@@ -38,7 +38,7 @@
     o.dataInterface.callWithCompletedMessage = ^(KTMessage *aMessage){
         if ([aMessage isKindOfClass:[KTMessage class]] == NO) {
             // it's an object
-            weakSelf.dataInterface.theMessage.targetObject = aMessage;
+            weakSelf.dataInterface.targetObject = aMessage;
         }
         
         if (weakSelf.successBlock) {
@@ -76,7 +76,7 @@
     [self.tileSystem pushCurPosition];
 
     
-    if (self.dataInterface.curClass == nil) {
+    if (self.dataInterface.targetObject == nil) {
         // no class, lets figure that out
         [self editClass];
         
@@ -150,7 +150,7 @@
     }
     
     // if no class, select a class
-    else if (self.dataInterface.curClass == nil) {
+    else if (self.dataInterface.targetObject == nil) {
 
         newTile = [self.tileSystem newTile];
         newTile.display = self.dataInterface.foundation.name;
@@ -168,7 +168,8 @@
         [self pickFromSet:classesSet then:^(id selectedObject) {
             // set this as the class
             if ([selectedObject isKindOfClass:[KTClass class]]) {
-                self.dataInterface.curClass = selectedObject;
+                KTClass *aClass = selectedObject;
+                self.dataInterface.targetObject = NSClassFromString(aClass.name);
             }
             
             // recurse
@@ -187,7 +188,7 @@
     }
     if (result == [KTMessage blankMessage] ||
         result == nil) {
-        newTile.display = [self prettyString:self.dataInterface.curClass.name];
+        newTile.display = [self prettyString:[NSString stringWithFormat:@"%@", [self.dataInterface.targetObject class]]];
     } else {
         newTile.display = [result description];
     }
@@ -247,9 +248,9 @@
         }];
     }
     
-    if (self.dataInterface.messageComplete == NO) {
+    //if (self.dataInterface.messageComplete == NO) {
         [self editChunk:chunkIdx];
-    }
+    //}
 }
 
 
@@ -258,7 +259,7 @@
     NSMutableOrderedSet *chunkSet = [NSMutableOrderedSet new];
     
     if (idx == 0) {
-        if ([self canInitCurClassFromInput]) {
+        if ([self canInitTargetObjectFromInput]) {
             [chunkSet addObject:[KBEditorObject editorObjectFromInput]];
         }
     }
@@ -360,26 +361,26 @@
 
 
 /// YES if this can be taken from a string input
--(BOOL)canInitCurClassFromInput{
+-(BOOL)canInitTargetObjectFromInput{
     BOOL res = NO;
     
-    res |= [self isCurClassFromInputCompatableString];
-    res |= [self isCurClassFromInputCompatableNumber];
+    res |= [self isTargetObjectFromInputCompatableString];
+    res |= [self isTargetObjectFromInputCompatableNumber];
     
     return res;
 }
--(BOOL)isCurClassFromInputCompatableString{
+-(BOOL)isTargetObjectFromInputCompatableString{
     BOOL res = NO;
-    if ([self.dataInterface.theMessage.targetObject isKindOfClass:[NSString class]] ||
-        self.dataInterface.theMessage.targetObject == [NSString class]){
+    if ([self.dataInterface.targetObject isKindOfClass:[NSString class]] ||
+        self.dataInterface.targetObject == [NSString class]){
         res = YES;
     }
     return res;
 }
--(BOOL)isCurClassFromInputCompatableNumber{
+-(BOOL)isTargetObjectFromInputCompatableNumber{
     BOOL res = NO;
-    if ([self.dataInterface.theMessage.targetObject isKindOfClass:[NSNumber class]] ||
-        self.dataInterface.theMessage.targetObject == [NSNumber class]){
+    if ([self.dataInterface.targetObject isKindOfClass:[NSNumber class]] ||
+        self.dataInterface.targetObject == [NSNumber class]){
         res = YES;
     }
     return res;
@@ -390,15 +391,15 @@
 -(id)dataObjectFrom:(NSString*)anInputString{
     NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
     
-    if ([self isCurClassFromInputCompatableNumber]) {
-        if ([self.dataInterface.theMessage.targetObject isKindOfClass:[NSDecimalNumber class]] ||
-            self.dataInterface.theMessage.targetObject == [NSDecimalNumber class] ) {
+    if ([self isTargetObjectFromInputCompatableNumber]) {
+        if ([self.dataInterface.targetObject isKindOfClass:[NSDecimalNumber class]] ||
+            self.dataInterface.targetObject == [NSDecimalNumber class] ) {
             f.generatesDecimalNumbers = YES;
         }
         [f setNumberStyle:NSNumberFormatterNoStyle];
         NSNumber * aNumber = [f numberFromString:anInputString];
         return aNumber;
-    } else if ([self isCurClassFromInputCompatableString]) {
+    } else if ([self isTargetObjectFromInputCompatableString]) {
         return anInputString;
     }
     
@@ -429,7 +430,8 @@
                                                
                                            } else {
                                                // success
-                                               if (aSuccessBlock) aSuccessBlock([alert textFieldAtIndex:0].text);
+                                               NSString *output = [NSString stringWithString:[alert textFieldAtIndex:0].text];
+                                               if (aSuccessBlock) aSuccessBlock(output);
                                                }
                                        }
                                                             cancelButtonTitle:@"CANCEL"

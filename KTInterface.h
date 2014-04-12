@@ -44,15 +44,15 @@
 +(instancetype)interface;
 +(instancetype)interfaceFromObject:(id)anObject;
 +(instancetype)interfaceForClassNamed:(NSString*)aClassName;
-/// initerMode only looks for initer nodes and sets up the function
-@property (nonatomic) BOOL initerMode;
+/// if YES, then target object is a call object, if NO then it's an instance object
+@property (nonatomic, readonly) BOOL targetObjectIsClassObject;
 
 //-(void)listFoundations:(void(^)(NSOrderedSet* foundations))block;
 @property (strong, nonatomic) KTFoundation *foundation;
 @property (strong, nonatomic, readonly) NSOrderedSet *foundations;
 
 //-(void)listClasses:(void(^)(NSOrderedSet* classes))block;
-@property (strong, nonatomic) KTClass *curClass;
+@property (weak, nonatomic) id targetObject;
 @property (strong, nonatomic, readonly) NSOrderedSet *classes;
 
 //-(void)listMethodNodes:(void(^)(NSOrderedSet* methodNodes))block;

@@ -226,11 +226,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KBRapidTestViewController.m"
-            timestampString = "418803765.410497"
+            timestampString = "418949969.234461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "516"
-            endingLineNumber = "516"
+            startingLineNumber = "514"
+            endingLineNumber = "514"
             landmarkName = "-test1"
             landmarkType = "5">
          </BreakpointContent>
@@ -1144,11 +1144,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KBRapidTestViewController.m"
-            timestampString = "418803765.410497"
+            timestampString = "418949969.234461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "322"
-            endingLineNumber = "322"
+            startingLineNumber = "320"
+            endingLineNumber = "320"
             landmarkName = "-test2"
             landmarkType = "5">
          </BreakpointContent>
@@ -1160,11 +1160,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KBRapidTestViewController.m"
-            timestampString = "418803765.410497"
+            timestampString = "418949969.234461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "345"
-            endingLineNumber = "345"
+            startingLineNumber = "343"
+            endingLineNumber = "343"
             landmarkName = "-prettyString:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1176,11 +1176,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KBRapidTestViewController.m"
-            timestampString = "418803765.410497"
+            timestampString = "418949969.234461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "378"
-            endingLineNumber = "378"
+            startingLineNumber = "376"
+            endingLineNumber = "376"
             landmarkName = "-prettyString:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1192,11 +1192,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KBRapidTestViewController.m"
-            timestampString = "418803765.410497"
+            timestampString = "418949969.234461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "359"
-            endingLineNumber = "359"
+            startingLineNumber = "357"
+            endingLineNumber = "357"
             landmarkName = "-prettyString:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1208,11 +1208,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KBRapidTestViewController.m"
-            timestampString = "418803765.410497"
+            timestampString = "418949969.234461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "366"
-            endingLineNumber = "366"
+            startingLineNumber = "364"
+            endingLineNumber = "364"
             landmarkName = "-prettyString:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1224,11 +1224,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KBRapidTestViewController.m"
-            timestampString = "418803765.410497"
+            timestampString = "418949969.234461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "356"
-            endingLineNumber = "356"
+            startingLineNumber = "354"
+            endingLineNumber = "354"
             landmarkName = "-prettyString:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1288,11 +1288,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418937551.534015"
+            timestampString = "418949474.536859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "435"
-            endingLineNumber = "435"
+            startingLineNumber = "450"
+            endingLineNumber = "450"
             landmarkName = "-nodes"
             landmarkType = "5">
          </BreakpointContent>
@@ -1336,11 +1336,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418937551.534015"
+            timestampString = "418949969.234461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "442"
-            endingLineNumber = "442"
+            startingLineNumber = "455"
+            endingLineNumber = "455"
             landmarkName = "-nodes"
             landmarkType = "5">
          </BreakpointContent>
@@ -1352,11 +1352,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418937551.534015"
+            timestampString = "418949969.234461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "649"
-            endingLineNumber = "649"
+            startingLineNumber = "664"
+            endingLineNumber = "664"
             landmarkName = "-enumerateKeyWords:for:calling:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1368,11 +1368,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418937551.534015"
+            timestampString = "418949969.234461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "546"
-            endingLineNumber = "546"
+            startingLineNumber = "561"
+            endingLineNumber = "561"
             landmarkName = "-collapseTree:into:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1384,11 +1384,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418937551.534015"
+            timestampString = "418949969.234461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "548"
-            endingLineNumber = "548"
+            startingLineNumber = "563"
+            endingLineNumber = "563"
             landmarkName = "-collapseTree:into:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1400,11 +1400,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418937551.534015"
+            timestampString = "418949969.234461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "554"
-            endingLineNumber = "554"
+            startingLineNumber = "569"
+            endingLineNumber = "569"
             landmarkName = "-collapseTree:into:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1416,11 +1416,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418937551.534015"
+            timestampString = "418949969.234461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "544"
-            endingLineNumber = "544"
+            startingLineNumber = "559"
+            endingLineNumber = "559"
             landmarkName = "-collapseTree:into:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1432,11 +1432,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418937551.534015"
+            timestampString = "418949969.234461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "560"
-            endingLineNumber = "560"
+            startingLineNumber = "575"
+            endingLineNumber = "575"
             landmarkName = "-collapseTree:into:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1480,11 +1480,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418937551.534015"
+            timestampString = "418949969.234461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "631"
-            endingLineNumber = "631"
+            startingLineNumber = "646"
+            endingLineNumber = "646"
             landmarkName = "-enumerateKeyWords:for:calling:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1496,11 +1496,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418937551.534015"
+            timestampString = "418949969.234461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "622"
-            endingLineNumber = "622"
+            startingLineNumber = "637"
+            endingLineNumber = "637"
             landmarkName = "-enumerateKeyWords:for:calling:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1512,11 +1512,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418937551.534015"
+            timestampString = "418949474.536859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "422"
-            endingLineNumber = "422"
+            startingLineNumber = "437"
+            endingLineNumber = "437"
             landmarkName = "-setParamContentWith:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1528,11 +1528,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418805642.120054"
+            timestampString = "418949474.536859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "290"
-            endingLineNumber = "290"
+            startingLineNumber = "305"
+            endingLineNumber = "305"
             landmarkName = "-chunks"
             landmarkType = "5">
             <Locations>
@@ -1574,11 +1574,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418805642.120054"
+            timestampString = "418949474.536859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "303"
-            endingLineNumber = "303"
+            startingLineNumber = "318"
+            endingLineNumber = "318"
             landmarkName = "-chunks"
             landmarkType = "5">
          </BreakpointContent>
@@ -1590,11 +1590,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418805642.120054"
+            timestampString = "418949474.536859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "259"
-            endingLineNumber = "259"
+            startingLineNumber = "274"
+            endingLineNumber = "274"
             landmarkName = "-enumerateChunksAtIndex:chunks:done:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1622,11 +1622,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418937551.534015"
+            timestampString = "418949474.536859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "382"
-            endingLineNumber = "382"
+            startingLineNumber = "397"
+            endingLineNumber = "397"
             landmarkName = "-enumerateChunks:andParams:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1638,11 +1638,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418805642.120054"
+            timestampString = "418949474.536859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "316"
-            endingLineNumber = "316"
+            startingLineNumber = "331"
+            endingLineNumber = "331"
             landmarkName = "-setChunkIdx:with:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1654,11 +1654,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KBRapidTestViewController.m"
-            timestampString = "418073441.968128"
+            timestampString = "418949969.234461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
             landmarkName = "-newKibble:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1670,27 +1670,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Kibble/KEMessageEditorVC.m"
-            timestampString = "418946772.532081"
+            timestampString = "418949182.952096"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
-            landmarkName = "-editMessage"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Kibble/KEMessageEditorVC.m"
-            timestampString = "418946772.532081"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
+            startingLineNumber = "251"
+            endingLineNumber = "251"
             landmarkName = "-editMessage"
             landmarkType = "5">
          </BreakpointContent>
@@ -1702,11 +1686,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418805642.120054"
+            timestampString = "418949474.536859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "268"
-            endingLineNumber = "268"
+            startingLineNumber = "283"
+            endingLineNumber = "283"
             landmarkName = "-enumerateChunksAtIndex:chunks:done:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1938,59 +1922,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Kibble/KEMessageEditorVC.m"
-            timestampString = "418946772.532081"
+            timestampString = "418949182.952096"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "211"
-            endingLineNumber = "211"
+            startingLineNumber = "212"
+            endingLineNumber = "212"
             landmarkName = "-editMessage"
             landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Kibble/KEMessageEditorVC.m"
-            timestampString = "418946772.532081"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "275"
-            endingLineNumber = "275"
-            landmarkName = "-editChunk:"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[KEMessageEditorVC editChunk:]"
-                  moduleName = "Kibble"
-                  urlString = "file:///Users/apple/development/Kibble/Kibble/KEMessageEditorVC.m"
-                  timestampString = "418085743.645944"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "202"
-                  endingLineNumber = "202"
-                  offsetFromSymbolStart = "406">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__31-[KEMessageEditorVC editChunk:]_block_invoke151"
-                  moduleName = "Kibble"
-                  urlString = "file:///Users/apple/development/Kibble/Kibble/KEMessageEditorVC.m"
-                  timestampString = "418085743.646191"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "202"
-                  endingLineNumber = "202"
-                  offsetFromSymbolStart = "80">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2012,7 +1950,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Kibble/KEMessageEditorVC.m"
@@ -2032,43 +1970,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Kibble/KEMessageEditorVC.m"
-            timestampString = "418946772.532081"
+            timestampString = "418949182.952096"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
+            startingLineNumber = "197"
+            endingLineNumber = "197"
             landmarkName = "-editMessage"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[KEMessageEditorVC editMessage]"
-                  moduleName = "Kibble"
-                  urlString = "file:///Users/apple/development/Kibble/Kibble/KEMessageEditorVC.m"
-                  timestampString = "418092563.421257"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "161"
-                  endingLineNumber = "161"
-                  offsetFromSymbolStart = "598">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__32-[KEMessageEditorVC editMessage]_block_invoke"
-                  moduleName = "Kibble"
-                  urlString = "file:///Users/apple/development/Kibble/Kibble/KEMessageEditorVC.m"
-                  timestampString = "418092563.421566"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "161"
-                  endingLineNumber = "161"
-                  offsetFromSymbolStart = "58">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2078,11 +1986,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418937551.534015"
+            timestampString = "418949474.536859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "379"
-            endingLineNumber = "379"
+            startingLineNumber = "394"
+            endingLineNumber = "394"
             landmarkName = "-enumerateChunks:andParams:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2158,11 +2066,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418805642.120054"
+            timestampString = "418949474.536859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "276"
-            endingLineNumber = "276"
+            startingLineNumber = "291"
+            endingLineNumber = "291"
             landmarkName = "-enumerateChunksAtIndex:chunks:done:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2174,11 +2082,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418805642.120054"
+            timestampString = "418949474.536859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "359"
-            endingLineNumber = "359"
+            startingLineNumber = "374"
+            endingLineNumber = "374"
             landmarkName = "-setChunkIdx:with:"
             landmarkType = "5">
             <Locations>
@@ -2220,11 +2128,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418805642.120054"
+            timestampString = "418949474.536859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "360"
-            endingLineNumber = "360"
+            startingLineNumber = "375"
+            endingLineNumber = "375"
             landmarkName = "-setChunkIdx:with:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2236,11 +2144,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KBRapidTestViewController.m"
-            timestampString = "418198205.194443"
+            timestampString = "418949969.234461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
             landmarkName = "-newKibble:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2364,11 +2272,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Kibble/KEMessageEditorVC.m"
-            timestampString = "418946941.762484"
+            timestampString = "418949182.952096"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "183"
-            endingLineNumber = "183"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
             landmarkName = "-editMessage"
             landmarkType = "5">
          </BreakpointContent>
@@ -2380,11 +2288,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KBRapidTestViewController.m"
-            timestampString = "418800798.706568"
+            timestampString = "418949969.234461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
             landmarkName = "-newKibble:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2396,11 +2304,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KBRapidTestViewController.m"
-            timestampString = "418802003.654567"
+            timestampString = "418949969.234461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
             landmarkName = "-newKibble:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2412,11 +2320,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KBRapidTestViewController.m"
-            timestampString = "418803765.410497"
+            timestampString = "418949969.234461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
             landmarkName = "-dataObjectFrom:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2428,11 +2336,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KBRapidTestViewController.m"
-            timestampString = "418804019.000522"
+            timestampString = "418949969.234461"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
             landmarkName = "-newKibble:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2460,11 +2368,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418888984.002674"
+            timestampString = "418950520.246309"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "205"
-            endingLineNumber = "205"
+            startingLineNumber = "218"
+            endingLineNumber = "218"
             landmarkName = "-buildChunks"
             landmarkType = "5">
          </BreakpointContent>
@@ -2476,11 +2384,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Kibble/KEMessageEditorVC.m"
-            timestampString = "418946772.532081"
+            timestampString = "418949182.952096"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
+            startingLineNumber = "217"
+            endingLineNumber = "217"
             landmarkName = "-editMessage"
             landmarkType = "5">
          </BreakpointContent>
@@ -2492,11 +2400,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Kibble/KEMessageEditorVC.m"
-            timestampString = "418946772.532081"
+            timestampString = "418949182.952096"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "276"
-            endingLineNumber = "276"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
             landmarkName = "-editChunk:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2508,28 +2416,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Kibble/KEMessageEditorVC.m"
-            timestampString = "418946772.532081"
+            timestampString = "418949182.952096"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "260"
-            endingLineNumber = "260"
-            landmarkName = "-editChunk:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Kibble/KEMessageEditorVC.m"
-            timestampString = "418946772.532081"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "364"
-            endingLineNumber = "364"
-            landmarkName = "-canInitCurClassFromInput"
+            startingLineNumber = "365"
+            endingLineNumber = "365"
+            landmarkName = "-canInitTargetObjectFromInput"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2540,28 +2432,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418932639.482672"
+            timestampString = "418949474.536859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "365"
-            endingLineNumber = "365"
+            startingLineNumber = "380"
+            endingLineNumber = "380"
             landmarkName = "-setChunkIdx:with:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Kibble/KEMessageEditorVC.m"
-            timestampString = "418946772.532081"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "287"
-            endingLineNumber = "287"
-            landmarkName = "-editChunk:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2588,11 +2464,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418934174.664248"
+            timestampString = "418949474.536859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "308"
-            endingLineNumber = "308"
+            startingLineNumber = "323"
+            endingLineNumber = "323"
             landmarkName = "-setChunkIdx:with:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2652,11 +2528,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Kibble/KEMessageEditorVC.m"
-            timestampString = "418946772.532081"
+            timestampString = "418952164.374251"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "432"
-            endingLineNumber = "432"
+            startingLineNumber = "433"
+            endingLineNumber = "433"
             landmarkName = "-inputFromString:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2668,11 +2544,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Kibble/KEMessageEditorVC.m"
-            timestampString = "418938141.427339"
+            timestampString = "418949182.952096"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
             landmarkName = "-editClass"
             landmarkType = "5">
          </BreakpointContent>
@@ -2696,16 +2572,96 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KTInterface.m"
+            timestampString = "418949969.234461"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "+interfaceForClassNamed:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KTInterface.m"
+            timestampString = "418949474.536859"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
+            landmarkName = "-buildChunks"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Kibble/KEMessageEditorVC.m"
+            timestampString = "418949539.201059"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "+messageEditorUsing:using:then:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KTInterface.m"
-            timestampString = "418947575.777948"
+            timestampString = "418950320.246452"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
-            landmarkName = "-setCurClass:"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "-setTargetObject:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KTInterface.m"
+            timestampString = "418950551.508001"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
+            landmarkName = "-buildChunks"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Kibble/KEMessageEditorVC.m"
+            timestampString = "418950867.301618"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
+            landmarkName = "-editMessage"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

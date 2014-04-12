@@ -112,13 +112,12 @@ static NSMutableSet *masterFoundationSet;
     KTInterface *o = [KTInterface new];
     o.theMessage = [KTMessage new];
     o.theMessage.targetObject = anObject;
-    o.curClass = [KTClass findClassOfObject:anObject];
+    o.targetObject = anObject;
     return o;
 }
 +(instancetype)interfaceForClassNamed:(NSString*)aClassName{
     KTInterface *o = [super new];
-    o.initerMode = YES;
-    o.curClass = [KTClass findClassWithName:aClassName];
+    o.targetObject = NSClassFromString(aClassName); //[KTClass findClassWithName:aClassName]);
     return o;
 }
 -(instancetype)init{
@@ -129,7 +128,7 @@ static NSMutableSet *masterFoundationSet;
     }
     return o;
 }
-@synthesize foundations, classes, nodes, foundation, curClass;
+@synthesize foundations, classes, nodes, foundation, targetObject;
 
 // TO DELETE
 @synthesize curNode;
@@ -174,14 +173,25 @@ static NSMutableSet *masterFoundationSet;
     NSOrderedSet *s = [NSOrderedSet orderedSetWithOrderedSet:self.masterClasses];
     return s;
 }
--(void)setCurClass:(KTClass *)aClass{
-    curClass = aClass;
-    self.masterNodes = nil;
-    [self buildChunks];
+-(void)setTargetObject:(id)anObject{
+    self.theMessage.targetObject = anObject;
+
+    targetObject = anObject;
     
-    Class rawClass = NSClassFromString(aClass.name);
-    self.theMessage.targetObject = rawClass;
+    self.masterNodes = nil;
+
+    if (anObject == [anObject class]) {
+        // is a class object
+        _targetObjectIsClassObject = YES;
+    } else {
+        // is an instance object
+        _targetObjectIsClassObject = NO;
+    }
+    
+    [self buildChunks];
 }
+
+
 
 // --------------------------------
 // chunk interface
@@ -192,17 +202,19 @@ static NSMutableSet *masterFoundationSet;
     self.chunkList = [NSMutableOrderedSet new];
     if (self.theMessage == nil) {
         self.theMessage = [KTMessage new];
+        self.theMessage.targetObject = self.targetObject;
     }
     
-    if (self.initerMode) {
-        // TO FIX USE [KTClass findClassOfObject:anObject]
-        [self.curClass enumerateClassIniters:^(KTMethod *aMethod) {
+    KTClass *curClass = [KTClass findClassOfObject:self.targetObject];
+    
+    if (self.targetObjectIsClassObject) {
+        [curClass enumerateClassIniters:^(KTMethod *aMethod) {
             [self buildChunksDisplay:aMethod];
         }];
     } else if (self.theMessage.targetObject){
         // instance
         // TO FIX USE [KTClass findClassOfObject:anObject]
-        [self.curClass enumerateInterface:^(KTMethod *aClassMethod, KTMethod *anIntanceMethod, KTVariable *anInstanceVariable) {
+        [curClass enumerateInterface:^(KTMethod *aClassMethod, KTMethod *anIntanceMethod, KTVariable *anInstanceVariable) {
             if (anIntanceMethod) {
                 [self buildChunksDisplay:anIntanceMethod];
             }
@@ -213,7 +225,7 @@ static NSMutableSet *masterFoundationSet;
     } else {
         // class
         // TO FIX USE [KTClass findClassOfObject:anObject]
-        [self.curClass enumerateClassMethods:^(KTMethod *aMethod) {
+        [curClass enumerateClassMethods:^(KTMethod *aMethod) {
             [self buildChunksDisplay:aMethod];
         }];
     }
@@ -437,9 +449,7 @@ static NSMutableSet *masterFoundationSet;
 -(NSOrderedSet*)nodes{
     if (self.masterNodes == nil) {
         self.masterNodes = [NSMutableOrderedSet new];
-        if (self.initerMode) {
-
-
+        if (self.targetObjectIsClassObject) {
             // collapse tree where there is no split
             NSMutableDictionary *nodeTreeRoot = [NSMutableDictionary new];
             [self collapseTree:[self nodeTreeForIniters] into:nodeTreeRoot];
@@ -473,8 +483,9 @@ static NSMutableSet *masterFoundationSet;
     // look for initer functions
     NSMutableDictionary *nodeTreeRoot = [NSMutableDictionary new];
     
-    // TO FIX USE [KTClass findClassOfObject:anObject]
-    [self.curClass enumerateClassIniters:^(KTMethod *aMethod) {
+    KTClass *curClass = [KTClass findClassOfObject:self.targetObject];
+
+    [curClass enumerateClassIniters:^(KTMethod *aMethod) {
         //
         __block NSMutableDictionary *nodeTree = nodeTreeRoot;
         
