@@ -12,6 +12,7 @@
 #import "KEPickFromSet.h"
 #import "KBEditorObject.h"
 #import "UIAlertViewBlock.h"
+#import "KTObject.h"
 
 
 @interface KEMessageEditorVC ()
@@ -35,14 +36,14 @@
     o.tilesToDelete = [NSMutableSet new];
     
     __weak typeof(o) weakSelf = o;
-    o.dataInterface.callWithCompletedMessage = ^(KTMessage *aMessage){
-        if ([aMessage isKindOfClass:[KTMessage class]] == NO) {
+    o.dataInterface.callWithCompletedMessageOrObject = ^(id aMessageOrObject){
+        if ([aMessageOrObject isKindOfClass:[KTObject class]]) {
             // it's an object
-            weakSelf.dataInterface.targetObject = aMessage;
+            weakSelf.dataInterface.targetObject = aMessageOrObject;
         }
         
         if (weakSelf.successBlock) {
-            weakSelf.successBlock(aMessage);
+            weakSelf.successBlock(aMessageOrObject);
         }
     };
     
@@ -115,10 +116,10 @@
 
     self.paramInterface = [KEMessageEditorVC messageEditorUsing:dataInterface using:self.tileSystem then:aSuccessBlock];
     
-    dataInterface.callWithCompletedMessage = ^(KTMessage *aMessage){
+    dataInterface.callWithCompletedMessageOrObject = ^(id aMessageOrObject){
         if (self.paramInterface.successBlock) {
-            [self.dataInterface.theMessage setParamMessageAtIdx:idx withMessageOrObject:aMessage];
-            self.paramInterface.successBlock(aMessage);
+            [self.dataInterface.theMessage setParamMessageAtIdx:idx withMessageOrObject:aMessageOrObject];
+            self.paramInterface.successBlock(aMessageOrObject);
         }
         
     };
@@ -169,7 +170,8 @@
             // set this as the class
             if ([selectedObject isKindOfClass:[KTClass class]]) {
                 KTClass *aClass = selectedObject;
-                self.dataInterface.targetObject = NSClassFromString(aClass.name);
+                KTObject *ktObject = [KTObject objectFor:NSClassFromString(aClass.name) from:NSClassFromString(aClass.name)];
+                self.dataInterface.targetObject = ktObject;
             }
             
             // recurse
@@ -188,7 +190,7 @@
     }
     if (result == [KTMessage blankMessage] ||
         result == nil) {
-        newTile.display = [self prettyString:[NSString stringWithFormat:@"%@", [self.dataInterface.targetObject class]]];
+        newTile.display = [self prettyString:[NSString stringWithFormat:@"%@", self.dataInterface.targetObject.theObjectClass]];
     } else {
         newTile.display = [result description];
     }
@@ -285,12 +287,12 @@
                 [self inputFromString:^(NSString *inputStr) {
                     id result = [self dataObjectFrom:inputStr];
                     // select this object
-                    [self.dataInterface setIndex:idx with:result];
+                    Class theClass = [NSString class];
+                    if ([result isKindOfClass:[NSNumber class]]) {
+                        theClass = [NSDecimalNumber class];
+                    }
+                    [self.dataInterface setIndex:idx withObject:result ofClass:theClass];
                     
-                    // ensure the message is tydy
-                    //[self.dataInterface.theMessage deleteParamFromIdx:idx];
-                    //[self.dataInterface.theMessage setParamMessageAtIdx:idx withMessage:result];
-                    // recurse
                     [self redrawTiles];
                 }];
             }
@@ -371,16 +373,25 @@
 }
 -(BOOL)isTargetObjectFromInputCompatableString{
     BOOL res = NO;
-    if ([self.dataInterface.targetObject isKindOfClass:[NSString class]] ||
-        self.dataInterface.targetObject == [NSString class]){
+    if ([self.dataInterface.targetObject.theObject isKindOfClass:[NSString class]] ||
+        [self doesObject:self.dataInterface.targetObject.theObjectClass aClassOrDecendantClassOf:[NSString class]]){
         res = YES;
     }
     return res;
 }
+-(BOOL)doesObject:(id)aObject aClassOrDecendantClassOf:(Class)aClass{
+    if (aObject == aClass) {
+        return YES;
+    } else if ([aObject superclass]) {
+        return ([self doesObject:[aObject superclass] aClassOrDecendantClassOf:aClass]);
+    }
+    return NO;
+}
 -(BOOL)isTargetObjectFromInputCompatableNumber{
     BOOL res = NO;
-    if ([self.dataInterface.targetObject isKindOfClass:[NSNumber class]] ||
-        self.dataInterface.targetObject == [NSNumber class]){
+    if ([self.dataInterface.targetObject.theObject isKindOfClass:[NSNumber class]] ||
+        [self doesObject:self.dataInterface.targetObject.theObjectClass aClassOrDecendantClassOf:[NSNumber class]])
+    {
         res = YES;
     }
     return res;
@@ -392,8 +403,8 @@
     NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
     
     if ([self isTargetObjectFromInputCompatableNumber]) {
-        if ([self.dataInterface.targetObject isKindOfClass:[NSDecimalNumber class]] ||
-            self.dataInterface.targetObject == [NSDecimalNumber class] ) {
+        if ([self.dataInterface.targetObject.theObject isKindOfClass:[NSDecimalNumber class]] ||
+            self.dataInterface.targetObject.theObjectClass == [NSDecimalNumber class] ) {
             f.generatesDecimalNumbers = YES;
         }
         [f setNumberStyle:NSNumberFormatterNoStyle];

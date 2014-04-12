@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @class KTMethodParam;
+@class KTObject;
 
 @interface KTMessage : NSObject
 @property (nonatomic, strong) NSString* messageName;
-@property (nonatomic, weak) id targetObject;
+@property (nonatomic, weak) KTObject *targetObject;
 @property (nonatomic, copy) id returnedObject;
 
 //+(instancetype)messageWith:(NSString*)aMessageName with:(NSMutableArray*)theParams;
@@ -22,8 +23,8 @@
 -(id)sendMessage;
 
 // params
--(void)setParamMessageAtIdx:(NSUInteger)idx withMessageOrObject:(KTMessage*)aMessageOrObject;
--(KTMessage*)paramMessageOrObjectAtIdx:(NSUInteger)idx;
+-(void)setParamMessageAtIdx:(NSUInteger)idx withMessageOrObject:(id)aMessageOrObject;
+-(id)paramMessageOrObjectAtIdx:(NSUInteger)idx;
 -(KTMethodParam*)paramSyntaxAtIdx:(NSUInteger)idx;
 -(id)paramResultOrObjectAtIdx:(NSUInteger)idx;
 @property (nonatomic, readonly) NSUInteger paramCount;

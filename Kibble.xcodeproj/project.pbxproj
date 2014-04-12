@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1810B86A18F8C26E00C6920D /* KTObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1810B86918F8C26E00C6920D /* KTObject.m */; };
 		184D9FB618D6C5B80056DF60 /* KTFoundations in Resources */ = {isa = PBXBuildFile; fileRef = 184D9FB518D6C5B80056DF60 /* KTFoundations */; };
 		1854EE6F189D712D00C2F74A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1854EE6D189D712D00C2F74A /* InfoPlist.strings */; };
 		1854EE71189D712D00C2F74A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EE70189D712D00C2F74A /* main.m */; };
@@ -104,6 +105,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1810B86818F8C26E00C6920D /* KTObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTObject.h; sourceTree = "<group>"; };
+		1810B86918F8C26E00C6920D /* KTObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTObject.m; sourceTree = "<group>"; };
 		184D9FB518D6C5B80056DF60 /* KTFoundations */ = {isa = PBXFileReference; lastKnownFileType = folder; path = KTFoundations; sourceTree = "<group>"; };
 		1854EE61189D712D00C2F74A /* Kibble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kibble.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1854EE64189D712D00C2F74A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -457,6 +460,8 @@
 				188046B818E346840088094B /* KTInterface.m */,
 				188FBE1218ED1F410054AE0E /* KTMessage.h */,
 				188FBE1318ED1F410054AE0E /* KTMessage.m */,
+				1810B86818F8C26E00C6920D /* KTObject.h */,
+				1810B86918F8C26E00C6920D /* KTObject.m */,
 			);
 			name = "Kibble Class Model";
 			sourceTree = "<group>";
@@ -660,6 +665,7 @@
 				18D7422718A199E5001F8586 /* KibbleTalk.m in Sources */,
 				1854EED8189D754D00C2F74A /* SCPage.m in Sources */,
 				1854EEC0189D717E00C2F74A /* User.m in Sources */,
+				1810B86A18F8C26E00C6920D /* KTObject.m in Sources */,
 				1854EE75189D712D00C2F74A /* KBAppDelegate.m in Sources */,
 				1854EEE6189DA68900C2F74A /* KibbleType.m in Sources */,
 				1854EEBC189D717E00C2F74A /* Install.m in Sources */,

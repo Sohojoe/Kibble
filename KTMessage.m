@@ -7,6 +7,7 @@
 //
 
 #import "KTMessage.h"
+#import "KTObject.h"
 @interface KTMessage ()
 @property (nonatomic, strong) NSMutableArray *paramMessageAtIdx;
 @property (nonatomic, strong) NSMutableArray *paramSyntaxAtIdx;
@@ -61,7 +62,7 @@ static KTMessage *blank = nil;
 
 
 -(id)sendMessage{
-    id returns = [self sendMessageTo:self.targetObject];
+    id returns = [self sendMessageTo:self.targetObject.theObject];
     return returns;
 }
 -(id)sendMessageTo:(id)recievingObject{
@@ -78,29 +79,35 @@ static KTMessage *blank = nil;
         [inv setTarget:recievingObject];
         
         __block BOOL messageIsIncomplete = NO;
-        [self.paramMessageAtIdx enumerateObjectsUsingBlock:^(KTMessage *paramMessage, NSUInteger idx, BOOL *stop) {
+        [self.paramMessageAtIdx enumerateObjectsUsingBlock:^(id param, NSUInteger idx, BOOL *stop) {
 
             NSUInteger trueIndex = 2 + idx; //arguments 0 and 1 are self and _cmd respectively, automatically set by NSInvocation
             
             // handle objects as parms
-            if ([paramMessage isKindOfClass:[KTMessage class]] == NO) {
+            if ([param isKindOfClass:[KTObject class]]) {
                 // param is an object
-                id __autoreleasing paramResult = paramMessage;
+                KTObject *paramObject = param;
+                id __autoreleasing paramResult = paramObject.theObject;
                 [inv setArgument:&paramResult atIndex:trueIndex];
                 return;
             }
             
-            // abort if this param has not being defined
-            if (paramMessage.isBlankMessage) {
-                messageIsIncomplete = YES;
-                *stop = YES;
+            else if ([param isKindOfClass:[KTMessage class]]) {
+            
+                // abort if this param has not being defined
+                KTMessage *paramMessage = param;
+                if (paramMessage.isBlankMessage) {
+                    messageIsIncomplete = YES;
+                    *stop = YES;
+                    return;
+                }
+                
+                id __autoreleasing paramResult = nil;
+                paramResult = [self sendMessage];
+                [inv setArgument:&paramResult atIndex:trueIndex];
                 return;
             }
-            
-            id __autoreleasing paramResult = nil;
-            paramResult = [self sendMessage];
 
-            [inv setArgument:&paramResult atIndex:trueIndex];
         }];
         if (messageIsIncomplete) {
             // exit
@@ -137,19 +144,20 @@ static KTMessage *blank = nil;
 
 
 // params
--(void)setParamMessageAtIdx:(NSUInteger)idx withMessageOrObject:(KTMessage*)aMessage{
-    if (aMessage == nil) {
-        aMessage = [KTMessage blankMessage];
+-(void)setParamMessageAtIdx:(NSUInteger)idx withMessageOrObject:(id)aMessageOrObject{
+    if (aMessageOrObject == nil) {
+        aMessageOrObject = [KTMessage blankMessage];
     }
     if (idx+1 <= self.paramMessageAtIdx.count) {
-        [self.paramMessageAtIdx replaceObjectAtIndex:idx withObject:aMessage];
+        [self.paramMessageAtIdx replaceObjectAtIndex:idx withObject:aMessageOrObject];
     } else {
-        [self.paramMessageAtIdx addObject:aMessage];
+        [self.paramMessageAtIdx addObject:aMessageOrObject];
         //[self.paramSyntaxAtIdx addObject:nil];
     }
 }
--(KTMessage*)paramMessageOrObjectAtIdx:(NSUInteger)idx{
-    KTMessage* aParam = nil;
+/// returns the raw context of this idx (KTMessage or KTObject)
+-(id)paramMessageOrObjectAtIdx:(NSUInteger)idx{
+    id aParam = nil;
     aParam = [self.paramMessageAtIdx objectAtIndex:idx];
     return aParam;
 }
@@ -158,13 +166,19 @@ static KTMessage *blank = nil;
     aParam = [self.paramSyntaxAtIdx objectAtIndex:idx];
     return aParam;
 }
+/// if param = KTMessage, returns message. If param = KTObject returns theObject
 -(id)paramResultOrObjectAtIdx:(NSUInteger)idx{
-    KTMessage *paramMessage =[self.paramMessageAtIdx objectAtIndex:idx];
-    if ([paramMessage isKindOfClass:[KTMessage class]]) {
+    id param =[self.paramMessageAtIdx objectAtIndex:idx];
+    if ([param isKindOfClass:[KTMessage class]]) {
+        KTMessage *paramMessage = param;
         id result = [paramMessage sendMessage];
         return result;
+    } else if ([param isKindOfClass:[KTObject class]]) {
+        KTObject *paramObject = param;
+        id result = paramObject.theObject;
+        return result;
     }
-    return paramMessage;
+    return param;
 }
 
 @synthesize paramCount;

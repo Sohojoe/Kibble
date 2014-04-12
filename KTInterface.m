@@ -8,6 +8,7 @@
 
 #import "KTInterface.h"
 #import "KTMessage.h"
+#import "KTObject.h"
 
 @implementation KTMethodNode
 
@@ -108,16 +109,16 @@ static NSMutableSet *masterFoundationSet;
     KTInterface *o = [KTInterface new];
     return o;
 }
-+(instancetype)interfaceFromObject:(id)anObject{
++(instancetype)interfaceFromObject:(KTObject*)anObject{
     KTInterface *o = [KTInterface new];
     o.theMessage = [KTMessage new];
-    o.theMessage.targetObject = anObject;
     o.targetObject = anObject;
     return o;
 }
 +(instancetype)interfaceForClassNamed:(NSString*)aClassName{
     KTInterface *o = [super new];
-    o.targetObject = NSClassFromString(aClassName); //[KTClass findClassWithName:aClassName]);
+    KTObject *ktObject = [KTObject objectFor:NSClassFromString(aClassName) from:NSClassFromString(aClassName)];
+    o.targetObject = ktObject; //[KTClass findClassWithName:aClassName]);
     return o;
 }
 -(instancetype)init{
@@ -173,14 +174,17 @@ static NSMutableSet *masterFoundationSet;
     NSOrderedSet *s = [NSOrderedSet orderedSetWithOrderedSet:self.masterClasses];
     return s;
 }
--(void)setTargetObject:(id)anObject{
+-(void)setTargetObject:(KTObject*)anObject{
+    if (self.theMessage == nil) {
+        self.theMessage = [KTMessage new];
+    }
     self.theMessage.targetObject = anObject;
 
     targetObject = anObject;
     
     self.masterNodes = nil;
 
-    if (anObject == [anObject class]) {
+    if (anObject.theObject == anObject.theObjectClass) {
         // is a class object
         _targetObjectIsClassObject = YES;
     } else {
@@ -200,12 +204,8 @@ static NSMutableSet *masterFoundationSet;
     self.masterChunks = [NSMutableDictionary new];
     self.activeChunks = self.masterChunks;
     self.chunkList = [NSMutableOrderedSet new];
-    if (self.theMessage == nil) {
-        self.theMessage = [KTMessage new];
-        self.theMessage.targetObject = self.targetObject;
-    }
     
-    KTClass *curClass = [KTClass findClassOfObject:self.targetObject];
+    KTClass *curClass = [KTClass findClassOfObject:self.targetObject.theObjectClass];
     
     if (self.targetObjectIsClassObject) {
         [curClass enumerateClassIniters:^(KTMethod *aMethod) {
@@ -213,7 +213,6 @@ static NSMutableSet *masterFoundationSet;
         }];
     } else if (self.theMessage.targetObject){
         // instance
-        // TO FIX USE [KTClass findClassOfObject:anObject]
         [curClass enumerateInterface:^(KTMethod *aClassMethod, KTMethod *anIntanceMethod, KTVariable *anInstanceVariable) {
             if (anIntanceMethod) {
                 [self buildChunksDisplay:anIntanceMethod];
@@ -376,15 +375,17 @@ static NSMutableSet *masterFoundationSet;
     }];
     
     if (self.messageComplete) {
-        if (self.callWithCompletedMessage) {
-            self.callWithCompletedMessage(self.theMessage);
+        if (self.callWithCompletedMessageOrObject) {
+            self.callWithCompletedMessageOrObject(self.theMessage);
         }
     }
 }
--(void)setIndex:(NSUInteger)idx with:(id)anObject{
+-(void)setIndex:(NSUInteger)idx withObject:(id)anObject ofClass:(Class) aClass{
     self.messageComplete = YES;
-    if (self.callWithCompletedMessage) {
-        self.callWithCompletedMessage(anObject);
+    
+    if (self.callWithCompletedMessageOrObject) {
+        KTObject *ktObject = [KTObject objectFor:anObject from:aClass];
+        self.callWithCompletedMessageOrObject(ktObject);
     }
 }
 
@@ -483,7 +484,7 @@ static NSMutableSet *masterFoundationSet;
     // look for initer functions
     NSMutableDictionary *nodeTreeRoot = [NSMutableDictionary new];
     
-    KTClass *curClass = [KTClass findClassOfObject:self.targetObject];
+    KTClass *curClass = [KTClass findClassOfObject:self.targetObject.theObjectClass];
 
     [curClass enumerateClassIniters:^(KTMethod *aMethod) {
         //

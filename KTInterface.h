@@ -10,6 +10,8 @@
 #import "KTClassRnD.h"
 #import "KTMessage.h"
 
+@class KTObject;
+
 @interface KTMethodNode : NSObject <NSCopying>
 @property (strong, nonatomic) NSMutableOrderedSet *methods;
 //@property (strong, nonatomic) KTMethodParam *methodParm;
@@ -42,7 +44,7 @@
 @interface KTInterface : NSObject
 +(void)addFoundationFromDisk:(NSString*)foundationName;
 +(instancetype)interface;
-+(instancetype)interfaceFromObject:(id)anObject;
++(instancetype)interfaceFromObject:(KTObject*)anObject;
 +(instancetype)interfaceForClassNamed:(NSString*)aClassName;
 /// if YES, then target object is a call object, if NO then it's an instance object
 @property (nonatomic, readonly) BOOL targetObjectIsClassObject;
@@ -52,7 +54,7 @@
 @property (strong, nonatomic, readonly) NSOrderedSet *foundations;
 
 //-(void)listClasses:(void(^)(NSOrderedSet* classes))block;
-@property (weak, nonatomic) id targetObject;
+@property (strong, nonatomic) KTObject *targetObject;
 @property (strong, nonatomic, readonly) NSOrderedSet *classes;
 
 //-(void)listMethodNodes:(void(^)(NSOrderedSet* methodNodes))block;
@@ -83,13 +85,15 @@
 @property (strong, nonatomic, readonly) NSOrderedSet *chunks;
 
 -(void)setChunkIdx:(NSUInteger)idx with:(KTMethodChunk*)aChunk;
--(void)setIndex:(NSUInteger)idx with:(id)anObject;
+
+-(void)setIndex:(NSUInteger)idx withObject:(id)anObject ofClass:(Class) aClass;
+
 /// calls walks through and call first a chunk and then its param (i.e. aChunk:aParam aChunk:aParam ...)
 -(void)enumerateChunks:(void(^)(KTMethodChunk *aChunk, NSUInteger idx)) chunkBlock andParams:(void(^)(KTMethodParam *aParm, KTMethodChunk *aChunk, NSUInteger idx)) paramBlock;
 @property (nonatomic) BOOL messageComplete;
 @property (nonatomic) BOOL messageHasMoreChunks;
 @property (nonatomic, strong) KTMessage *theMessage;
-@property (nonatomic, strong) void(^callWithCompletedMessage)(KTMessage *aMessage);
+@property (nonatomic, strong) void(^callWithCompletedMessageOrObject)(id aMessageOrObject);
 
 
 @end
