@@ -20,6 +20,14 @@
     if (self) {
         _theObject = aObject;
         _theObjectClass = aClass;
+        
+        if (aObject == aClass) {
+            // is a class object
+            _isClassObject = YES;
+        } else {
+            // is an instance object
+            _isClassObject = NO;
+        }
     }
     return self;
 }

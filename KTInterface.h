@@ -10,21 +10,9 @@
 #import "KTClassRnD.h"
 #import "KTMessage.h"
 
-@class KTObject;
-
-@interface KTMethodNode : NSObject <NSCopying>
-@property (strong, nonatomic) NSMutableOrderedSet *methods;
-//@property (strong, nonatomic) KTMethodParam *methodParm;
-@property (strong, nonatomic) NSString *name;
-@property (strong, nonatomic) NSString *appendedName;
-//@property (nonatomic) NSUInteger subNodesCount;
-@property (nonatomic) BOOL nodeCanTerminate;
-//@property (nonatomic) BOOL nodeIsParamTerminator;
-@property (nonatomic, strong) NSMutableDictionary *nodeTreeChildren;
-@end
 
 
-/// \brief a chunk of a KTMethod. Chunked at each paramater
+/// \brief a chunk of a KTMethod. Chunked at each paramater so the initial name section is a chunk (with or without a paramaeter), then each subsequent name section and param is a chunk
 @interface KTMethodChunk : NSObject
 /// \brief name of this chunk
 @property (strong, nonatomic) NSString *name;
@@ -40,32 +28,21 @@
 -(void)addChild:(KTMethodChunk *)aChunk;
 @end
 
+@class KTObject;
 
 @interface KTInterface : NSObject
 +(void)addFoundationFromDisk:(NSString*)foundationName;
 +(instancetype)interface;
 +(instancetype)interfaceFromObject:(KTObject*)anObject;
 +(instancetype)interfaceForClassNamed:(NSString*)aClassName;
-/// if YES, then target object is a call object, if NO then it's an instance object
-@property (nonatomic, readonly) BOOL targetObjectIsClassObject;
 
-//-(void)listFoundations:(void(^)(NSOrderedSet* foundations))block;
 @property (strong, nonatomic) KTFoundation *foundation;
 @property (strong, nonatomic, readonly) NSOrderedSet *foundations;
 
-//-(void)listClasses:(void(^)(NSOrderedSet* classes))block;
 @property (strong, nonatomic) KTObject *targetObject;
 @property (strong, nonatomic, readonly) NSOrderedSet *classes;
 
-//-(void)listMethodNodes:(void(^)(NSOrderedSet* methodNodes))block;
-//@property (strong, nonatomic, readonly) NSOrderedSet *nodes;
-//@property (nonatomic, strong) KTMethodNode* curNode;
-//@property (nonatomic) NSUInteger paramIdx;
-//@property (nonatomic, strong) NSMutableOrderedSet *paramList;
-//@property (nonatomic, strong) NSMutableOrderedSet *paramContent;
-//@property (nonatomic, strong) KTMethod *method;
-//@property (nonatomic) BOOL needsParam;
-//-(void)setParamContentWith:(id)thisContent;
+
 
 //
 /**

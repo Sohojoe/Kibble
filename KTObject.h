@@ -12,4 +12,8 @@
 @property (nonatomic, readonly, strong) id theObject;
 @property (nonatomic, readonly, strong) Class theObjectClass;
 +(instancetype)objectFor:(id)aObject from:(Class)aClass;
+
+/// YES if this is the class object, NO if this is an intance object
+@property (nonatomic, readonly) BOOL isClassObject;
+
 @end
