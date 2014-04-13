@@ -39,6 +39,7 @@
         if (o.paramSyntaxAtIdx == nil) {
             o.paramSyntaxAtIdx = [NSMutableArray new];
         }
+        o.returnedObject = [KTObject objectFor:nil from:[NSNull class]];
     }
     return o;
 }
@@ -61,22 +62,22 @@ static KTMessage *blank = nil;
 }
 
 
--(id)sendMessage{
-    id returns = [self sendMessageTo:self.targetObject.theObject];
+-(KTObject*)sendMessage{
+    KTObject *returns = [self sendMessageTo:self.targetObject];
     return returns;
 }
--(id)sendMessageTo:(id)recievingObject{
-    self.returnedObject = recievingObject;
+-(KTObject *)sendMessageTo:(KTObject*)recievingObject{
+    self.returnedObject = [KTObject objectFor:nil from:self.returnedObject.class];  //recievingObject;
     
 
     SEL theSelector = NSSelectorFromString(self.messageName);
 
     //Class theClass = NSClassFromString(self.name);
     
-    if([recievingObject respondsToSelector:theSelector]) {
-        NSInvocation *inv = [NSInvocation invocationWithMethodSignature:[recievingObject methodSignatureForSelector:theSelector]];
+    if([recievingObject.theObject respondsToSelector:theSelector]) {
+        NSInvocation *inv = [NSInvocation invocationWithMethodSignature:[recievingObject.theObject methodSignatureForSelector:theSelector]];
         [inv setSelector:theSelector];
-        [inv setTarget:recievingObject];
+        [inv setTarget:recievingObject.theObject];
         
         __block BOOL messageIsIncomplete = NO;
         [self.paramMessageAtIdx enumerateObjectsUsingBlock:^(id param, NSUInteger idx, BOOL *stop) {
@@ -96,14 +97,14 @@ static KTMessage *blank = nil;
             
                 // abort if this param has not being defined
                 KTMessage *paramMessage = param;
-                if (paramMessage.isBlankMessage) {
+                if (paramMessage.isBlankMessage || paramMessage.isValidAndComplete == NO) {
                     messageIsIncomplete = YES;
                     *stop = YES;
                     return;
                 }
                 
-                id __autoreleasing paramResult = nil;
-                paramResult = [self sendMessage];
+                KTObject *paramResultFull = [paramMessage sendMessage];
+                id __autoreleasing paramResult = paramResultFull.theObject;
                 [inv setArgument:&paramResult atIndex:trueIndex];
                 return;
             }
@@ -111,19 +112,20 @@ static KTMessage *blank = nil;
         }];
         if (messageIsIncomplete) {
             // exit
-            return ([KTMessage blankMessage]);
+            self.returnedObject = [KTObject objectFor:[KTMessage blankMessage] from:self.returnedObject.theObjectClass];
+            return self.returnedObject;
         }
         [inv invoke];
         
-        NSString *methodReturnType = [NSString stringWithUTF8String:inv.methodSignature.methodReturnType];
-        NSLog(@"%@", methodReturnType);
+        //NSString *methodReturnType = [NSString stringWithUTF8String:inv.methodSignature.methodReturnType];
+        //NSLog(@"%@", methodReturnType);
         
         
         CFTypeRef cfResult;
         [inv getReturnValue:&cfResult];
         if (cfResult) {
             CFRetain(cfResult);
-            self.returnedObject = (__bridge_transfer id)cfResult;
+            self.returnedObject = [KTObject objectFor:(__bridge_transfer id)cfResult from:self.returnedObject.class];
         }
   
 /*        CFTypeRef cfResult;
@@ -167,12 +169,12 @@ static KTMessage *blank = nil;
     return aParam;
 }
 /// if param = KTMessage, returns message. If param = KTObject returns theObject
--(id)paramResultOrObjectAtIdx:(NSUInteger)idx{
+-(id)paramMessageResultOrObjectAtIdx:(NSUInteger)idx{
     id param =[self.paramMessageAtIdx objectAtIndex:idx];
     if ([param isKindOfClass:[KTMessage class]]) {
         KTMessage *paramMessage = param;
-        id result = [paramMessage sendMessage];
-        return result;
+        KTObject *result = [paramMessage sendMessage];
+        return result.theObject;
     } else if ([param isKindOfClass:[KTObject class]]) {
         KTObject *paramObject = param;
         id result = paramObject.theObject;
@@ -203,6 +205,12 @@ static KTMessage *blank = nil;
         [self.paramSyntaxAtIdx addObject:aParam];
         [self.paramMessageAtIdx addObject:[KTMessage blankMessage]];
     }
+}
+
+
+-(void)setReturnedObjectClass:(Class)aClass{
+    KTObject *newReturnObject = [KTObject objectFor:nil from:aClass];
+    self.returnedObject = newReturnObject;
 }
 
 -(NSString*)description{return self.messageName;}

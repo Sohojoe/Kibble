@@ -60,11 +60,21 @@
  
     return output;
 }
+-(KTType*)returnType{
+    __block KTType *aReturnType = nil;
+    [self.brancesTo enumerateKeysAndObjectsUsingBlock:^(NSString *key, KTMethod *thisMethod, BOOL *stop) {
+        if ([key isEqualToString:@"done"]) {
+            KTType *thisReturnType = thisMethod.returns;
+            aReturnType = thisReturnType;
+            *stop = YES;
+        }
+    }];
+    return aReturnType;
+}
 @end
 
 @interface KTInterface ()
 @property (nonatomic, strong) NSMutableOrderedSet *masterClasses;
-@property (nonatomic, strong) NSMutableOrderedSet *masterNodes;
 @property (nonatomic, strong) NSMutableDictionary *masterChunks;
 @property (nonatomic, strong) NSMutableDictionary *activeChunks;
 @property (nonatomic, strong) NSMutableOrderedSet *chunkList;
@@ -112,7 +122,6 @@ static NSMutableSet *masterFoundationSet;
 -(void)setFoundation:(KTFoundation *)aFoundation{
     foundation = aFoundation;
     self.masterClasses = nil;
-    self.masterNodes = nil;
 }
 -(NSOrderedSet*)foundations{
     NSOrderedSet *fs = [NSOrderedSet orderedSetWithSet:masterFoundationSet];
@@ -132,17 +141,24 @@ static NSMutableSet *masterFoundationSet;
     return s;
 }
 -(void)setTargetObject:(KTObject*)anObject{
-    if (self.theMessage == nil) {
-        self.theMessage = [KTMessage new];
+    // is this the same type as the current messgae
+    if (targetObject.theObjectClass == anObject.theObjectClass) {
+        // same type
+        if (self.theMessage == nil) {
+            self.theMessage = [KTMessage new];
+        }
+        self.theMessage.targetObject = anObject;
+        targetObject = anObject;
+        [self buildChunks];
     }
-    self.theMessage.targetObject = anObject;
-
-    targetObject = anObject;
+    else {
+        // different type
+        self.theMessage = [KTMessage new];
+        self.theMessage.targetObject = anObject;
+        targetObject = anObject;
+        [self buildChunks];
+    }
     
-    self.masterNodes = nil;
-
-    
-    [self buildChunks];
 }
 
 
@@ -268,6 +284,12 @@ static NSMutableSet *masterFoundationSet;
     return s;
 }
 -(void)setChunkIdx:(NSUInteger)idx with:(KTMethodChunk*)aChunk{
+    
+    _messageSyntaxIsValidMessage = NO;
+    _messageHasMoreChunks = NO;
+    _messageAllParamsAreValid = NO;
+    self.theMessage.isValidAndComplete = NO;
+
     // check if we need to remove chunks
     while (self.chunkList.count > idx) {
         [self.chunkList removeObjectAtIndex:self.chunkList.count-1];
@@ -283,7 +305,7 @@ static NSMutableSet *masterFoundationSet;
             // recurse with previous chunk
             [self setChunkIdx:idx-1 with:[self.chunkList objectAtIndex:idx-1]];
         } else {
-            self.messageComplete = NO;
+            _messageSyntaxIsValidMessage = NO;
         }
         return;
     }
@@ -294,6 +316,13 @@ static NSMutableSet *masterFoundationSet;
         [self.theMessage initParamAtIdx:idx withParam:(KTMethodParam*)aChunk.param];
     }
     
+    // set return type
+    NSString *returnClassName = aChunk.returnType.name;
+    if (aChunk.returnType.pointee) {
+        returnClassName = aChunk.returnType.pointee.name;
+    }
+    [self.theMessage setReturnedObjectClass:NSClassFromString(returnClassName)];
+    
     if (aChunk.brancesTo.count) {
         self.activeChunks = aChunk.brancesTo;
         if (self.activeChunks.count == 1) {
@@ -303,16 +332,18 @@ static NSMutableSet *masterFoundationSet;
                 [self setChunkIdx:idx+1 with:obj];
             } else {
                 // we are done
-                self.messageComplete = YES;
-                self.messageHasMoreChunks = NO;
+                _messageSyntaxIsValidMessage = YES;
+                if (self.theMessage.isBlankMessage == NO) {
+                    self.theMessage.isValidAndComplete = YES;
+                }
             }
         } else {
             // we have more potential objects
-            self.messageHasMoreChunks = YES;
+            _messageHasMoreChunks = YES;
             [self.activeChunks enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
                 if ([key isEqualToString:@"done"]) {
                     // we are done
-                    self.messageComplete = YES;
+                    _messageSyntaxIsValidMessage = YES;
                 }
             }];
         }
@@ -324,20 +355,44 @@ static NSMutableSet *masterFoundationSet;
         self.theMessage.messageName = [self.theMessage.messageName stringByAppendingString:aChunk.name];
     }];
     
-    if (self.messageComplete) {
+    
+
+    if (self.theMessage.isValidAndComplete) {
         if (self.callWithCompletedMessageOrObject) {
             self.callWithCompletedMessageOrObject(self.theMessage);
         }
     }
 }
 -(void)setIndex:(NSUInteger)idx withObject:(id)anObject ofClass:(Class) aClass{
-    self.messageComplete = YES;
+    _messageSyntaxIsValidMessage = YES;
     
     if (self.callWithCompletedMessageOrObject) {
         KTObject *ktObject = [KTObject objectFor:anObject from:aClass];
         self.callWithCompletedMessageOrObject(ktObject);
     }
 }
+
+
+-(void)setParamAtIdx:(NSUInteger)idx withMessageOrObject:(id)aMessageOrObject{
+    [self.theMessage setParamMessageAtIdx:idx withMessageOrObject:aMessageOrObject];
+    
+    if (self.theMessage.paramCount == self.chunkList.count) {
+        // correct number of params have been filled in the message
+        _messageAllParamsAreValid = YES;
+    } else {
+        // not enough params
+        _messageAllParamsAreValid = NO;
+    }
+    self.theMessage.isValidAndComplete = self.messageAllParamsAreValid && self.messageSyntaxIsValidMessage;
+}
+-(id)ifReadySendMessage{
+    KTObject *res = nil;
+    if (self.theMessage.isValidAndComplete) {
+        res = [self.theMessage sendMessage];
+    }
+    return res.theObject;
+}
+
 
 
 -(void)enumerateChunks:(void(^)(KTMethodChunk *aChunk, NSUInteger idx)) chunkBlock andParams:(void(^)(KTMethodParam *aParm, KTMethodChunk *aChunk, NSUInteger idx)) paramBlock{

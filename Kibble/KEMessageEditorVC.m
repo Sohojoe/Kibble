@@ -118,7 +118,7 @@
     
     dataInterface.callWithCompletedMessageOrObject = ^(id aMessageOrObject){
         if (self.paramInterface.successBlock) {
-            [self.dataInterface.theMessage setParamMessageAtIdx:idx withMessageOrObject:aMessageOrObject];
+            [self.dataInterface setParamAtIdx:idx withMessageOrObject:aMessageOrObject];
             self.paramInterface.successBlock(aMessageOrObject);
         }
         
@@ -182,19 +182,10 @@
 }
 -(void)editMessage{
     __block KETile *newTile = nil;
+    
+    //
+    [self addTargetObjectAsTyle];
 
-    newTile = [self.tileSystem newTile];
-    id result = nil;
-    if (self.dataInterface.messageComplete) {
-        result = [self.dataInterface.theMessage sendMessage];
-    }
-    if (result == [KTMessage blankMessage] ||
-        result == nil) {
-        newTile.display = [self prettyString:[NSString stringWithFormat:@"%@", self.dataInterface.targetObject.theObjectClass]];
-    } else {
-        newTile.display = [result description];
-    }
-    [self.tilesToDelete addObject:newTile];
     
     __block NSUInteger chunkIdx = 0;
     // add chunk & params
@@ -220,7 +211,7 @@
             newTile = [self.tileSystem newTile];
             [self.tilesToDelete addObject:newTile];
             
-            __weak __block id paramData = [self.dataInterface.theMessage paramResultOrObjectAtIdx:idx];
+            __weak __block id paramData = [self.dataInterface.theMessage paramMessageResultOrObjectAtIdx:idx];
             if (paramData == nil || paramData == [NSNull class]) {
                 newTile.display = [NSString stringWithFormat:@"+\n(%@)", aChunk.param.paramType];
 
@@ -241,7 +232,7 @@
     }];
     
     // add + if message is complete and if message has more options
-    if (self.dataInterface.messageComplete && self.dataInterface.messageHasMoreChunks) {
+    if (self.dataInterface.messageSyntaxIsValidMessage && self.dataInterface.messageHasMoreChunks) {
         newTile = [self.tileSystem newTile];
         newTile.display = @"+";
         [self.tilesToDelete addObject:newTile];
@@ -253,6 +244,57 @@
     //if (self.dataInterface.messageComplete == NO) {
         [self editChunk:chunkIdx];
     //}
+}
+
+-(void)addTargetObjectAsTyle{
+    __block KETile *newTile = [self.tileSystem newTile];
+
+    // handle what to display
+    id result = nil;
+    
+    NSString *messageStr = [self.dataInterface ifReadySendMessage];
+    NSString *objectStr = [self.dataInterface.targetObject.theObject description];
+    NSString *classStr = [self.dataInterface.targetObject.theObjectClass description];
+    
+    result = messageStr;
+    if (result == nil) {
+        result = objectStr;
+    }
+    if (result == nil) {
+        result = classStr;
+    }
+    newTile.display = result;
+    
+/*
+    if (self.dataInterface.messageComplete) {
+        result = [self.dataInterface.theMessage sendMessage];
+    }
+    if (result == [KTMessage blankMessage] ||
+        result == nil) {
+        newTile.display = [self prettyString:[NSString stringWithFormat:@"%@", self.dataInterface.targetObject.theObjectClass]];
+    } else {
+        newTile.display = [result description];
+    }
+ */
+    [self.tilesToDelete addObject:newTile];
+    
+    [newTile blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
+
+        // if complete
+        if (self.dataInterface.messageSyntaxIsValidMessage) {
+            // set outcome as the target object
+            
+            KTObject *returnObject = [KTObject objectFor:[self.dataInterface ifReadySendMessage]
+                                                    from:self.dataInterface.targetObject.theObjectClass];
+            
+            self.dataInterface.targetObject = returnObject;
+            
+            // recurse
+            [self redrawTiles];
+        }
+    }];
+    
+
 }
 
 

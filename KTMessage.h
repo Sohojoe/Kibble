@@ -13,20 +13,25 @@
 
 @interface KTMessage : NSObject
 @property (nonatomic, strong) NSString* messageName;
-@property (nonatomic, weak) KTObject *targetObject;
-@property (nonatomic, copy) id returnedObject;
+@property (nonatomic, strong) KTObject *targetObject;
+@property (nonatomic, strong) KTObject *returnedObject;
 
 //+(instancetype)messageWith:(NSString*)aMessageName with:(NSMutableArray*)theParams;
 +blankMessage;
 @property (nonatomic, readonly) BOOL isBlankMessage;
--(id)sendMessageTo:(id)recievingObject;
--(id)sendMessage;
+
+/// tells us if the message is OK to be sent
+@property (nonatomic) BOOL isValidAndComplete;
+-(KTObject*)sendMessageTo:(KTObject*)recievingObject;
+-(KTObject*)sendMessage;
+
+-(void)setReturnedObjectClass:(Class)aClass;
 
 // params
 -(void)setParamMessageAtIdx:(NSUInteger)idx withMessageOrObject:(id)aMessageOrObject;
 -(id)paramMessageOrObjectAtIdx:(NSUInteger)idx;
 -(KTMethodParam*)paramSyntaxAtIdx:(NSUInteger)idx;
--(id)paramResultOrObjectAtIdx:(NSUInteger)idx;
+-(id)paramMessageResultOrObjectAtIdx:(NSUInteger)idx;
 @property (nonatomic, readonly) NSUInteger paramCount;
 
 // init and setting up a param

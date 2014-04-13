@@ -26,6 +26,7 @@
 +(instancetype)chunkWith:(NSString*)aName apppended:(NSString*)aAppendedName param:(KTMethodParam*)aParam;
 -(void)completeWith:(KTMethod*)aMethod;
 -(void)addChild:(KTMethodChunk *)aChunk;
+-(KTType*)returnType;
 @end
 
 @class KTObject;
@@ -67,10 +68,12 @@
 
 /// calls walks through and call first a chunk and then its param (i.e. aChunk:aParam aChunk:aParam ...)
 -(void)enumerateChunks:(void(^)(KTMethodChunk *aChunk, NSUInteger idx)) chunkBlock andParams:(void(^)(KTMethodParam *aParm, KTMethodChunk *aChunk, NSUInteger idx)) paramBlock;
-@property (nonatomic) BOOL messageComplete;
-@property (nonatomic) BOOL messageHasMoreChunks;
+@property (nonatomic, readonly) BOOL messageSyntaxIsValidMessage;
+@property (nonatomic, readonly) BOOL messageHasMoreChunks;
+@property (nonatomic, readonly) BOOL messageAllParamsAreValid;
 @property (nonatomic, strong) KTMessage *theMessage;
 @property (nonatomic, strong) void(^callWithCompletedMessageOrObject)(id aMessageOrObject);
-
-
+-(void)setParamAtIdx:(NSUInteger)idx withMessageOrObject:(id)aMessageOrObject;
+/// only sends the message if we are ready to do so
+-(id)ifReadySendMessage;
 @end
