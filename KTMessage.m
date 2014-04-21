@@ -19,21 +19,7 @@
 @end
 
 @implementation KTMessage
-/*
-+(instancetype)messageWith:(NSString*)aMessageName with:(NSMutableArray*)theParams{
-    KTMessage *o = [KTMessage new];
-    
-    if (o) {
-        o.messageName = aMessageName;
-        o.params = theParams;
-        
-        if (o.params == nil) {
-            o.params = [NSMutableArray new];
-        }
-    }
-    return o;
-}
-*/
+
 -(instancetype)init{
     KTMessage *o = [KTMessage alloc];
     
@@ -96,9 +82,19 @@ static KTMessage *blank = nil;
             if ([param isKindOfClass:[KTObject class]]) {
                 // param is an object
                 KTObject *paramObject = param;
-                id __autoreleasing paramResult = paramObject.theObject;
-                [inv setArgument:&paramResult atIndex:trueIndex];
-                return;
+                if (paramObject.isCType) {
+                    // is a c type
+                    long long paramResult;
+                    [paramObject.theValue getValue:&paramResult];
+                    [inv setArgument:&paramResult atIndex:trueIndex];
+                    return;
+                    
+                } else {
+                    // is an object
+                    id __autoreleasing paramResult = paramObject.theObject;
+                    [inv setArgument:&paramResult atIndex:trueIndex];
+                    return;
+                }
             }
             
             else if ([param isKindOfClass:[KTMessage class]]) {
@@ -124,9 +120,6 @@ static KTMessage *blank = nil;
             return self.returnedObject;
         }
         [inv invoke];
-        
-        //NSString *methodReturnType = [NSString stringWithUTF8String:inv.methodSignature.methodReturnType];
-        //NSLog(@"%@", methodReturnType);
         
         
         NSValue    * ret_val  = nil;
@@ -215,12 +208,22 @@ static KTMessage *blank = nil;
 }
 
 -(void)initParamAtIdx:(NSUInteger)idx withParam:(KTMethodParam *)aParam{
+    id messageOrObject = nil;
+    if (aParam.paramType.isCType) {
+        // is c type
+        NSValue *aVal = [aParam.paramType nillValue];
+        messageOrObject = [KTObject objectForValue:aVal ofType:aParam.paramType];
+    } else {
+        // is object
+        messageOrObject = [KTMessage blankMessage];
+    }
+    
     if (idx+1 < self.paramMessageAtIdx.count) {
         [self.paramSyntaxAtIdx replaceObjectAtIndex:idx withObject:aParam];
-        [self.paramMessageAtIdx replaceObjectAtIndex:idx withObject:[KTMessage blankMessage]];
+        [self.paramMessageAtIdx replaceObjectAtIndex:idx withObject:    messageOrObject];
     } else {
         [self.paramSyntaxAtIdx addObject:aParam];
-        [self.paramMessageAtIdx addObject:[KTMessage blankMessage]];
+        [self.paramMessageAtIdx addObject:messageOrObject];
     }
 }
 

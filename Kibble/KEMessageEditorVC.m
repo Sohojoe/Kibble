@@ -263,7 +263,7 @@
 }
 
 -(void)addTargetObjectAsTyle{
-    __block KETile *newTile = [self.tileSystem newTile];
+    __block KETile *newTile;
 
     // handle what to display
     id objText = nil;
@@ -278,6 +278,16 @@
     if (objText == nil) {
         objText = classStr;
     }
+    
+    // show output text
+    if (messageStr) {
+        newTile = [self.tileSystem newTile];
+        newTile.display = outputText;
+        [self.tilesToDelete addObject:newTile];
+    }
+    
+    // show the object tile
+    newTile = [self.tileSystem newTile];
     newTile.display = objText;
     
     [self.tilesToDelete addObject:newTile];
@@ -297,10 +307,6 @@
         }
     }];
     
-    // show output text
-    newTile = [self.tileSystem newTile];
-    newTile.display = outputText;
-    [self.tilesToDelete addObject:newTile];
     
 
 }

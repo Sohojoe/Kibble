@@ -44,7 +44,7 @@
         _isCType = YES;
         _theValue = aValue;
         _theObject = aValue;
-        _theObjectClass = [NSValue class];
+        _theObjectClass = nil;
         _theValueCType = aType;
     }
     return self;
@@ -58,7 +58,8 @@
     
     if (self.isCType) {
         res = [self valueAsString];
-        res = [NSString stringWithFormat:@"%@\n(cType'%s')", res, [self.theValue objCType]];
+        //res = [NSString stringWithFormat:@"%@\n(cType'%s')", res, [self.theValue objCType]];
+        res = [NSString stringWithFormat:@"%@\n(%@)", res, self.theValueCType.name];
     } else {
         res = [self.theObject description];
         res = [NSString stringWithFormat:@"%@\n(%@)", res, NSStringFromClass(self.theObjectClass)];

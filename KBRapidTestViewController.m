@@ -117,7 +117,7 @@
         //} with:tilesToDelete];
     }];
 
-
+/*
     newTile = [self.tileSystem newTile];
     newTile.display = @"New Kibble\nFrom Input";
     //[tilesToDelete addObject:newTile];
@@ -163,7 +163,7 @@
         [alert show];
 
     }];
-
+*/
     [self.tileSystem newLineAndIndent];
     [self.tileSystem pushCurPosition];
 }
