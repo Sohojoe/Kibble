@@ -134,20 +134,23 @@ static KTMessage *blank = nil;
             ret_val = [NSValue valueWithBytes:ret_buffer
                                      objCType:[signature methodReturnType]];
             
+            if (self.returnType.isCType == NO) {
+            //if (strcmp([ret_val objCType], @encode(id) ) == 0) {
+                // it's a pointer
+                //id ret_obj = (__bridge_transfer  KTObject *)(ret_val.pointerValue);
+                id ret_obj = ret_val.pointerValue;
+                if ([ret_obj isKindOfClass:[KTObject class]]) {
+                    self.returnedObject = ret_obj;
+                } else {
+                    self.returnedObject = [KTObject objectFor:ret_obj from:self.returnClass];
+                }
+            } else {
+                self.returnedObject = [KTObject objectForValue:ret_val ofType:self.returnType];
+            }
+            NSLog(@"%@", [self.returnedObject description]);
+
             free(ret_buffer);
         }
-        if (strcmp([ret_val objCType], @encode(id) ) == 0) {
-            //NSLog(@"%@",[ret_val pointerValue]);
-            // it's a pointer
-            if ([(id)ret_val.pointerValue isKindOfClass:[KTObject class]]) {
-                self.returnedObject = (__bridge_transfer  KTObject *)(ret_val.pointerValue);
-            } else {
-                self.returnedObject = [KTObject objectFor:(__bridge_transfer  KTObject *)(ret_val.pointerValue) from:self.returnClass];
-            }
-        } else {
-            self.returnedObject = [KTObject objectForValue:ret_val ofType:self.returnType];
-        }
-        NSLog(@"%@", [self.returnedObject description]);
     }
     
     return self.returnedObject;

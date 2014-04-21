@@ -269,7 +269,8 @@
     id objText = nil;
     id outputText = nil;
     
-    NSString *messageStr = [[self.dataInterface ifReadySendMessage] description];
+    KTObject *messageReturn = [self.dataInterface ifReadySendMessage];
+    NSString *messageStr = [messageReturn description];
     NSString *objectStr = [self.dataInterface.targetObject description];
     NSString *classStr = [self.dataInterface.targetObject.theObjectClass description];
     
@@ -280,7 +281,7 @@
     }
     
     // show output text
-    if (messageStr) {
+    if (messageStr && messageReturn.theObject) {
         newTile = [self.tileSystem newTile];
         newTile.display = outputText;
         [self.tilesToDelete addObject:newTile];
