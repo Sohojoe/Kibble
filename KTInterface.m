@@ -78,8 +78,6 @@
 @property (nonatomic, strong) NSMutableDictionary *masterChunks;
 @property (nonatomic, strong) NSMutableDictionary *activeChunks;
 @property (nonatomic, strong) NSMutableOrderedSet *chunkList;
-
-
 @end
 
 @implementation KTInterface
@@ -104,6 +102,14 @@ static NSMutableSet *masterFoundationSet;
     KTInterface *o = [super new];
     KTObject *ktObject = [KTObject objectFor:NSClassFromString(aClassName) from:NSClassFromString(aClassName)];
     o.targetObject = ktObject; //[KTClass findClassWithName:aClassName]);
+    return o;
+}
++(instancetype)interfaceForCType:(NSValue*)aValue ofType:(KTType*)aType{
+    
+    KTInterface *o = [super new];
+    KTObject *ktObject = [KTObject objectForValue:aValue ofType:aType];
+    o.targetObject = ktObject;
+    
     return o;
 }
 -(instancetype)init{
@@ -174,7 +180,8 @@ static NSMutableSet *masterFoundationSet;
     KTClass *curClass = [KTClass findClassOfObject:self.targetObject.theObjectClass];
     
     if (self.targetObject.isClassObject) {
-        [curClass enumerateClassIniters:^(KTMethod *aMethod) {
+        //[curClass enumerateClassIniters:^(KTMethod *aMethod) {
+        [curClass enumerateClassMethods:^(KTMethod *aMethod) {
             [self buildChunksDisplay:aMethod];
         }];
     } else if (self.theMessage.targetObject){
@@ -317,11 +324,11 @@ static NSMutableSet *masterFoundationSet;
     }
     
     // set return type
-    NSString *returnClassName = aChunk.returnType.name;
-    if (aChunk.returnType.pointee) {
-        returnClassName = aChunk.returnType.pointee.name;
+    KTType *returnType = aChunk.returnType;
+    if (returnType.pointee) {
+        returnType = aChunk.returnType.pointee;
     }
-    [self.theMessage setReturnedObjectClass:NSClassFromString(returnClassName)];
+    [self.theMessage setReturnType:returnType];
     
     if (aChunk.brancesTo.count) {
         self.activeChunks = aChunk.brancesTo;
@@ -363,6 +370,29 @@ static NSMutableSet *masterFoundationSet;
         }
     }
 }
+
+-(void)completeUsingObject:(id)anObject{
+    KTObject *newTargetObject = self.targetObject;
+    
+    if (self.targetObject.isCType) {
+        // return is a cType
+        if ([anObject isKindOfClass:[NSNumber class]]) {
+            NSNumber *aNumber = anObject;
+            NSValue *aValue = [self.targetObject.theValueCType valueFromNumber:aNumber];
+            newTargetObject = [KTObject objectForValue:aValue ofType:self.targetObject.theValueCType];
+        }
+    } else {
+        // return is a object
+        newTargetObject = [KTObject objectFor:anObject from:self.targetObject.theObjectClass];
+    }
+    
+    if (self.callWithCompletedMessageOrObject) {
+        self.callWithCompletedMessageOrObject(newTargetObject);
+    }
+}
+
+
+/* TO DELETE
 -(void)setIndex:(NSUInteger)idx withObject:(id)anObject ofClass:(Class) aClass{
     _messageSyntaxIsValidMessage = YES;
     
@@ -371,7 +401,7 @@ static NSMutableSet *masterFoundationSet;
         self.callWithCompletedMessageOrObject(ktObject);
     }
 }
-
+*/ // TO DELETE END
 
 -(void)setParamAtIdx:(NSUInteger)idx withMessageOrObject:(id)aMessageOrObject{
     [self.theMessage setParamMessageAtIdx:idx withMessageOrObject:aMessageOrObject];
@@ -385,12 +415,12 @@ static NSMutableSet *masterFoundationSet;
     }
     self.theMessage.isValidAndComplete = self.messageAllParamsAreValid && self.messageSyntaxIsValidMessage;
 }
--(id)ifReadySendMessage{
+-(KTObject*)ifReadySendMessage{
     KTObject *res = nil;
     if (self.theMessage.isValidAndComplete) {
         res = [self.theMessage sendMessage];
     }
-    return res.theObject;
+    return res;
 }
 
 

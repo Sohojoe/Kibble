@@ -10,6 +10,7 @@
 
 @class KTMethodParam;
 @class KTObject;
+@class KTType;
 
 @interface KTMessage : NSObject
 @property (nonatomic, strong) NSString* messageName;
@@ -25,7 +26,8 @@
 -(KTObject*)sendMessageTo:(KTObject*)recievingObject;
 -(KTObject*)sendMessage;
 
--(void)setReturnedObjectClass:(Class)aClass;
+-(void)setReturnType:(KTType*)aType;
+-(KTObject*)setReturnObjectValue:(id)anObject;
 
 // params
 -(void)setParamMessageAtIdx:(NSUInteger)idx withMessageOrObject:(id)aMessageOrObject;

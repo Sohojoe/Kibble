@@ -588,25 +588,9 @@ static NSMutableDictionary *allClasses;
 
 
 @interface KTType ()
-//@property (nonatomic, strong) NSMutableDictionary *objCInterfaces;
-//@property (nonatomic, strong) NSMutableDictionary *objCObjectPointers;
 @end
 @implementation KTType
-//@synthesize objCInterfaces, objCObjectPointers;
-/*static NSMutableDictionary *objCInterfaces, *objCObjectPointers;
--(NSMutableDictionary*)objCInterfaces{
-    if (!objCInterfaces) {
-        objCInterfaces = [NSMutableDictionary new];
-    }
-    return objCInterfaces;
-}
--(NSMutableDictionary*)objCObjectPointers{
-    if (!objCObjectPointers) {
-        objCObjectPointers = [NSMutableDictionary new];
-    }
-    return objCObjectPointers;
-}
-*/
+
 static NSMutableDictionary *allTypes;
 -(NSMutableDictionary*)allTypes{
     if (!allTypes) {
@@ -646,7 +630,153 @@ static NSMutableDictionary *allTypes;
     }
         
      return o;
- }
+}
+@synthesize isCType;
+-(BOOL)isCType{
+    BOOL result = YES;
+    switch (self.kind) {
+        case KTCXType_Invalid:
+        case KTCXType_Unexposed:
+        case KTCXType_ObjCId:
+        case KTCXType_ObjCClass:
+        case KTCXType_ObjCSel:
+        case KTCXType_ObjCInterface:
+        case KTCXType_ObjCObjectPointer:
+            result = NO;
+            break;
+            
+        default:
+            break;
+    }
+    return result;
+}
+
+-(NSValue*)nillValue{
+    NSNumber *num = [NSNumber numberWithDouble:0];
+    return [self valueFromNumber:num];
+}
+-(NSValue*)valueFromNumber:(NSNumber*)aNumber{
+    NSValue *aVal = nil;
+    
+    switch (self.kind) {
+        case KTCXType_Invalid:
+        case KTCXType_Unexposed:
+        case KTCXType_Void:
+            break;
+            
+        case KTCXType_Bool: {
+            BOOL val = [aNumber boolValue];
+            aVal = [NSValue valueWithBytes:&val objCType:@encode(BOOL)];
+            break;
+        }
+        case KTCXType_Char_U:
+            break;
+        case KTCXType_UChar: {
+            unsigned char val = [aNumber unsignedCharValue];
+            aVal = [NSValue valueWithBytes:&val objCType:@encode(unsigned char)];
+            break;
+        }
+        case KTCXType_Char16:
+            break;
+        case KTCXType_Char32:
+            break;
+        case KTCXType_UShort: {
+            unsigned short val = [aNumber unsignedShortValue];
+            aVal = [NSValue valueWithBytes:&val objCType:@encode(unsigned short)];
+            break;
+        }
+        case KTCXType_UInt: {
+            unsigned int val = [aNumber unsignedIntValue];
+            aVal = [NSValue valueWithBytes:&val objCType:@encode(unsigned int)];
+            break;
+        }
+        case KTCXType_ULong: {
+            unsigned long val = [aNumber unsignedLongValue];
+            aVal = [NSValue valueWithBytes:&val objCType:@encode(unsigned long)];
+            break;
+        }
+        case KTCXType_ULongLong: {
+            unsigned long long val = [aNumber unsignedLongLongValue];
+            aVal = [NSValue valueWithBytes:&val objCType:@encode(unsigned long long)];
+            break;
+        }
+        case KTCXType_UInt128:
+            break;
+        case KTCXType_Char_S: {
+            char val = [aNumber charValue];
+            aVal = [NSValue valueWithBytes:&val objCType:@encode(char)];
+            break;
+        }
+        case KTCXType_SChar:
+        case KTCXType_WChar:
+            break;
+        case KTCXType_Short: {
+            short val = [aNumber shortValue];
+            aVal = [NSValue valueWithBytes:&val objCType:@encode(short)];
+            break;
+        }
+        case KTCXType_Int: {
+            int val = [aNumber intValue];
+            aVal = [NSValue valueWithBytes:&val objCType:@encode(int)];
+            break;
+        }
+        case KTCXType_Long: {
+            long val = [aNumber longValue];
+            aVal = [NSValue valueWithBytes:&val objCType:@encode(long)];
+            break;
+        }
+        case KTCXType_LongLong: {
+            long long val = [aNumber longLongValue];
+            aVal = [NSValue valueWithBytes:&val objCType:@encode(long long)];
+            break;
+        }
+        case KTCXType_Int128:
+            break;
+        case KTCXType_Float: {
+            float val = [aNumber floatValue];
+            aVal = [NSValue valueWithBytes:&val objCType:@encode(float)];
+            break;
+        }
+        case KTCXType_Double:{
+            double val = [aNumber doubleValue];
+            aVal = [NSValue valueWithBytes:&val objCType:@encode(double)];
+            break;
+        }
+        case KTCXType_LongDouble:
+            break;
+        case KTCXType_NullPtr:
+            break;
+        case KTCXType_Overload:
+        case KTCXType_Dependent:
+        case KTCXType_ObjCId:
+        case KTCXType_ObjCClass:
+        case KTCXType_ObjCSel:
+            
+        case     KTCXType_Complex:
+        case     KTCXType_Pointer:
+        case             KTCXType_BlockPointer:
+        case             KTCXType_LValueReference:
+        case             KTCXType_RValueReference:
+        case             KTCXType_Record:
+        case             KTCXType_Enum:
+            break;
+        case             KTCXType_Typedef:
+            aVal = [self.canonical valueFromNumber:aNumber];
+            break;
+        case             KTCXType_ObjCInterface:
+        case             KTCXType_ObjCObjectPointer:
+        case             KTCXType_FunctionNoProto:
+        case             KTCXType_FunctionProto:
+        case         KTCXType_ConstantArray:
+        case     KTCXType_Vector:
+        case             KTCXType_IncompleteArray:
+        case             KTCXType_VariableArray:
+        case             KTCXType_DependentSizedArray:
+        case             KTCXType_MemberPointer:
+            break;
+    }
+    return aVal;
+}
 
 //---
 #pragma mark NSCoding

@@ -276,5 +276,17 @@ enum KTCXTypeKind {
  * If a non-function type is passed in, -1 is returned.
  */
 @property (nonatomic) NSInteger numArgTypes;
+
+
+/**
+ * \brief Return YES if the CXType is a c type, otherwise NO
+ *
+ * If NO then it is an ObjC type
+ */
+@property (nonatomic, readonly) BOOL isCType;
+-(NSValue*)nillValue;
+-(NSValue*)valueFromNumber:(NSNumber*)aNumber;
+
+
 @end
 

@@ -36,6 +36,7 @@
 +(instancetype)interface;
 +(instancetype)interfaceFromObject:(KTObject*)anObject;
 +(instancetype)interfaceForClassNamed:(NSString*)aClassName;
++(instancetype)interfaceForCType:(NSValue*)aValue ofType:(KTType*)aType;
 
 @property (strong, nonatomic) KTFoundation *foundation;
 @property (strong, nonatomic, readonly) NSOrderedSet *foundations;
@@ -64,7 +65,11 @@
 
 -(void)setChunkIdx:(NSUInteger)idx with:(KTMethodChunk*)aChunk;
 
--(void)setIndex:(NSUInteger)idx withObject:(id)anObject ofClass:(Class) aClass;
+///will completed editing, set and return this object. assumes a NSNumber for cTypes and converts it to the ctype
+-(void)completeUsingObject:(id)anObject;
+
+//TO DELETE
+//-(void)setIndex:(NSUInteger)idx withObject:(id)anObject ofClass:(Class) aClass;
 
 /// calls walks through and call first a chunk and then its param (i.e. aChunk:aParam aChunk:aParam ...)
 -(void)enumerateChunks:(void(^)(KTMethodChunk *aChunk, NSUInteger idx)) chunkBlock andParams:(void(^)(KTMethodParam *aParm, KTMethodChunk *aChunk, NSUInteger idx)) paramBlock;
@@ -75,5 +80,5 @@
 @property (nonatomic, strong) void(^callWithCompletedMessageOrObject)(id aMessageOrObject);
 -(void)setParamAtIdx:(NSUInteger)idx withMessageOrObject:(id)aMessageOrObject;
 /// only sends the message if we are ready to do so
--(id)ifReadySendMessage;
+-(KTObject*)ifReadySendMessage;
 @end

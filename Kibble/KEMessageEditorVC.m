@@ -112,7 +112,15 @@
     if (aParam.paramType.pointee) {
         className = aParam.paramType.pointee.name;
     }
-    KTInterface *dataInterface = [KTInterface interfaceForClassNamed:className];
+    KTInterface *dataInterface = nil;
+    if (aParam.paramType.isCType) {
+        // it's a C type
+        NSValue *aValue = [aParam.paramType nillValue];
+        dataInterface = [KTInterface interfaceForCType:aValue ofType:aParam.paramType];
+    } else {
+        // it's an objective C type
+        dataInterface = [KTInterface interfaceForClassNamed:className];
+    }
 
     self.paramInterface = [KEMessageEditorVC messageEditorUsing:dataInterface using:self.tileSystem then:aSuccessBlock];
     
@@ -125,6 +133,11 @@
     };
 
 }
+
+//------------------------------------------------------------------------
+//--
+// Chooses foundand then class
+// used when creating objects from nothing
 
 -(void)editClass{
     __block KETile *newTile = nil;
@@ -178,12 +191,15 @@
             [self redrawTiles];
         }];
     }
-
 }
+
+//------------------------------------------------------------------------
+//--
+//
 -(void)editMessage{
     __block KETile *newTile = nil;
     
-    //
+    // add tile to represent the targetObject
     [self addTargetObjectAsTyle];
 
     
@@ -250,32 +266,20 @@
     __block KETile *newTile = [self.tileSystem newTile];
 
     // handle what to display
-    id result = nil;
+    id objText = nil;
+    id outputText = nil;
     
-    NSString *messageStr = [self.dataInterface ifReadySendMessage];
-    NSString *objectStr = [self.dataInterface.targetObject.theObject description];
+    NSString *messageStr = [[self.dataInterface ifReadySendMessage] description];
+    NSString *objectStr = [self.dataInterface.targetObject description];
     NSString *classStr = [self.dataInterface.targetObject.theObjectClass description];
     
-    result = messageStr;
-    if (result == nil) {
-        result = objectStr;
+    outputText = [NSString stringWithFormat:@"output = \n%@", messageStr];
+    objText = objectStr;
+    if (objText == nil) {
+        objText = classStr;
     }
-    if (result == nil) {
-        result = classStr;
-    }
-    newTile.display = result;
+    newTile.display = objText;
     
-/*
-    if (self.dataInterface.messageComplete) {
-        result = [self.dataInterface.theMessage sendMessage];
-    }
-    if (result == [KTMessage blankMessage] ||
-        result == nil) {
-        newTile.display = [self prettyString:[NSString stringWithFormat:@"%@", self.dataInterface.targetObject.theObjectClass]];
-    } else {
-        newTile.display = [result description];
-    }
- */
     [self.tilesToDelete addObject:newTile];
     
     [newTile blockWhenClicked:^(id dataObject, KETile *tileThatWasClicked) {
@@ -284,8 +288,7 @@
         if (self.dataInterface.messageSyntaxIsValidMessage) {
             // set outcome as the target object
             
-            KTObject *returnObject = [KTObject objectFor:[self.dataInterface ifReadySendMessage]
-                                                    from:self.dataInterface.targetObject.theObjectClass];
+            KTObject *returnObject = [self.dataInterface ifReadySendMessage];
             
             self.dataInterface.targetObject = returnObject;
             
@@ -293,6 +296,11 @@
             [self redrawTiles];
         }
     }];
+    
+    // show output text
+    newTile = [self.tileSystem newTile];
+    newTile.display = outputText;
+    [self.tilesToDelete addObject:newTile];
     
 
 }
@@ -302,20 +310,29 @@
     
     NSMutableOrderedSet *chunkSet = [NSMutableOrderedSet new];
     
-    if (idx == 0) {
-        if ([self canInitTargetObjectFromInput]) {
-            [chunkSet addObject:[KBEditorObject editorObjectFromInput]];
-        }
-    }
     
     // walk the chunks
     [self.dataInterface enumerateChunksAtIndex:idx chunks:^(KTMethodChunk *aChunk) {
         [chunkSet addObject:aChunk];
-        
-        
     } done:^(KTMethod *aMethod) {
         [chunkSet addObject:[KBEditorObject editorObjectDone]];
     }];
+
+    // sort
+    [chunkSet sortUsingComparator:(NSComparator)^(KTMethodChunk * obj1, KTMethodChunk * obj2){
+        return [obj1.name localizedCaseInsensitiveCompare:obj2.name];
+    }];
+    
+    if (idx == 0) {
+        if ([self canInitTargetObjectFromInput]) {
+            if (chunkSet) {
+                [chunkSet insertObject:[KBEditorObject editorObjectFromInput] atIndex:0];
+            } else {
+                [chunkSet addObject:[KBEditorObject editorObjectFromInput]];
+            }
+        }
+    }
+
     
     [self pickFromSet:chunkSet then:^(id selectedObject) {
         if ([selectedObject isKindOfClass:[KTMethodChunk class]]) {
@@ -328,12 +345,8 @@
                 // get from input
                 [self inputFromString:^(NSString *inputStr) {
                     id result = [self dataObjectFrom:inputStr];
-                    // select this object
-                    Class theClass = [NSString class];
-                    if ([result isKindOfClass:[NSNumber class]]) {
-                        theClass = [NSDecimalNumber class];
-                    }
-                    [self.dataInterface setIndex:idx withObject:result ofClass:theClass];
+
+                    [self.dataInterface completeUsingObject:result];
                     
                     [self redrawTiles];
                 }];
@@ -435,6 +448,8 @@
         [self doesObject:self.dataInterface.targetObject.theObjectClass aClassOrDecendantClassOf:[NSNumber class]])
     {
         res = YES;
+    } else if (self.dataInterface.targetObject.isCType) {
+        res = YES;
     }
     return res;
 }
@@ -490,7 +505,10 @@
                                                             cancelButtonTitle:@"CANCEL"
                                                             otherButtonTitles:@"OK", nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    //[alert textFieldAtIndex:0].keyboardType = UIKeyboardTypeNumberPad;
+    if ([self isTargetObjectFromInputCompatableNumber]) {
+        [alert textFieldAtIndex:0].keyboardType = UIKeyboardTypeNumberPad;
+    }
+    [alert textFieldAtIndex:0].returnKeyType = UIReturnKeyGo;
     [alert textFieldAtIndex:0].placeholder = @"...";
     [alert show];
     

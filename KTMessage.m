@@ -8,9 +8,14 @@
 
 #import "KTMessage.h"
 #import "KTObject.h"
+#import "KTClassRnD.h"
+
 @interface KTMessage ()
 @property (nonatomic, strong) NSMutableArray *paramMessageAtIdx;
 @property (nonatomic, strong) NSMutableArray *paramSyntaxAtIdx;
+@property (nonatomic, strong) Class returnClass;
+@property (nonatomic, strong) KTType *returnType;
+
 @end
 
 @implementation KTMessage
@@ -67,7 +72,7 @@ static KTMessage *blank = nil;
     return returns;
 }
 -(KTObject *)sendMessageTo:(KTObject*)recievingObject{
-    self.returnedObject = [KTObject objectFor:nil from:self.returnedObject.class];  //recievingObject;
+    [self setReturnObjectToNil];
     
 
     SEL theSelector = NSSelectorFromString(self.messageName);
@@ -75,7 +80,10 @@ static KTMessage *blank = nil;
     //Class theClass = NSClassFromString(self.name);
     
     if([recievingObject.theObject respondsToSelector:theSelector]) {
-        NSInvocation *inv = [NSInvocation invocationWithMethodSignature:[recievingObject.theObject methodSignatureForSelector:theSelector]];
+        
+        NSMethodSignature * signature = [recievingObject.theObject methodSignatureForSelector:theSelector];
+        
+        NSInvocation *inv = [NSInvocation invocationWithMethodSignature:signature];
         [inv setSelector:theSelector];
         [inv setTarget:recievingObject.theObject];
         
@@ -112,7 +120,7 @@ static KTMessage *blank = nil;
         }];
         if (messageIsIncomplete) {
             // exit
-            self.returnedObject = [KTObject objectFor:[KTMessage blankMessage] from:self.returnedObject.theObjectClass];
+            //self.returnedObject = [KTObject objectFor:[KTMessage blankMessage] from:self.returnedObject.theObjectClass];
             return self.returnedObject;
         }
         [inv invoke];
@@ -121,24 +129,32 @@ static KTMessage *blank = nil;
         //NSLog(@"%@", methodReturnType);
         
         
-        CFTypeRef cfResult;
-        [inv getReturnValue:&cfResult];
-        if (cfResult) {
-            CFRetain(cfResult);
-            self.returnedObject = [KTObject objectFor:(__bridge_transfer id)cfResult from:self.returnedObject.class];
+        NSValue    * ret_val  = nil;
+        NSUInteger   ret_size = [signature methodReturnLength];
+        
+        if(  ret_size > 0 ) {
+            
+            void * ret_buffer = malloc( ret_size );
+            
+            [inv getReturnValue:ret_buffer];
+            
+            ret_val = [NSValue valueWithBytes:ret_buffer
+                                     objCType:[signature methodReturnType]];
+            
+            free(ret_buffer);
         }
-  
-/*        CFTypeRef cfResult;
-        id result;
-        [inv getReturnValue:&cfResult];
-        [inv getReturnValue:&result];
-        if (result) {
-            if ([result isKindOfClass:[NSObject class]]) {
-                CFRetain(cfResult);
-                self.returnedObject = (__bridge_transfer id)cfResult;
+        if (strcmp([ret_val objCType], @encode(id) ) == 0) {
+            //NSLog(@"%@",[ret_val pointerValue]);
+            // it's a pointer
+            if ([(id)ret_val.pointerValue isKindOfClass:[KTObject class]]) {
+                self.returnedObject = (__bridge_transfer  KTObject *)(ret_val.pointerValue);
+            } else {
+                self.returnedObject = [KTObject objectFor:(__bridge_transfer  KTObject *)(ret_val.pointerValue) from:self.returnClass];
             }
+        } else {
+            self.returnedObject = [KTObject objectForValue:ret_val ofType:self.returnType];
         }
-*/
+        NSLog(@"%@", [self.returnedObject description]);
     }
     
     return self.returnedObject;
@@ -165,20 +181,21 @@ static KTMessage *blank = nil;
 }
 -(KTMethodParam*)paramSyntaxAtIdx:(NSUInteger)idx{
     KTMethodParam* aParam = nil;
-    aParam = [self.paramSyntaxAtIdx objectAtIndex:idx];
+    if (idx < self.paramSyntaxAtIdx.count) {
+        aParam = [self.paramSyntaxAtIdx objectAtIndex:idx];
+    }
     return aParam;
 }
-/// if param = KTMessage, returns message. If param = KTObject returns theObject
+/// if param = KTMessage, returns message. If param = returns KTObject
 -(id)paramMessageResultOrObjectAtIdx:(NSUInteger)idx{
     id param =[self.paramMessageAtIdx objectAtIndex:idx];
     if ([param isKindOfClass:[KTMessage class]]) {
         KTMessage *paramMessage = param;
         KTObject *result = [paramMessage sendMessage];
-        return result.theObject;
+        return result;
     } else if ([param isKindOfClass:[KTObject class]]) {
         KTObject *paramObject = param;
-        id result = paramObject.theObject;
-        return result;
+        return paramObject;
     }
     return param;
 }
@@ -207,10 +224,50 @@ static KTMessage *blank = nil;
     }
 }
 
+-(void)setReturnType:(KTType*)aType{
+    _returnType = aType;
+    
+    if (aType.isCType) {
+        // return is a cType
+        NSValue *aValus = [aType nillValue];
+        KTObject *newReturnObject = [KTObject objectForValue:aValus ofType:aType];
+        self.returnedObject = newReturnObject;
+        self.returnClass = nil;
+    } else {
+        // return is a object
+        NSString *returnClassName = aType.name;
+        Class aClass = NSClassFromString(returnClassName);
+        self.returnClass = aClass;
+        KTObject *newReturnObject = [KTObject objectFor:nil from:self.returnClass];
+        self.returnedObject = newReturnObject;
+    }
+}
+-(KTObject*)setReturnObjectValue:(id)anObject{
+    if (self.returnType.isCType) {
+        // return is a cType
+        if ([anObject isKindOfClass:[NSNumber class]]) {
+            NSNumber *aNumber = anObject;
+            NSValue *aValus = [self.returnType valueFromNumber:aNumber];
+            KTObject *newReturnObject = [KTObject objectForValue:aValus ofType:self.returnType];
+            self.returnedObject = newReturnObject;
+        }
+    } else {
+        // return is a object
+        self.returnedObject = [KTObject objectFor:anObject from:self.returnClass];
+    }
+    return self.returnedObject;
+}
 
--(void)setReturnedObjectClass:(Class)aClass{
-    KTObject *newReturnObject = [KTObject objectFor:nil from:aClass];
-    self.returnedObject = newReturnObject;
+-(void)setReturnObjectToNil{
+    if (self.returnType.isCType) {
+        // return is a cType
+        NSValue *aValus = [self.returnType nillValue];
+        KTObject *newReturnObject = [KTObject objectForValue:aValus ofType:self.returnType];
+        self.returnedObject = newReturnObject;
+    } else {
+        // return is a object
+        self.returnedObject = [KTObject objectFor:nil from:self.returnClass];
+    }
 }
 
 -(NSString*)description{return self.messageName;}
