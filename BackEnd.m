@@ -18,7 +18,8 @@
 @import CoreGraphics;
 @import AudioToolbox;
 @import Security;
-
+#include <sys/types.h>
+#include <sys/sysctl.h>
 
 @interface BackEnd()
 @end
@@ -114,8 +115,7 @@
 }
 // helper to find the device
 // get device
-#include <sys/types.h>
-#include <sys/sysctl.h>
+
 +(NSString*)findPlatform{
     size_t size;
     sysctlbyname("hw.machine", NULL, &size, NULL, 0);

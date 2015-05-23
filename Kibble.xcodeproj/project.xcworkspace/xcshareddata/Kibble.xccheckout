@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>9232916D-DDAA-4541-9E7A-B8FA2E92277D</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Kibble</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>3515687B60E16AA9FAB7902E196F93E5A0F0ED48</key>
+		<string>https://github.com/Sohojoe/Kibble.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Kibble.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>3515687B60E16AA9FAB7902E196F93E5A0F0ED48</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Sohojoe/Kibble.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>3515687B60E16AA9FAB7902E196F93E5A0F0ED48</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3515687B60E16AA9FAB7902E196F93E5A0F0ED48</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Kibble</string>
+		</dict>
+	</array>
+</dict>
+</plist>

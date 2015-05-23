@@ -40,7 +40,6 @@
 		1854EEDB189D754D00C2F74A /* SCScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EED5189D754D00C2F74A /* SCScore.m */; };
 		1854EEDC189D754D00C2F74A /* SCAssessment.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EED7189D754D00C2F74A /* SCAssessment.m */; };
 		1854EEDE189D762F00C2F74A /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1854EEDD189D762F00C2F74A /* Parse.framework */; };
-		1854EEE0189D763A00C2F74A /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1854EEDF189D763A00C2F74A /* SDWebImage.framework */; };
 		1854EEE3189D778500C2F74A /* KBRapidTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEE2189D778500C2F74A /* KBRapidTestViewController.m */; };
 		1854EEE6189DA68900C2F74A /* KibbleType.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEE5189DA68900C2F74A /* KibbleType.m */; };
 		1854EEE9189DA6F000C2F74A /* Kibble.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854EEE8189DA6F000C2F74A /* Kibble.m */; };
@@ -58,6 +57,7 @@
 		18CC494A18A6CDCE0067D18A /* KETileSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CC494918A6CDCE0067D18A /* KETileSystem.m */; };
 		18D7422418A1961B001F8586 /* MathHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D7422318A1961B001F8586 /* MathHelper.m */; };
 		18D7422718A199E5001F8586 /* KibbleTalk.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D7422618A199E5001F8586 /* KibbleTalk.m */; };
+		58BEF18B1B1109B800EE7E20 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58BEF18A1B1109B800EE7E20 /* SDWebImage.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,7 +134,6 @@
 		1854EED6189D754D00C2F74A /* SCAssessment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAssessment.h; sourceTree = "<group>"; };
 		1854EED7189D754D00C2F74A /* SCAssessment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAssessment.m; sourceTree = "<group>"; };
 		1854EEDD189D762F00C2F74A /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
-		1854EEDF189D763A00C2F74A /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = "<group>"; };
 		1854EEE1189D778500C2F74A /* KBRapidTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBRapidTestViewController.h; sourceTree = "<group>"; };
 		1854EEE2189D778500C2F74A /* KBRapidTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBRapidTestViewController.m; sourceTree = "<group>"; };
 		1854EEE4189DA68900C2F74A /* KibbleType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KibbleType.h; sourceTree = "<group>"; };
@@ -169,6 +168,7 @@
 		18D7422318A1961B001F8586 /* MathHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathHelper.m; sourceTree = "<group>"; };
 		18D7422518A199E5001F8586 /* KibbleTalk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KibbleTalk.h; sourceTree = "<group>"; };
 		18D7422618A199E5001F8586 /* KibbleTalk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KibbleTalk.m; sourceTree = "<group>"; };
+		58BEF18A1B1109B800EE7E20 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,7 +176,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1854EEE0189D763A00C2F74A /* SDWebImage.framework in Frameworks */,
+				58BEF18B1B1109B800EE7E20 /* SDWebImage.framework in Frameworks */,
 				1854EEDE189D762F00C2F74A /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -223,7 +223,7 @@
 		1854EE63189D712D00C2F74A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1854EEDF189D763A00C2F74A /* SDWebImage.framework */,
+				58BEF18A1B1109B800EE7E20 /* SDWebImage.framework */,
 				1854EEDD189D762F00C2F74A /* Parse.framework */,
 				1854EE64189D712D00C2F74A /* Foundation.framework */,
 				1854EE66189D712D00C2F74A /* CoreGraphics.framework */,
@@ -678,6 +678,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/apple/development/Kibble,
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Kibble/Kibble-Prefix.pch";
@@ -695,6 +696,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/apple/development/Kibble,
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Kibble/Kibble-Prefix.pch";
